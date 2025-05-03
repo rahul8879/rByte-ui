@@ -1,0 +1,64 @@
+%PDF-1.4
+1 0 obj
+<</Type /Catalog /Pages 2 0 R>>
+endobj
+2 0 obj
+<</Type /Pages /Kids [3 0 R] /Count 1>>
+endobj
+3 0 obj
+<</Type /Page /Parent 2 0 R /Resources 4 0 R /MediaBox [0 0 612 792] /Contents 6 0 R>>
+endobj
+4 0 obj
+<</Font <</F1 5 0 R>>>>
+endobj
+5 0 obj
+<</Type /Font /Subtype /Type1 /BaseFont /Helvetica>>
+endobj
+6 0 obj
+<</Length 44>>
+stream
+BT /F1 24 Tf 100 700 Td (RByte.ai AI Engineering Curriculum) Tj ET
+BT /F1 12 Tf 100 650 Td (Module 1: Python & Data Science Fundamentals) Tj ET
+BT /F1 12 Tf 120 630 Td (- Python programming basics) Tj ET
+BT /F1 12 Tf 120 610 Td (- Data structures and algorithms) Tj ET
+BT /F1 12 Tf 120 590 Td (- NumPy, Pandas, and data manipulation) Tj ET
+BT /F1 12 Tf 120 570 Td (- Data visualization with Matplotlib and Seaborn) Tj ET
+BT /F1 12 Tf 100 530 Td (Module 2: Machine Learning Foundations) Tj ET
+BT /F1 12 Tf 120 510 Td (- Supervised and unsupervised learning) Tj ET
+BT /F1 12 Tf 120 490 Td (- Model evaluation and validation) Tj ET
+BT /F1 12 Tf 120 470 Td (- Feature engineering) Tj ET
+BT /F1 12 Tf 120 450 Td (- Scikit-learn for ML implementation) Tj ET
+BT /F1 12 Tf 100 410 Td (Module 3: Deep Learning) Tj ET
+BT /F1 12 Tf 120 390 Td (- Neural network fundamentals) Tj ET
+BT /F1 12 Tf 120 370 Td (- TensorFlow and PyTorch) Tj ET
+BT /F1 12 Tf 120 350 Td (- CNN, RNN, and transformer architectures) Tj ET
+BT /F1 12 Tf 120 330 Td (- Computer vision and NLP applications) Tj ET
+BT /F1 12 Tf 100 290 Td (Module 4: Large Language Models) Tj ET
+BT /F1 12 Tf 120 270 Td (- LLM fundamentals and architectures) Tj ET
+BT /F1 12 Tf 120 250 Td (- Prompt engineering) Tj ET
+BT /F1 12 Tf 120 230 Td (- Fine-tuning techniques) Tj ET
+BT /F1 12 Tf 120 210 Td (- LLM evaluation and alignment) Tj ET
+BT /F1 12 Tf 100 170 Td (Module 5: GenAI Engineering) Tj ET
+BT /F1 12 Tf 120 150 Td (- RAG systems and vector databases) Tj ET
+BT /F1 12 Tf 120 130 Td (- Multi-agent systems with LangGraph) Tj ET
+BT /F1 12 Tf 120 110 Td (- Tool use and function calling) Tj ET
+BT /F1 12 Tf 120 90 Td (- Production deployment of AI systems) Tj ET
+BT /F1 12 Tf 100 50 Td (Module 6: Career Transition) Tj ET
+BT /F1 12 Tf 120 30 Td (- Portfolio development) Tj ET
+BT /F1 12 Tf 120 10 Td (- Interview preparation) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f
+0000000009 00000 n
+0000000056 00000 n
+0000000111 00000 n
+0000000212 00000 n
+0000000250 00000 n
+0000000317 00000 n
+trailer
+<</Size 7 /Root 1 0 R>>
+startxref
+2000
+%%EOF
