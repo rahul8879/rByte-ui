@@ -38,6 +38,7 @@ import SalaryComparison from "@/components/salary-comparison"
 import SuccessMetrics from "@/components/success-metrics"
 import PlacementGuarantee from "@/components/placement-guarantee"
 import { useState } from "react"
+
 // Update the import to include the new FutureJobMarketPredictions component
 import FutureJobMarketPredictions from "@/components/future-job_market_predictions"
 // First, let's fix the enrollment drawer functionality by adding the missing import and component
