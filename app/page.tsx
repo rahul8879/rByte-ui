@@ -1176,7 +1176,7 @@ export default function Home() {
                     </div>
 
                     <div className="text-center text-xs text-slate-500 mt-4">
-                      <p>For demo purposes, use the code: 123456</p>
+                      <p>Please call us at +91 9152091676</p>
                     </div>
                   </div>
                 </div>
