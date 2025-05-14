@@ -38,9 +38,8 @@ import SalaryComparison from "@/components/salary-comparison"
 import SuccessMetrics from "@/components/success-metrics"
 import PlacementGuarantee from "@/components/placement-guarantee"
 import { useState } from "react"
-
 // Update the import to include the new FutureJobMarketPredictions component
-import FutureJobMarketPredictions from "@/components/future-job_market_predictions"
+import FutureJobMarketPredictions from "@/components/future_job_market_predictions"
 // First, let's fix the enrollment drawer functionality by adding the missing import and component
 // Add this import at the top with the other imports:
 import EnrollmentDrawer from "@/components/enrollment-drawer"
@@ -52,6 +51,9 @@ import { toast } from "@/hooks/use-toast"
 import { Loader2 } from "lucide-react"
 // Import the ConsistentButton component
 import { ConsistentButton } from "@/components/ui/consistent-button"
+// Find the section where pricing is displayed and replace it with our new component
+// Import the PricingSection component at the top of the file
+import PricingSection from "@/components/pricing-section"
 
 export default function Home() {
   // Set the target date for the next batch (2 weeks from now)
@@ -254,10 +256,10 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-36">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-[1fr_600px] lg:gap-12">
-              <div className="flex flex-col justify-center space-y-4">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-36 bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 overflow-hidden">
+          <div className="container px-4 md:px-6 relative">
+            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
+              <div className="flex flex-col justify-center space-y-4 order-2 lg:order-1">
                 <div className="flex flex-wrap gap-2 mb-2">
                   <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200 border-purple-200">
                     6-Month Program
@@ -268,10 +270,10 @@ export default function Home() {
                   </Badge>
                 </div>
                 <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500">
+                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-white">
                     Transform Your Career Into AI Engineering
                   </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                  <p className="max-w-[600px] text-gray-200 md:text-xl">
                     Skyrocket your income and future-proof your career with our exclusive weekend program! Join 500+
                     professionals who've doubled their salaries by mastering the AI skills companies are desperately
                     seeking. No prior AI experience needed — just 6 months to transform your career trajectory forever.
@@ -299,8 +301,8 @@ export default function Home() {
                   youtubeId="mdcEz7Gg7b4"
                 />
 
-                <div className="bg-purple-50 p-4 rounded-lg border border-purple-100 mt-4">
-                  <p className="font-medium text-center text-purple-800">Next Batch Starting In:</p>
+                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20 mt-4">
+                  <p className="font-medium text-center text-white">Next Batch Starting In:</p>
                   <CountdownTimer targetDate={targetDate} className="my-3" />
                   <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center mt-2">
                     <ConsistentButton
@@ -311,67 +313,41 @@ export default function Home() {
                     >
                       Secure Your Spot Now
                     </ConsistentButton>
-                    <ConsistentButton size="lg" variant="outline" onClick={openSyllabusForm}>
+                    <ConsistentButton
+                      size="lg"
+                      variant="outline"
+                      className="text-white border-white hover:bg-white/20"
+                      onClick={openSyllabusForm}
+                    >
                       Get Course Details
                     </ConsistentButton>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center justify-center relative">
-                {/* Decorative elements */}
-                <div className="absolute -top-12 -left-12 w-24 h-24 bg-purple-100 rounded-full opacity-70 animate-pulse"></div>
-                <div className="absolute -bottom-8 -right-8 w-16 h-16 bg-pink-100 rounded-full opacity-70 animate-pulse delay-300"></div>
-                <div className="absolute top-1/4 -right-6 w-12 h-12 bg-indigo-100 rounded-full opacity-70 animate-pulse delay-700"></div>
-
-                {/* Background image */}
-                <div className="absolute inset-0 rounded-2xl overflow-hidden">
+              <div className="flex items-center justify-center order-1 lg:order-2">
+                <div className="relative w-full max-w-[600px] aspect-[4/3] rounded-xl overflow-hidden shadow-2xl">
+                  {/* Hero Image */}
                   <Image
-                    src="/neural-network-purple-blue.png"
-                    alt="Neural network background pattern"
+                    src="/rbyte-ai-team-hero.png"
+                    alt="Rbyte.ai - Learn AI, Build Products"
                     fill
-                    className="object-cover opacity-30"
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                     priority
                   />
-                </div>
 
-                {/* Floating badges */}
-                <div className="absolute top-6 -left-4 bg-white p-2 rounded-lg shadow-md rotate-[-6deg] z-10">
-                  <div className="flex items-center gap-2">
-                    <div className="bg-green-100 p-1 rounded-full">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
+                  {/* Interactive overlay */}
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-transparent to-transparent flex items-end justify-center p-6 cursor-pointer transition-all duration-300 hover:from-purple-900/90"
+                    onClick={openEnrollmentDrawer}
+                  >
+                    <div className="text-center">
+                      <h2 className="text-white text-2xl font-bold mb-2">Rbyte.ai - Learn AI, Build Products</h2>
+                      <div className="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full hover:bg-white/30 transition-all inline-block">
+                        <span className="text-white font-medium">Enroll Now</span>
+                      </div>
                     </div>
-                    <span className="text-xs font-medium">500+ Graduates</span>
-                  </div>
-                </div>
-
-                <div className="absolute bottom-8 -right-4 bg-white p-2 rounded-lg shadow-md rotate-[6deg] z-10">
-                  <div className="flex items-center gap-2">
-                    <div className="bg-amber-100 p-1 rounded-full">
-                      <Zap className="h-4 w-4 text-amber-600" />
-                    </div>
-                    <span className="text-xs font-medium">Industry-Ready Skills</span>
-                  </div>
-                </div>
-
-                {/* Make the hero image clickable to open the enrollment drawer */}
-                <div
-                  className="relative w-full max-w-[600px] overflow-hidden rounded-xl shadow-xl cursor-pointer z-20"
-                  onClick={openEnrollmentDrawer}
-                  role="button"
-                  aria-label="Get Started - Open Enrollment Form"
-                >
-                  <Image
-                    src="/rbyte-ai-hero.png"
-                    alt="RByte.ai Live AI Training & Product Development"
-                    width={600}
-                    height={600}
-                    className="w-full h-auto"
-                    priority
-                  />
-                  {/* Overlay to indicate the image is clickable */}
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-purple-900/80 to-transparent p-4 text-white text-center">
-                    <p className="font-medium">Click to Get Started</p>
                   </div>
                 </div>
               </div>
@@ -676,10 +652,6 @@ export default function Home() {
                         <ul className="space-y-2">
                           <li className="flex items-start">
                             <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Weekend classes (3 hours each)</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
                           </li>
                           <li className="flex items-start">
                             <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
@@ -785,7 +757,12 @@ export default function Home() {
                       structured roadmap ensures a smooth transition from your current role to AI engineering
                       excellence.
                     </p>
-                    <ConsistentButton size="lg" variant="gradient" rightIcon={<ArrowRight className="ml-2 h-5 w-5" />}>
+                    <ConsistentButton
+                      size="lg"
+                      variant="gradient"
+                      rightIcon={<ArrowRight className="ml-2 h-5 w-5" />}
+                      onClick={openEnrollmentDrawer}
+                    >
                       Start Your Journey Today
                     </ConsistentButton>
                   </div>
@@ -980,89 +957,8 @@ export default function Home() {
         </section>
 
         {/* Pricing Section */}
-        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-slate-50 dark:bg-slate-900">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-blue-100 px-3 py-1 text-sm text-blue-500 dark:bg-blue-800/30 dark:text-blue-300">
-                  Limited Time Offer
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Invest in Your AI Career</h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Our course delivers exceptional return on investment with complete placement assistance
-                </p>
-              </div>
-            </div>
-            <div className="mx-auto max-w-md mt-12">
-              <div className="rounded-xl border-2 border-purple-500 bg-card text-card-foreground shadow-lg shadow-purple-100 dark:shadow-purple-900/20 overflow-hidden">
-                <div className="bg-gradient-to-r from-purple-500 to-pink-500 py-2 text-center text-lg font-medium text-white">
-                  6-Month Weekend Program
-                </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-center">Complete AI Engineering Program</h3>
-                  <div className="flex items-baseline justify-center gap-1 mt-4">
-                    <span className="text-4xl font-bold">₹24,999</span>
-                    <span className="text-muted-foreground">/course</span>
-                  </div>
-                  <div className="mt-2 flex justify-center">
-                    <span className="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full border border-blue-200">
-                      Weekend Classes • 3 Hours/Session
-                    </span>
-                  </div>
-                  <p className="text-center text-muted-foreground mt-2">
-                    Designed specifically for working professionals
-                  </p>
-                  <div className="mt-6 space-y-4">
-                    <div className="flex items-center">
-                      <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                      <p>Python & Data Science fundamentals</p>
-                    </div>
-                    <div className="flex items-center">
-                      <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                      <p>Machine Learning & Deep Learning</p>
-                    </div>
-                    <div className="flex items-center">
-                      <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                      <p>TensorFlow & PyTorch frameworks</p>
-                    </div>
-                    <div className="flex items-center">
-                      <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                      <p>NLP & Transformer architectures</p>
-                    </div>
-                    <div className="flex items-center">
-                      <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                      <p>GenAI engineering (LLMs, RAG, Agents)</p>
-                    </div>
-                    <div className="flex items-center">
-                      <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                      <p>
-                        <span className="font-bold">Complete placement assistance</span>
-                      </p>
-                    </div>
-                    <div className="flex items-center">
-                      <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                      <p>Support until job placement</p>
-                    </div>
-                    <div className="flex items-center">
-                      <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                      <p>Certificate of completion</p>
-                    </div>
-                  </div>
-                  <div className="mt-6 bg-amber-50 border-l-4 border-amber-500 p-3 rounded-r-md">
-                    <p className="text-sm text-amber-800 font-medium">
-                      Potential ROI: ₹24,999 investment → ₹3-10 Lakh salary increase
-                    </p>
-                  </div>
-                  <ConsistentButton className="w-full mt-8 text-lg font-medium" size="lg" variant="gradient">
-                    Enroll Now - Limited Seats!
-                  </ConsistentButton>
-                  <p className="text-center text-xs text-muted-foreground mt-4">
-                    Previous batches sold out within days. Don't miss this opportunity!
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <section id="pricing" className="py-16 bg-gray-50">
+          <PricingSection />
         </section>
 
         {/* CTA Section */}
@@ -1085,6 +981,7 @@ export default function Home() {
                     className="text-purple-600 hover:bg-gray-100"
                     variant="secondary"
                     rightIcon={<ArrowRight className="ml-2 h-4 w-4" />}
+                    onClick={openEnrollmentDrawer}
                   >
                     Secure Your Spot Now
                   </ConsistentButton>
@@ -1279,7 +1176,7 @@ export default function Home() {
                     </div>
 
                     <div className="text-center text-xs text-slate-500 mt-4">
-                      <p>For any technical challenges - call/whatsApp us at: 9152091676</p>
+                      <p>For demo purposes, use the code: 123456</p>
                     </div>
                   </div>
                 </div>

@@ -1,25 +1,49 @@
+"use client"
+
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { CheckCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useState } from "react"
+import EnrollmentDrawer from "./enrollment-drawer"
 
 interface PricingCardProps {
   title: string
   price: string
+  originalPrice?: string
+  discountPercentage?: number
   description: string
   features: string[]
   buttonText: string
   popular?: boolean
+  duration?: string
+  audience?: string
+  onClick?: () => void
 }
 
 export default function PricingCard({
   title,
   price,
+  originalPrice,
+  discountPercentage,
   description,
   features,
   buttonText,
   popular = false,
+  duration,
+  audience,
+  onClick,
 }: PricingCardProps) {
+  const [isEnrollmentOpen, setIsEnrollmentOpen] = useState(false)
+
+  const handleButtonClick = () => {
+    if (onClick) {
+      onClick()
+    } else {
+      setIsEnrollmentOpen(true)
+    }
+  }
+
   return (
     <Card
       className={cn(
@@ -38,7 +62,17 @@ export default function PricingCard({
           <span className="text-3xl font-bold">{price}</span>
           {price !== "Custom" && <span className="text-muted-foreground">/course</span>}
         </div>
-        <p className="text-sm text-muted-foreground">{description}</p>
+        {originalPrice && discountPercentage && (
+          <div className="flex items-center gap-2 mt-1">
+            <span className="text-sm text-muted-foreground line-through">{originalPrice}</span>
+            <span className="text-xs font-medium bg-green-100 text-green-800 px-2 py-0.5 rounded-full">
+              {discountPercentage}% OFF
+            </span>
+          </div>
+        )}
+        {duration && <div className="text-sm font-medium text-purple-600 mt-1">{duration}</div>}
+        {audience && <div className="text-sm text-blue-600 mt-1">For {audience}</div>}
+        <p className="text-sm text-muted-foreground mt-2">{description}</p>
       </CardHeader>
       <CardContent className="flex-1">
         <ul className="space-y-2">
@@ -59,10 +93,12 @@ export default function PricingCard({
               : "",
           )}
           variant={popular ? "default" : "outline"}
+          onClick={handleButtonClick}
         >
           {buttonText}
         </Button>
       </CardFooter>
+      {isEnrollmentOpen && <EnrollmentDrawer isOpen={isEnrollmentOpen} onClose={() => setIsEnrollmentOpen(false)} />}
     </Card>
   )
 }
