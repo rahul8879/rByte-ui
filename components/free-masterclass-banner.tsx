@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -25,25 +24,50 @@ interface FreeMasterclassBannerProps {
   onRegister?: () => void
 }
 
-// Mock data that would come from an API
-const defaultMasterclassData: MasterclassData = {
-  title: "Building Production-Ready RAG Systems with LangChain",
-  description:
-    "Join our free 2-hour masterclass to learn how to build sophisticated retrieval-augmented generation systems that can handle enterprise-scale document processing.",
-  date: "June 17, 2025",
-  time: "7:00 PM - 9:00 PM IST",
-  maxAttendees: 100,
-  topics: [
-    "Vector database setup and optimization for RAG",
-    "Advanced chunking strategies for better retrieval",
-    "Implementing hybrid search with sparse and dense embeddings",
-    "Evaluating and improving RAG system performance",
-    "Deploying RAG systems to production",
-  ],
+// --- NEW: DYNAMIC MASTERCLASS DATA GENERATOR ---
+/**
+ * Generates the data for the next upcoming masterclass on a weekend.
+ * @returns {MasterclassData}
+ */
+const generateUpcomingMasterclassData = (): MasterclassData => {
+  const currentDate = new Date()
+  const upcomingSaturday = new Date(currentDate)
+
+  // Calculate days to add to get to the next Saturday (where Sunday=0, Saturday=6)
+  const daysUntilSaturday = (6 - upcomingSaturday.getDay() + 7) % 7
+  upcomingSaturday.setDate(upcomingSaturday.getDate() + daysUntilSaturday)
+
+  // Edge case: If it's Saturday but the class time (7 PM) has passed, schedule for next week.
+  if (daysUntilSaturday === 0 && currentDate.getHours() >= 19) {
+    upcomingSaturday.setDate(upcomingSaturday.getDate() + 7)
+  }
+
+  // Format the date for display
+  const formattedDate = upcomingSaturday.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })
+
+  return {
+    title: "Building Production-Ready RAG Systems with LangChain",
+    description:
+      "Join our free 2-hour masterclass to learn how to build sophisticated retrieval-augmented generation systems that can handle enterprise-scale document processing.",
+    date: formattedDate, // Dynamic Date
+    time: "7:00 PM - 9:00 PM IST",
+    maxAttendees: 100,
+    topics: [
+      "Vector database setup and optimization for RAG",
+      "Advanced chunking strategies for better retrieval",
+      "Implementing hybrid search with sparse and dense embeddings",
+      "Evaluating and improving RAG system performance",
+      "Deploying RAG systems to production",
+    ],
+  }
 }
 
 export default function FreeMasterclassBanner({
-  masterclassData = defaultMasterclassData,
+  masterclassData, // Removed the static default from here
   isLoading: initialIsLoading = false,
   onRegister,
 }: FreeMasterclassBannerProps) {
@@ -61,7 +85,19 @@ export default function FreeMasterclassBanner({
   const [isVerifying, setIsVerifying] = useState(false)
   const [isLoading, setIsLoading] = useState(initialIsLoading)
 
-  // Update the handleRegister function to open the enrollment modal in register mode
+  // --- UPDATED useEffect to handle dynamic data ---
+  useEffect(() => {
+    // If a specific masterclass is passed via props, use it.
+    // Otherwise, generate the default upcoming masterclass data dynamically.
+    if (masterclassData) {
+      setData(masterclassData)
+    } else {
+      setData(generateUpcomingMasterclassData())
+    }
+  }, [masterclassData])
+
+  // ... (the rest of your component logic remains the same)
+
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -82,20 +118,13 @@ export default function FreeMasterclassBanner({
 
     try {
       setIsLoading(true)
-
-      // Send OTP
       await sendOTP(phone, countryCode)
-
-      // Move to OTP verification step
       setOtpSent(true)
-
-      // Focus the first OTP input after a short delay
       setTimeout(() => {
         if (firstOtpInputRef.current) {
           firstOtpInputRef.current.focus()
         }
       }, 100)
-
       toast({
         title: "OTP Sent",
         description: `A verification code has been sent to ${countryCode} ${phone}`,
@@ -119,15 +148,12 @@ export default function FreeMasterclassBanner({
       newOtp[index] = value
       setOtp(newOtp)
 
-      // Auto-focus next input if a digit was entered
       if (value !== "" && index < 5) {
         const nextInput = document.getElementById(`masterclass-otp-${index + 1}`)
         if (nextInput) {
           nextInput.focus()
         }
-      }
-      // Auto-focus previous input if current input is cleared
-      else if (value === "" && index > 0) {
+      } else if (value === "" && index > 0) {
         const prevInput = document.getElementById(`masterclass-otp-${index - 1}`)
         if (prevInput) {
           prevInput.focus()
@@ -139,31 +165,23 @@ export default function FreeMasterclassBanner({
   const verifyOtp = async () => {
     try {
       setIsVerifying(true)
-
-      // Call the API to verify OTP
       await verifyOTP(phone, otp.join(""), countryCode)
-
-      // After OTP verification, register for masterclass
       await registerForMasterclass({
         name,
         phone,
         country_code: countryCode,
         email,
       })
-
       setOtpError(null)
       setSubmitted(true)
-
       toast({
         title: "Registration Successful!",
         description: "You have been registered for the masterclass.",
       })
-
-      // If onRegister prop is provided, call it after successful verification
       if (onRegister) {
         setTimeout(() => {
           onRegister()
-        }, 1500) // Short delay to show success message before opening the drawer
+        }, 1500)
       }
     } catch (error) {
       console.error("Error verifying OTP:", error)
@@ -179,42 +197,13 @@ export default function FreeMasterclassBanner({
   }
 
   const resendOtp = () => {
-    // In a real implementation, this would trigger a new OTP to be sent
     setOtp(Array(6).fill(""))
     setOtpError(null)
-    // Show a toast or message that OTP was resent
-    // alert("New OTP sent! (Mock: Use 123456)")
     toast({
       title: "OTP Resent",
       description: "A new OTP has been sent to your phone number.",
     })
   }
-
-  // Simulate fetching data from an API
-  useEffect(() => {
-    // In a real app, this would be an API call
-    // Example:
-    // const fetchMasterclassData = async () => {
-    //   try {
-    //     const response = await fetch('/api/masterclass');
-    //     const data = await response.json();
-    //     setData(data);
-    //   } catch (error) {
-    //     console.error('Error fetching masterclass data:', error);
-    //   }
-    // };
-    // fetchMasterclassData();
-
-    // For now, just use the provided or default data
-    setData(masterclassData)
-  }, [masterclassData])
-
-  // Remove or comment out the old handleSubmit function
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault()
-  //   // In a real implementation, this would send the email to your backend
-  //   setSubmitted(true)
-  // }
 
   if (initialIsLoading) {
     return (
@@ -244,9 +233,8 @@ export default function FreeMasterclassBanner({
             <div className="inline-block rounded-lg bg-purple-100 px-3 py-1 text-sm text-purple-600 mb-4">
               Free Masterclass
             </div>
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">"{data.title}"</h3>
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">{data.title}</h3>
             <p className="text-slate-600 mb-6">{data.description}</p>
-
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               <div className="flex items-center gap-2">
                 <Calendar className="h-5 w-5 text-purple-500" />
@@ -261,7 +249,6 @@ export default function FreeMasterclassBanner({
                 <span>Limited to {data.maxAttendees} attendees</span>
               </div>
             </div>
-
             <div className="bg-white p-4 rounded-lg border border-purple-100 mb-4">
               <h4 className="font-bold mb-2">What You'll Learn:</h4>
               <ul className="space-y-1 text-sm">
@@ -281,7 +268,6 @@ export default function FreeMasterclassBanner({
                     <p className="text-sm text-center text-slate-600 mb-4">
                       Enter your details to register for this free masterclass
                     </p>
-
                     {!showForm ? (
                       <Button
                         type="button"
@@ -371,7 +357,7 @@ export default function FreeMasterclassBanner({
                 ) : (
                   <div className="space-y-4">
                     <h4 className="font-bold text-center">Verify Your Phone</h4>
-                    <p className="text-sm text-center text-slate-600">We've sent a 6-digit OTP to {phone}</p>
+                    <p className="text-sm text-center text-slate-600">We've sent a 6-digit OTP to {countryCode} {phone}</p>
                     <div className="flex justify-center gap-2">
                       {Array(6)
                         .fill(0)
@@ -386,7 +372,6 @@ export default function FreeMasterclassBanner({
                             onChange={(e) => handleOtpChange(e, index)}
                             ref={index === 0 ? firstOtpInputRef : null}
                             onKeyDown={(e) => {
-                              // Handle backspace to move to previous input
                               if (e.key === "Backspace" && !otp[index] && index > 0) {
                                 const prevInput = document.getElementById(`masterclass-otp-${index - 1}`)
                                 if (prevInput) {

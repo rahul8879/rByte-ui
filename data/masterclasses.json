@@ -1,16 +1,16 @@
 {
   "masterclasses": [
-     {
+    {
       "id": "agentic-ai-using-langgraph",
       "title": "Agentic AI using LangGraph",
       "shortDescription": "Master the power of LangGraph to build autonomous, collaborative AI agents.",
       "longDescription": "Join this focused masterclass to understand and build Agentic AI systems using LangGraph. We’ll cover agent orchestration, memory, decision-making flows, and LLMOps deployment best practices. Perfect for developers and AI enthusiasts eager to work with the latest GenAI orchestration tools.",
-      "date": "May 25, 2025",
+      "date": "June 21, 2025",
       "time": "6:00 PM - 8:00 PM IST",
       "duration": "2 hours",
       "instructor": {
         "name": "Rahul Tiwari",
-        "title": "Senior AI Scientist & Founder, RByte.ai",
+        "title": "Senior AI Engineer",
         "bio": "Rahul is an expert in building LLM-driven applications and agent-based orchestration platforms. He leads RByte.ai, where he trains professionals on cutting-edge AI and GenAI systems.",
         "image": "/rahul-tiwari-rbyteai.png"
       },
@@ -30,13 +30,12 @@
         "Certificate of participation",
         "Access to reusable code templates"
       ],
-      "image": "/agentiAI.png",
+      "image": "/Agentic_banner.png",
       "category": "Agent Systems",
       "tags": ["Agentic AI", "LangGraph", "LLMOps", "Multi-Agent Systems"],
       "isFeatured": true,
       "maxAttendees": 100,
       "registrationLink": "/masterclass/agentic-ai-using-langgraph"
     }
-
   ]
 }
