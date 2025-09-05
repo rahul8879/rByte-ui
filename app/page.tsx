@@ -257,7 +257,15 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-36 bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 overflow-hidden">
+        <section className="relative w-full py-12 md:py-24 lg:py-32 xl:py-36 bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 overflow-hidden">
+          {/* AI background layers */}
+          <div className="ai-grid" />
+          <div className="absolute inset-0 -z-10">
+            <div className="ai-aurora ai-aurora--1" />
+            <div className="ai-aurora ai-aurora--2" />
+            <div className="ai-aurora ai-aurora--3" />
+            <div className="ai-noise" />
+          </div>
           <div className="container px-4 md:px-6 relative">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-start">
               <div className="flex flex-col justify-center space-y-4 order-2 lg:order-1">
@@ -271,7 +279,7 @@ export default function Home() {
                   </Badge>
                 </div>
                 <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-white">
+                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-gradient-ai">
                     Transform Your Career Into AI Engineering
                   </h1>
                   <p className="max-w-[600px] text-gray-200 md:text-xl">
@@ -309,6 +317,7 @@ export default function Home() {
                     <ConsistentButton
                       size="lg"
                       variant="gradient"
+                      className="btn-shimmer"
                       onClick={openEnrollmentDrawer}
                       rightIcon={<ArrowRight className="ml-2 h-4 w-4" />}
                     >
@@ -324,7 +333,7 @@ export default function Home() {
                     </ConsistentButton>
                   </div>
                   <div className="mt-3 flex justify-center">
-                    <CareerPathQuiz />
+                    <CareerPathQuiz onEnroll={openEnrollmentDrawer} onGetDetails={openSyllabusForm} />
                   </div>
                 </div>
               </div>
@@ -1206,8 +1215,9 @@ export default function Home() {
       {/* WhatsApp Chat Button */}
       <WhatsAppButton />
 
-      {/* Add the enrollment drawer component */}
+      {/* Enrollment & Registration drawers */}
       <EnrollmentDrawer isOpen={isEnrollmentDrawerOpen} onClose={closeEnrollmentDrawer} mode="enroll" />
+      <EnrollmentDrawer isOpen={isRegistrationDrawerOpen} onClose={closeRegistrationDrawer} mode="register" />
     </div>
   )
 }

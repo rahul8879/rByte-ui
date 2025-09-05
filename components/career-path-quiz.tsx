@@ -109,8 +109,12 @@ function computeTrack(scores: Record<TrackKey, number>): TrackKey {
 
 export default function CareerPathQuiz({
   triggerVariant = "default",
+  onEnroll,
+  onGetDetails,
 }: {
   triggerVariant?: "default" | "soft"
+  onEnroll?: () => void
+  onGetDetails?: () => void
 }) {
   const [open, setOpen] = useState(false)
   const [answers, setAnswers] = useState<Record<string, number>>({})
@@ -232,10 +236,24 @@ export default function CareerPathQuiz({
               </div>
 
               <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-                <ConsistentButton className="w-full sm:w-auto" variant="gradient" onClick={() => setOpen(false)}>
+                <ConsistentButton
+                  className="w-full sm:w-auto"
+                  variant="gradient"
+                  onClick={() => {
+                    if (onEnroll) onEnroll()
+                    setOpen(false)
+                  }}
+                >
                   Enroll Now
                 </ConsistentButton>
-                <ConsistentButton className="w-full sm:w-auto" variant="secondary" onClick={() => setOpen(false)}>
+                <ConsistentButton
+                  className="w-full sm:w-auto"
+                  variant="secondary"
+                  onClick={() => {
+                    if (onGetDetails) onGetDetails()
+                    setOpen(false)
+                  }}
+                >
                   Download Curriculum
                 </ConsistentButton>
               </div>
@@ -246,4 +264,3 @@ export default function CareerPathQuiz({
     </Dialog>
   )
 }
-
