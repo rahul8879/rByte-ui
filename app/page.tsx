@@ -54,6 +54,7 @@ import { ConsistentButton } from "@/components/ui/consistent-button"
 // Find the section where pricing is displayed and replace it with our new component
 // Import the PricingSection component at the top of the file
 import PricingSection from "@/components/pricing-section"
+import CareerPathQuiz from "@/components/career-path-quiz"
 
 export default function Home() {
   // Set the target date for the next batch (2 weeks from now)
@@ -258,7 +259,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-36 bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 overflow-hidden">
           <div className="container px-4 md:px-6 relative">
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
+            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-start">
               <div className="flex flex-col justify-center space-y-4 order-2 lg:order-1">
                 <div className="flex flex-wrap gap-2 mb-2">
                   <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200 border-purple-200">
@@ -322,11 +323,14 @@ export default function Home() {
                       Get Course Details
                     </ConsistentButton>
                   </div>
+                  <div className="mt-3 flex justify-center">
+                    <CareerPathQuiz />
+                  </div>
                 </div>
               </div>
 
               <div className="flex items-center justify-center order-1 lg:order-2">
-                <div className="relative w-full max-w-[600px] aspect-[4/3] rounded-xl overflow-hidden shadow-2xl">
+                <div className="relative w-full max-w-[640px] aspect-video rounded-xl overflow-hidden shadow-2xl">
                   {/* Hero Image */}
                   <Image
                     src="/rbyte-ai-team-hero.png"
