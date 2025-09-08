@@ -55,6 +55,9 @@ import { ConsistentButton } from "@/components/ui/consistent-button"
 // Import the PricingSection component at the top of the file
 import PricingSection from "@/components/pricing-section"
 import CareerPathQuiz from "@/components/career-path-quiz"
+import AnnouncementBar from "@/components/announcement-bar"
+import SocialProof from "@/components/social-proof"
+import TestimonialsSection from "@/components/testimonials-section"
 
 export default function Home() {
   // Set the target date for the next batch (2 weeks from now)
@@ -213,6 +216,8 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col">
+      {/* Announcement Bar */}
+      <AnnouncementBar nextBatchDateText="New batch starts in 2 weeks" ctaText="Enroll Today" onCtaClick={openEnrollmentDrawer} />
       {/* Navbar */}
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
@@ -367,6 +372,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Social Proof */}
+        <SocialProof />
 
         {/* Free Masterclass Section */}
         <section className="w-full py-12 md:py-16">
@@ -968,6 +976,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Testimonials Section */}
+        <TestimonialsSection />
 
         {/* Pricing Section */}
         <section id="pricing" className="py-16 bg-gray-50">
