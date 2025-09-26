@@ -46,7 +46,7 @@ import EnrollmentDrawer from "@/components/enrollment-drawer"
 import { Input } from "@/components/ui/input"
 import WhatsAppButton from "@/components/whatsapp-button"
 // Add the import for API utilities
-import { sendOTP, verifyOTP, downloadCurriculum } from "@/utils/api"
+import { sendOTP, verifyOTP, downloadCurriculum, registerInterest } from "@/utils/api"
 import { toast } from "@/hooks/use-toast"
 import { Loader2 } from "lucide-react"
 // Import the ConsistentButton component
@@ -65,11 +65,10 @@ export default function Home() {
   const targetDate = new Date()
   targetDate.setDate(targetDate.getDate() + 14)
 
-  const [isEnrollmentDrawerOpen, setIsEnrollmentDrawerOpen] = useState(false)
   const [isRegistrationDrawerOpen, setIsRegistrationDrawerOpen] = useState(false)
-  const [isEnrollmentLoading, setIsEnrollmentLoading] = useState(false)
 
   const [showSyllabusForm, setShowSyllabusForm] = useState(false)
+  const [syllabusFormMode, setSyllabusFormMode] = useState<"syllabus" | "enroll">("syllabus")
   const [syllabusFormData, setSyllabusFormData] = useState({
     name: "",
     email: "",
@@ -83,14 +82,11 @@ export default function Home() {
   // Add loading states
   const [syllabusFormLoading, setSyllabusFormLoading] = useState(false)
   const [syllabusVerifying, setSyllabusVerifying] = useState(false)
+  const isEnrollMode = syllabusFormMode === "enroll"
 
   const openEnrollmentDrawer = () => {
-    // Remove the artificial delay and loading state
-    setIsEnrollmentDrawerOpen(true)
-  }
-
-  const closeEnrollmentDrawer = () => {
-    setIsEnrollmentDrawerOpen(false)
+    setSyllabusFormMode("enroll")
+    setShowSyllabusForm(true)
   }
 
   const openRegistrationDrawer = () => {
@@ -102,11 +98,13 @@ export default function Home() {
   }
 
   const openSyllabusForm = () => {
+    setSyllabusFormMode("syllabus")
     setShowSyllabusForm(true)
   }
 
   const closeSyllabusForm = () => {
     setShowSyllabusForm(false)
+    setSyllabusFormMode("syllabus")
     setSyllabusOtpSent(false)
     setSyllabusOtp(Array(6).fill(""))
     setSyllabusOtpError(null)
@@ -188,12 +186,24 @@ export default function Home() {
       // Call the API to verify OTP
       await verifyOTP(syllabusFormData.phone, syllabusOtp.join(""), syllabusFormData.countryCode)
 
+      if (isEnrollMode) {
+        await registerInterest({
+          name: syllabusFormData.name,
+          email: syllabusFormData.email || undefined,
+          phone: syllabusFormData.phone,
+          country_code: syllabusFormData.countryCode,
+          heard_from: "Homepage Enroll CTA",
+        })
+      }
+
       setSyllabusSuccess(true)
       setSyllabusOtpError(null)
 
       toast({
-        title: "Verification Successful!",
-        description: "You can now download the curriculum.",
+        title: isEnrollMode ? "Enrollment request received" : "Verification Successful!",
+        description: isEnrollMode
+          ? "Our admissions team will reach out shortly to help you secure your seat."
+          : "You can now download the curriculum.",
       })
     } catch (error) {
       console.error("Error verifying OTP:", error)
@@ -214,6 +224,16 @@ export default function Home() {
     downloadCurriculum()
     closeSyllabusForm()
   }
+
+  const modalTitle = !syllabusOtpSent
+    ? isEnrollMode
+      ? "Enroll Now"
+      : "Get Course Details"
+    : !syllabusSuccess
+      ? "Verify Your Phone Number"
+      : isEnrollMode
+        ? "Enrollment Request Received"
+        : "Download Syllabus"
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -1041,13 +1061,7 @@ export default function Home() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden">
             <div className="bg-gradient-to-r from-purple-500 to-pink-500 py-3 px-6">
-              <h3 className="text-xl font-bold text-white">
-                {!syllabusOtpSent
-                  ? "Get Course Details"
-                  : !syllabusSuccess
-                    ? "Verify Your Phone Number"
-                    : "Download Syllabus"}
-              </h3>
+              <h3 className="text-xl font-bold text-white">{modalTitle}</h3>
             </div>
 
             <div className="p-6">
@@ -1211,13 +1225,23 @@ export default function Home() {
                   <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                     <CheckCircle className="h-8 w-8 text-green-600" />
                   </div>
-                  <h4 className="text-xl font-bold mb-2">Verification Successful!</h4>
+                  <h4 className="text-xl font-bold mb-2">
+                    {isEnrollMode ? "You're all set!" : "Verification Successful!"}
+                  </h4>
                   <p className="text-slate-600 mb-6">
-                    Thank you, {syllabusFormData.name}! You can now download our detailed course syllabus.
+                    {isEnrollMode
+                      ? `Thank you, ${syllabusFormData.name}! Our admissions team will reach out within 24 hours to help you secure your seat.`
+                      : `Thank you, ${syllabusFormData.name}! You can now download our detailed course syllabus.`}
                   </p>
-                  <ConsistentButton onClick={downloadSyllabus} variant="gradient">
-                    Download Syllabus
-                  </ConsistentButton>
+                  {isEnrollMode ? (
+                    <ConsistentButton onClick={closeSyllabusForm} variant="gradient">
+                      Close
+                    </ConsistentButton>
+                  ) : (
+                    <ConsistentButton onClick={downloadSyllabus} variant="gradient">
+                      Download Syllabus
+                    </ConsistentButton>
+                  )}
                 </div>
               )}
             </div>
@@ -1228,8 +1252,7 @@ export default function Home() {
       {/* WhatsApp Chat Button */}
       <WhatsAppButton />
 
-      {/* Enrollment & Registration drawers */}
-      <EnrollmentDrawer isOpen={isEnrollmentDrawerOpen} onClose={closeEnrollmentDrawer} mode="enroll" />
+      {/* Registration drawer */}
       <EnrollmentDrawer isOpen={isRegistrationDrawerOpen} onClose={closeRegistrationDrawer} mode="register" />
     </div>
   )
