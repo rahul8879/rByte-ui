@@ -58,6 +58,7 @@ import CareerPathQuiz from "@/components/career-path-quiz"
 import AnnouncementBar from "@/components/announcement-bar"
 import SocialProof from "@/components/social-proof"
 import TestimonialsSection from "@/components/testimonials-section"
+import NavratriSaleModal from "@/components/navratri-sale-modal"
 
 export default function Home() {
   // Set the target date for the next batch (2 weeks from now)
@@ -216,6 +217,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <NavratriSaleModal onEnroll={openEnrollmentDrawer} />
       {/* Announcement Bar */}
       <AnnouncementBar nextBatchDateText="New batch starts in 2 weeks" ctaText="Enroll Today" onCtaClick={openEnrollmentDrawer} />
       {/* Navbar */}
