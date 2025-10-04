@@ -1,14 +1,16 @@
 "use client"
 
-import { useState } from "react"
 import PricingCard from "./pricing-card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
 import { Lightbulb, Users, BookOpen, Calendar, Target, Check, X, AlertTriangle } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
-export default function PricingSection() {
-  const [isEnrollmentOpen, setIsEnrollmentOpen] = useState(false)
+interface PricingSectionProps {
+  onEnroll?: () => void
+}
+
+export default function PricingSection({ onEnroll }: PricingSectionProps) {
 
   const onlineFeatures = [
     "Live online weekend classes",
@@ -36,13 +38,24 @@ export default function PricingSection() {
     "Exclusive hackathons and events",
   ]
 
+  const projectSprintFeatures = [
+    "4-week mentor-led agentic AI build sprint",
+    "Ship autonomous agents, RAG copilots, and AI workflows",
+    "End-to-end productization from ideation to launch",
+    "Hands-on LLMOps with prompt orchestration and evals",
+    "Cloud deployment templates (AWS Bedrock, Vertex, Vercel)",
+    "Weekly agent labs, code reviews, and failure clinics",
+    "Portfolio-ready GitHub repos, tech notes, and demos",
+    "Lifetime access to agent architecture walkthroughs",
+  ]
+
   return (
     <div className="container mx-auto px-4 py-16">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Flexible Pricing Options</h2>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-          Choose the learning format that works best for you. Both options include our customized curriculum tailored to
-          your current knowledge level and learning pace.
+          Choose the learning path that fits your goals—commit to our full-stack programs or jump into the new
+          project-based accelerator to ship production-ready AI in weeks.
         </p>
       </div>
 
@@ -97,11 +110,11 @@ export default function PricingSection() {
       <Tabs defaultValue="all" className="w-full">
         <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-8">
           <TabsTrigger value="all">All Options</TabsTrigger>
-          <TabsTrigger value="compare">Online vs Offline</TabsTrigger>
+          <TabsTrigger value="compare">Program Comparison</TabsTrigger>
           <TabsTrigger value="competitors">Rbyte vs Others</TabsTrigger>
         </TabsList>
         <TabsContent value="all">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             <div className="relative">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
                 <Badge className="bg-amber-100 text-amber-800 border-amber-200 px-3 py-1 text-xs font-medium">
@@ -111,14 +124,15 @@ export default function PricingSection() {
               <PricingCard
                 title="Online Program"
                 price="₹69,999"
-                originalPrice="₹1,16,665"
-                discountPercentage={40}
+                originalPrice="₹99,999"
+                discountPercentage={30}
                 description="Comprehensive online AI engineering program with live weekend classes and flexible learning options."
                 features={onlineFeatures}
                 buttonText="Enroll Now"
                 popular={true}
                 duration="6 Months"
                 audience="Engineering Students & Working Professionals"
+                onClick={onEnroll}
               />
             </div>
             <div className="relative">
@@ -130,11 +144,33 @@ export default function PricingSection() {
               <PricingCard
                 title="Offline Program"
                 price="₹89,999"
+                originalPrice="₹1,28,570"
+                discountPercentage={30}
                 description="Immersive in-person learning experience with direct mentorship and enhanced networking opportunities."
                 features={offlineFeatures}
                 buttonText="Enroll Now"
                 duration="9 Months"
                 audience="Engineering & UG Students and Professionals"
+                onClick={onEnroll}
+              />
+            </div>
+            <div className="relative">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                <Badge className="bg-emerald-100 text-emerald-800 border-emerald-200 px-3 py-1 text-xs font-medium">
+                  Project-Based Sprint
+                </Badge>
+              </div>
+              <PricingCard
+                title="AI Project Accelerator"
+                price="₹13,000"
+                originalPrice="₹18,571"
+                discountPercentage={30}
+                description="Build agentic assistants, RAG systems, and deployable AI products with a guided GenAI-first playbook."
+                features={projectSprintFeatures}
+                buttonText="Start Building"
+                duration="4 Weeks"
+                audience="Developers & Analysts upskilling to AI Engineers"
+                onClick={onEnroll}
               />
             </div>
           </div>
@@ -147,43 +183,55 @@ export default function PricingSection() {
                   <th className="text-left p-4 bg-muted/50">Feature</th>
                   <th className="text-center p-4 bg-muted/50">Online Program</th>
                   <th className="text-center p-4 bg-muted/50">Offline Program</th>
+                  <th className="text-center p-4 bg-muted/50">AI Project Accelerator</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Price</td>
                   <td className="p-4 text-center">
-                    ₹69,999 <span className="text-sm text-green-600">(40% off)</span>
+                    ₹69,999 <span className="text-sm text-green-600">(30% off)</span>
                   </td>
-                  <td className="p-4 text-center">₹89,999</td>
+                  <td className="p-4 text-center">
+                    ₹89,999 <span className="text-sm text-green-600">(30% off)</span>
+                  </td>
+                  <td className="p-4 text-center">
+                    ₹13,000 <span className="text-sm text-emerald-600">(30% off)</span>
+                  </td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Duration</td>
                   <td className="p-4 text-center">6 Months</td>
                   <td className="p-4 text-center">9 Months</td>
+                  <td className="p-4 text-center">4 Weeks</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Class Format</td>
                   <td className="p-4 text-center">Live Online</td>
                   <td className="p-4 text-center">In-Person</td>
+                  <td className="p-4 text-center">Agentic build labs (Live + async)</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Projects</td>
                   <td className="p-4 text-center">8+</td>
                   <td className="p-4 text-center">10+</td>
+                  <td className="p-4 text-center">3 agentic GenAI builds</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Personalized Curriculum</td>
                   <td className="p-4 text-center">✅</td>
                   <td className="p-4 text-center">✅</td>
+                  <td className="p-4 text-center">✅ Agent & RAG roadmaps</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Placement Support</td>
                   <td className="p-4 text-center">✅</td>
                   <td className="p-4 text-center">✅ Enhanced</td>
+                  <td className="p-4 text-center">Agent portfolio review & hiring radar</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Recorded Sessions</td>
+                  <td className="p-4 text-center">✅</td>
                   <td className="p-4 text-center">✅</td>
                   <td className="p-4 text-center">✅</td>
                 </tr>
@@ -191,16 +239,19 @@ export default function PricingSection() {
                   <td className="p-4 font-medium">Industry Networking</td>
                   <td className="p-4 text-center">Virtual</td>
                   <td className="p-4 text-center">In-Person</td>
+                  <td className="p-4 text-center">Demo day with founders</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Learning Pace</td>
                   <td className="p-4 text-center">Flexible</td>
                   <td className="p-4 text-center">Structured</td>
+                  <td className="p-4 text-center">Accelerated</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium">Target Audience</td>
                   <td className="p-4 text-center">Working Professionals & Students</td>
                   <td className="p-4 text-center">Engineering & UG Students and Professionals</td>
+                  <td className="p-4 text-center">Builders showcasing deploy-ready GenAI</td>
                 </tr>
               </tbody>
             </table>
@@ -241,11 +292,14 @@ export default function PricingSection() {
                   <td className="p-4 text-center">
                     <div className="flex flex-col items-center">
                       <span className="font-bold text-green-600">₹69,999</span>
-                      <span className="text-xs text-green-600">(40% Off)</span>
+                      <span className="text-xs text-green-600">(30% Off)</span>
                     </div>
                   </td>
                   <td className="p-4 text-center">
-                    <span className="font-bold text-purple-600">₹89,999</span>
+                    <div className="flex flex-col items-center">
+                      <span className="font-bold text-purple-600">₹89,999</span>
+                      <span className="text-xs text-purple-600">(30% Off)</span>
+                    </div>
                   </td>
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">

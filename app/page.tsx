@@ -21,6 +21,9 @@ import {
   UserCheck,
   FileText,
   BookOpenIcon,
+  Sparkles,
+  Gift,
+  PartyPopper,
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import CourseFeatureCard from "@/components/course-feature-card"
@@ -58,12 +61,44 @@ import CareerPathQuiz from "@/components/career-path-quiz"
 import AnnouncementBar from "@/components/announcement-bar"
 import SocialProof from "@/components/social-proof"
 import TestimonialsSection from "@/components/testimonials-section"
-import NavratriSaleModal from "@/components/navratri-sale-modal"
+import DiwaliSaleModal from "@/components/diwali-sale-modal"
 
 export default function Home() {
   // Set the target date for the next batch (2 weeks from now)
   const targetDate = new Date()
   targetDate.setDate(targetDate.getDate() + 14)
+
+  const diwaliLightColors = [
+    "#facc15",
+    "#fb7185",
+    "#f97316",
+    "#c084fc",
+    "#38bdf8",
+    "#facc15",
+    "#fb7185",
+    "#f97316",
+  ]
+
+  const diwaliHighlights = [
+    {
+      title: "Festive Scholarship",
+      description: "Lock in 30% Diwali savings plus a ₹9,999 project kit upgrade for this cohort.",
+      icon: Gift,
+      accent: "from-amber-400/20 via-amber-500/10 to-transparent",
+    },
+    {
+      title: "Lantern Mentor Hours",
+      description: "Late-evening mentor clinics so you can celebrate and still stay on track during the holidays.",
+      icon: Sparkles,
+      accent: "from-fuchsia-400/20 via-purple-400/10 to-transparent",
+    },
+    {
+      title: "Showcase Launchpad",
+      description: "Demo your Diwali sprint project in a live hiring showcase with partner startups.",
+      icon: PartyPopper,
+      accent: "from-orange-400/20 via-rose-400/10 to-transparent",
+    },
+  ]
 
   const [isRegistrationDrawerOpen, setIsRegistrationDrawerOpen] = useState(false)
 
@@ -237,7 +272,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <NavratriSaleModal onEnroll={openEnrollmentDrawer} />
+      <DiwaliSaleModal onEnroll={openEnrollmentDrawer} />
       {/* Announcement Bar */}
       <AnnouncementBar nextBatchDateText="New batch starts in 2 weeks" ctaText="Enroll Today" onCtaClick={openEnrollmentDrawer} />
       {/* Navbar */}
@@ -284,7 +319,7 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative w-full py-12 md:py-24 lg:py-32 xl:py-36 bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 overflow-hidden">
+        <section className="relative w-full py-12 md:py-24 lg:py-32 xl:py-36 bg-gradient-to-br from-amber-950 via-purple-950 to-slate-950 overflow-hidden">
           {/* AI background layers */}
           <div className="ai-grid" />
           <div className="absolute inset-0 -z-10">
@@ -293,26 +328,48 @@ export default function Home() {
             <div className="ai-aurora ai-aurora--3" />
             <div className="ai-noise" />
           </div>
+          <div className="diwali-lantern diwali-lantern--left" />
+          <div className="diwali-lantern diwali-lantern--right" />
+          <div className="diwali-sparkle diwali-sparkle--1" />
+          <div className="diwali-sparkle diwali-sparkle--2" />
+          <div className="diwali-light-string">
+            {diwaliLightColors.map((color, index) => (
+              <span
+                key={`diwali-bulb-${index}`}
+                className="diwali-bulb"
+                style={{ "--bulb-color": color } as React.CSSProperties}
+              />
+            ))}
+          </div>
           <div className="container px-4 md:px-6 relative">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-start">
-              <div className="flex flex-col justify-center space-y-4 order-2 lg:order-1">
-                <div className="flex flex-wrap gap-2 mb-2">
-                  <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200 border-purple-200">
+              <div className="flex flex-col justify-center space-y-5 order-2 lg:order-1">
+                <div className="inline-flex items-center gap-2 self-start rounded-full border border-amber-400/40 bg-amber-500/20 px-3 py-1 text-sm font-semibold text-amber-100 shadow-sm shadow-amber-500/40 backdrop-blur-sm">
+                  <Sparkles className="h-4 w-4" />
+                  <span>Diwali Cohort • 30% Festival Savings Live</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <Badge className="bg-amber-400/20 text-amber-100 border-amber-300/40 hover:bg-amber-400/30">
+                    Diwali Celebration Batch
+                  </Badge>
+                  <Badge className="bg-purple-400/20 text-purple-100 border-purple-300/30 hover:bg-purple-400/30">
                     6-Month Program
                   </Badge>
-                  <Badge className="bg-pink-100 text-pink-800 hover:bg-pink-200 border-pink-200">Weekend Batches</Badge>
-                  <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-200 border-amber-200">
+                  <Badge className="bg-pink-400/20 text-pink-100 border-pink-300/30 hover:bg-pink-400/30">
+                    Weekend Batches
+                  </Badge>
+                  <Badge className="bg-indigo-400/20 text-indigo-100 border-indigo-300/30 hover:bg-indigo-400/30">
                     For Working Professionals
                   </Badge>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-gradient-ai">
-                    Transform Your Career Into AI Engineering
+                    Light Up Your AI Career This Diwali
                   </h1>
-                  <p className="max-w-[600px] text-gray-200 md:text-xl">
-                    Skyrocket your income and future-proof your career with our exclusive weekend program! Join 500+
-                    professionals who've doubled their salaries by mastering the AI skills companies are desperately
-                    seeking. No prior AI experience needed — just 6 months to transform your career trajectory forever.
+                  <p className="max-w-[600px] text-gray-100 md:text-xl">
+                    Celebrate the Festival of Lights by mastering GenAI and ML with evening-friendly mentor hours,
+                    festive cohort projects, and guaranteed placement backing — all with our limited-time 30% Diwali
+                    offer.
                   </p>
                 </div>
 
@@ -325,6 +382,8 @@ export default function Home() {
                   <FeatureBadge text="LLM Fine-tuning" />
                   <FeatureBadge text="RAG Systems" />
                   <FeatureBadge text="Langgraph" />
+                  <FeatureBadge text="Diwali Mentor Hours" />
+                  <FeatureBadge text="Festival Sprint Demos" />
                 </div>
 
                 <EnrollmentBanner seatsLeft={5} />
@@ -391,6 +450,48 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Diwali Specials */}
+        <section className="relative w-full py-10 bg-gradient-to-r from-amber-100/40 via-rose-100/30 to-orange-100/40 dark:from-amber-500/10 dark:via-purple-500/10 dark:to-rose-500/10">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="diwali-sparkle diwali-sparkle--3" />
+          </div>
+          <div className="container px-4 md:px-6 relative">
+            <div className="flex flex-col items-center text-center gap-3 mb-8">
+              <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-white/60 px-3 py-1 text-sm font-medium text-amber-700 shadow-sm shadow-amber-200/50 backdrop-blur">
+                <Sparkles className="h-4 w-4" />
+                <span>Festival Exclusives</span>
+              </div>
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-slate-900 dark:text-white">
+                Diwali Specials For Our New Cohort
+              </h2>
+              <p className="max-w-2xl text-muted-foreground">
+                Join a celebratory learning experience with extra mentor time, festive sprint demos, and savings crafted
+                for the Festival of Lights.
+              </p>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {diwaliHighlights.map(({ title, description, icon: Icon, accent }, index) => (
+                <div
+                  key={title}
+                  className="relative overflow-hidden rounded-xl border border-white/60 bg-white/70 p-6 shadow-lg shadow-amber-200/40 backdrop-blur dark:border-white/10 dark:bg-slate-900/60"
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${accent}`} aria-hidden />
+                  <div className="relative flex flex-col gap-3 text-left text-slate-900 dark:text-slate-100">
+                    <div className="flex items-center gap-3 text-amber-600 dark:text-amber-300">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-400/40 bg-amber-500/20 text-amber-100 shadow-sm shadow-amber-500/30">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <span className="text-sm font-semibold uppercase tracking-wide">Special #{index + 1}</span>
+                    </div>
+                    <h3 className="text-xl font-semibold">{title}</h3>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">{description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -1004,7 +1105,7 @@ export default function Home() {
 
         {/* Pricing Section */}
         <section id="pricing" className="py-16 bg-gray-50">
-          <PricingSection />
+          <PricingSection onEnroll={openEnrollmentDrawer} />
         </section>
 
         {/* CTA Section */}
