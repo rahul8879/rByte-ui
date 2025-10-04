@@ -131,6 +131,119 @@
     animation: shimmer 2.2s linear infinite;
     pointer-events: none;
   }
+
+  .diwali-light-string {
+    position: absolute;
+    top: 1.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1.75rem;
+    pointer-events: none;
+    z-index: 25;
+  }
+
+  .diwali-light-string::before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(90%, 720px);
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.4), rgba(255,255,255,0));
+    opacity: 0.7;
+    border-radius: 9999px;
+  }
+
+  .diwali-bulb {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 30% 30%, #fff 0%, var(--bulb-color, #facc15) 55%, rgba(0,0,0,0) 70%);
+    box-shadow: 0 0 14px var(--bulb-color, #facc15);
+    animation: diwali-pulse 3.4s ease-in-out infinite;
+  }
+
+  .diwali-bulb::after {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 10px;
+    border-radius: 50% 50% 0 0;
+    background: rgba(255,255,255,0.35);
+  }
+
+  .diwali-bulb:nth-child(odd) {
+    animation-delay: 1.2s;
+  }
+
+  .diwali-bulb:nth-child(3n) {
+    animation-delay: 2s;
+  }
+
+  .diwali-lantern {
+    position: absolute;
+    width: 200px;
+    height: 260px;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 50% 35%, rgba(253,224,71,0.45), transparent 70%),
+      radial-gradient(circle at 50% 70%, rgba(248,113,113,0.35), transparent 75%);
+    opacity: 0.45;
+    filter: blur(10px);
+    mix-blend-mode: screen;
+    z-index: -1;
+  }
+
+  .diwali-lantern--left {
+    left: -60px;
+    top: 14%;
+    animation: diwali-glide 18s ease-in-out infinite alternate;
+  }
+
+  .diwali-lantern--right {
+    right: -60px;
+    top: 24%;
+    animation: diwali-glide 22s ease-in-out infinite alternate-reverse;
+  }
+
+  .diwali-sparkle {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, rgba(253,224,71,0.18), transparent 65%);
+    pointer-events: none;
+    mix-blend-mode: screen;
+    filter: blur(1px);
+    animation: diwali-twinkle 9s ease-in-out infinite;
+    z-index: -1;
+  }
+
+  .diwali-sparkle--1 {
+    top: 42%;
+    left: 6%;
+  }
+
+  .diwali-sparkle--2 {
+    top: 18%;
+    right: 10%;
+    animation-delay: 1.6s;
+  }
+
+  .diwali-sparkle--3 {
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 420px;
+    height: 420px;
+    opacity: 0.4;
+    filter: blur(2px);
+  }
 }
 
 @keyframes fadeIn {
@@ -157,6 +270,45 @@
 @keyframes hue {
   0% { filter: hue-rotate(0deg); }
   100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes diwali-pulse {
+  0%, 100% {
+    opacity: 0.55;
+    transform: translateY(0) scale(0.9);
+    box-shadow: 0 0 12px var(--bulb-color, #facc15);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(3px) scale(1.12);
+    box-shadow: 0 0 24px var(--bulb-color, #facc15);
+  }
+}
+
+@keyframes diwali-glide {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.95);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate3d(20px, -30px, 0) scale(1.05);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate3d(-18px, 24px, 0) scale(0.98);
+    opacity: 0.4;
+  }
+}
+
+@keyframes diwali-twinkle {
+  0%, 100% {
+    opacity: 0.25;
+    transform: translate3d(0, 0, 0) scale(0.9);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate3d(0, -12px, 0) scale(1.08);
+  }
 }
 
 /* Optimize paint operations */
