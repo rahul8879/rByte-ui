@@ -123,9 +123,9 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
               </div>
               <PricingCard
                 title="Online Program"
-                price="₹69,999"
-                originalPrice="₹99,999"
-                discountPercentage={30}
+                price="₹59,000"
+                originalPrice="₹1,18,000"
+                discountPercentage={50}
                 description="Comprehensive online AI engineering program with live weekend classes and flexible learning options."
                 features={onlineFeatures}
                 buttonText="Enroll Now"
@@ -190,7 +190,7 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
                 <tr className="border-b">
                   <td className="p-4 font-medium">Price</td>
                   <td className="p-4 text-center">
-                    ₹69,999 <span className="text-sm text-green-600">(30% off)</span>
+                    ₹59,000 <span className="text-sm text-green-600">(50% off)</span>
                   </td>
                   <td className="p-4 text-center">
                     ₹89,999 <span className="text-sm text-green-600">(30% off)</span>
@@ -291,8 +291,8 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
                   <td className="p-4 font-medium">Price</td>
                   <td className="p-4 text-center">
                     <div className="flex flex-col items-center">
-                      <span className="font-bold text-green-600">₹69,999</span>
-                      <span className="text-xs text-green-600">(30% Off)</span>
+                      <span className="font-bold text-green-600">₹59,000</span>
+                      <span className="text-xs text-green-600">(50% Off)</span>
                     </div>
                   </td>
                   <td className="p-4 text-center">

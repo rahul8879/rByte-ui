@@ -68,35 +68,26 @@ export default function Home() {
   const targetDate = new Date()
   targetDate.setDate(targetDate.getDate() + 14)
 
-  const diwaliLightColors = [
-    "#facc15",
-    "#fb7185",
-    "#f97316",
-    "#c084fc",
-    "#38bdf8",
-    "#facc15",
-    "#fb7185",
-    "#f97316",
-  ]
+  const holidayLightColors = ["#dc2626", "#16a34a", "#facc15", "#38bdf8", "#dc2626", "#16a34a", "#facc15", "#38bdf8"]
 
-  const diwaliHighlights = [
+  const holidayHighlights = [
     {
-      title: "Festive Scholarship",
-      description: "Lock in 30% Diwali savings plus a ₹9,999 project kit upgrade for this cohort.",
+      title: "Christmas Countdown Offer",
+      description: "50% off the online program—lock your seat at ₹59,000 before the New Year bell rings.",
       icon: Gift,
-      accent: "from-amber-400/20 via-amber-500/10 to-transparent",
+      accent: "from-red-400/20 via-amber-300/10 to-transparent",
     },
     {
-      title: "Lantern Mentor Hours",
-      description: "Late-evening mentor clinics so you can celebrate and still stay on track during the holidays.",
+      title: "Year-End Career Reset",
+      description: "Holiday mentor hours, interview drills, and project polishing to launch strong in January.",
       icon: Sparkles,
-      accent: "from-fuchsia-400/20 via-purple-400/10 to-transparent",
+      accent: "from-emerald-400/20 via-sky-300/10 to-transparent",
     },
     {
-      title: "Showcase Launchpad",
-      description: "Demo your Diwali sprint project in a live hiring showcase with partner startups.",
+      title: "Demo Day Fireworks",
+      description: "Ship a festive AI sprint and present it in our New Year hiring showcase with partner startups.",
       icon: PartyPopper,
-      accent: "from-orange-400/20 via-rose-400/10 to-transparent",
+      accent: "from-sky-400/20 via-indigo-300/10 to-transparent",
     },
   ]
 
@@ -272,9 +263,13 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <DiwaliSaleModal onEnroll={openEnrollmentDrawer} />
+      <DiwaliSaleModal onEnroll={openEnrollmentDrawer} storageKey="holiday-sale-modal-seen" />
       {/* Announcement Bar */}
-      <AnnouncementBar nextBatchDateText="New batch starts in 2 weeks" ctaText="Enroll Today" onCtaClick={openEnrollmentDrawer} />
+      <AnnouncementBar
+        nextBatchDateText="Holiday batch starts in 2 weeks"
+        ctaText="Claim 50% Off"
+        onCtaClick={openEnrollmentDrawer}
+      />
       {/* Navbar */}
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
@@ -319,7 +314,7 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative w-full py-12 md:py-24 lg:py-32 xl:py-36 bg-gradient-to-br from-amber-950 via-purple-950 to-slate-950 overflow-hidden">
+        <section className="relative w-full py-12 md:py-24 lg:py-32 xl:py-36 bg-gradient-to-br from-slate-950 via-sky-950 to-emerald-950 overflow-hidden">
           {/* AI background layers */}
           <div className="ai-grid" />
           <div className="absolute inset-0 -z-10">
@@ -328,15 +323,15 @@ export default function Home() {
             <div className="ai-aurora ai-aurora--3" />
             <div className="ai-noise" />
           </div>
-          <div className="diwali-lantern diwali-lantern--left" />
-          <div className="diwali-lantern diwali-lantern--right" />
-          <div className="diwali-sparkle diwali-sparkle--1" />
-          <div className="diwali-sparkle diwali-sparkle--2" />
-          <div className="diwali-light-string">
-            {diwaliLightColors.map((color, index) => (
+          <div className="holiday-glow holiday-glow--left" />
+          <div className="holiday-glow holiday-glow--right" />
+          <div className="holiday-sparkle holiday-sparkle--1" />
+          <div className="holiday-sparkle holiday-sparkle--2" />
+          <div className="holiday-light-string">
+            {holidayLightColors.map((color, index) => (
               <span
-                key={`diwali-bulb-${index}`}
-                className="diwali-bulb"
+                key={`holiday-bulb-${index}`}
+                className="holiday-bulb"
                 style={{ "--bulb-color": color } as React.CSSProperties}
               />
             ))}
@@ -344,32 +339,32 @@ export default function Home() {
           <div className="container px-4 md:px-6 relative">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-start">
               <div className="flex flex-col justify-center space-y-5 order-2 lg:order-1">
-                <div className="inline-flex items-center gap-2 self-start rounded-full border border-amber-400/40 bg-amber-500/20 px-3 py-1 text-sm font-semibold text-amber-100 shadow-sm shadow-amber-500/40 backdrop-blur-sm">
+                <div className="inline-flex items-center gap-2 self-start rounded-full border border-emerald-300/50 bg-emerald-400/20 px-3 py-1 text-sm font-semibold text-emerald-50 shadow-sm shadow-emerald-500/30 backdrop-blur-sm">
                   <Sparkles className="h-4 w-4" />
-                  <span>Diwali Cohort • 30% Festival Savings Live</span>
+                  <span>Holiday Cohort • 50% Christmas &amp; New Year Savings</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <Badge className="bg-amber-400/20 text-amber-100 border-amber-300/40 hover:bg-amber-400/30">
-                    Diwali Celebration Batch
+                  <Badge className="bg-red-400/20 text-red-100 border-red-300/40 hover:bg-red-400/30">
+                    Christmas &amp; New Year Batch
                   </Badge>
-                  <Badge className="bg-purple-400/20 text-purple-100 border-purple-300/30 hover:bg-purple-400/30">
+                  <Badge className="bg-emerald-400/20 text-emerald-100 border-emerald-300/30 hover:bg-emerald-400/30">
                     6-Month Program
                   </Badge>
                   <Badge className="bg-pink-400/20 text-pink-100 border-pink-300/30 hover:bg-pink-400/30">
                     Weekend Batches
                   </Badge>
-                  <Badge className="bg-indigo-400/20 text-indigo-100 border-indigo-300/30 hover:bg-indigo-400/30">
+                  <Badge className="bg-sky-400/20 text-sky-100 border-sky-300/30 hover:bg-sky-400/30">
                     For Working Professionals
                   </Badge>
                 </div>
                 <div className="space-y-3">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-gradient-ai">
-                    Light Up Your AI Career This Diwali
+                    Launch Your AI Career for the New Year
                   </h1>
                   <p className="max-w-[600px] text-gray-100 md:text-xl">
-                    Celebrate the Festival of Lights by mastering GenAI and ML with evening-friendly mentor hours,
-                    festive cohort projects, and guaranteed placement backing — all with our limited-time 30% Diwali
-                    offer.
+                    Celebrate Christmas and the New Year by mastering GenAI and ML with evening-friendly mentor hours,
+                    festive cohort projects, and guaranteed placement backing — all with our limited-time 50% online
+                    offer at ₹59,000.
                   </p>
                 </div>
 
@@ -382,8 +377,8 @@ export default function Home() {
                   <FeatureBadge text="LLM Fine-tuning" />
                   <FeatureBadge text="RAG Systems" />
                   <FeatureBadge text="Langgraph" />
-                  <FeatureBadge text="Diwali Mentor Hours" />
-                  <FeatureBadge text="Festival Sprint Demos" />
+                  <FeatureBadge text="Holiday Mentor Hours" />
+                  <FeatureBadge text="New Year Demo Day" />
                 </div>
 
                 <EnrollmentBanner seatsLeft={5} />
@@ -454,30 +449,30 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Diwali Specials */}
-        <section className="relative w-full py-10 bg-gradient-to-r from-amber-100/40 via-rose-100/30 to-orange-100/40 dark:from-amber-500/10 dark:via-purple-500/10 dark:to-rose-500/10">
+        {/* Holiday Specials */}
+        <section className="relative w-full py-10 bg-gradient-to-r from-sky-50/60 via-emerald-50/50 to-indigo-50/60 dark:from-sky-500/10 dark:via-emerald-500/10 dark:to-indigo-500/10">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="diwali-sparkle diwali-sparkle--3" />
+            <div className="holiday-sparkle holiday-sparkle--3" />
           </div>
           <div className="container px-4 md:px-6 relative">
             <div className="flex flex-col items-center text-center gap-3 mb-8">
-              <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-white/60 px-3 py-1 text-sm font-medium text-amber-700 shadow-sm shadow-amber-200/50 backdrop-blur">
+              <div className="inline-flex items-center gap-2 rounded-full border border-sky-400/40 bg-white/60 px-3 py-1 text-sm font-medium text-sky-700 shadow-sm shadow-sky-200/50 backdrop-blur">
                 <Sparkles className="h-4 w-4" />
-                <span>Festival Exclusives</span>
+                <span>Holiday Exclusives</span>
               </div>
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-slate-900 dark:text-white">
-                Diwali Specials For Our New Cohort
+                Christmas &amp; New Year Specials For Our New Cohort
               </h2>
               <p className="max-w-2xl text-muted-foreground">
-                Join a celebratory learning experience with extra mentor time, festive sprint demos, and savings crafted
-                for the Festival of Lights.
+                Join a celebratory learning experience with extra mentor time, festive sprint demos, and holiday-only
+                savings crafted to start 2025 strong.
               </p>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
-              {diwaliHighlights.map(({ title, description, icon: Icon, accent }, index) => (
+              {holidayHighlights.map(({ title, description, icon: Icon, accent }, index) => (
                 <div
                   key={title}
-                  className="relative overflow-hidden rounded-xl border border-white/60 bg-white/70 p-6 shadow-lg shadow-amber-200/40 backdrop-blur dark:border-white/10 dark:bg-slate-900/60"
+                  className="relative overflow-hidden rounded-xl border border-white/60 bg-white/70 p-6 shadow-lg shadow-sky-200/40 backdrop-blur dark:border-white/10 dark:bg-slate-900/60"
                 >
                   <div className={`absolute inset-0 bg-gradient-to-br ${accent}`} aria-hidden />
                   <div className="relative flex flex-col gap-3 text-left text-slate-900 dark:text-slate-100">
