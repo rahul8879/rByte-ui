@@ -9,7 +9,7 @@ const API_BASE_URL = "https://bytex-backend.onrender.com/api"
  * Helper function to handle API responses
  */
 async function handleApiResponse(response: Response) {
-  // Check if the response is JSON
+  
   const contentType = response.headers.get("content-type")
   if (!contentType || !contentType.includes("application/json")) {
     // Not JSON, try to get the text for better error messages
