@@ -11,51 +11,57 @@ interface PricingSectionProps {
 }
 
 export default function PricingSection({ onEnroll }: PricingSectionProps) {
-
-  const onlineFeatures = [
-    "Live online weekend classes",
-    "24/7 doubt resolution",
-    "Lifetime access to course materials",
-    "8+ hands-on projects",
-    "Personalized learning path",
-    "Career transition support",
-    "Placement assistance",
-    "Industry expert mentorship",
-    "Flexible learning schedule",
-    "Recorded sessions for revision",
+  const dataScienceFeatures = [
+    "Python, SQL, and data wrangling foundations",
+    "Statistics, probability, and experiment design",
+    "Supervised & unsupervised ML workflows",
+    "Feature engineering and model evaluation",
+    "Deep learning with TensorFlow/PyTorch",
+    "End-to-end data science capstone project",
+    "Industry datasets and case studies",
+    "Career guidance for ML roles",
   ]
 
-  const offlineFeatures = [
-    "In-person weekend classes",
-    "Direct interaction with instructors",
-    "Hands-on lab sessions",
-    "Collaborative learning environment",
-    "Networking opportunities",
-    "10+ hands-on projects",
-    "Enhanced placement support",
-    "Personalized career coaching",
-    "Industry visits and workshops",
-    "Exclusive hackathons and events",
+  const genAiAgenticFeatures = [
+    "Prompting, retrieval, and RAG design",
+    "Agentic workflows with tool calling",
+    "Multi-agent systems and orchestration",
+    "LLM fine-tuning and evaluation loops",
+    "Safety, guardrails, and reliability",
+    "Deployable GenAI apps with APIs",
+    "Production-ready demos and portfolios",
+    "Mentor reviews and hiring prep",
   ]
 
-  const projectSprintFeatures = [
-    "4-week mentor-led agentic AI build sprint",
-    "Ship autonomous agents, RAG copilots, and AI workflows",
-    "End-to-end productization from ideation to launch",
-    "Hands-on LLMOps with prompt orchestration and evals",
-    "Cloud deployment templates (AWS Bedrock, Vertex, Vercel)",
-    "Weekly agent labs, code reviews, and failure clinics",
-    "Portfolio-ready GitHub repos, tech notes, and demos",
-    "Lifetime access to agent architecture walkthroughs",
+  const fullStackAiFeatures = [
+    "From basics to advanced AI engineering",
+    "Data science + GenAI + Agentic AI",
+    "End-to-end AI product development",
+    "LLMOps & MLOps for production delivery",
+    "Real business projects and capstone",
+    "Interview prep and placement support",
+    "Live weekend cohorts with mentors",
+    "Career transition roadmap",
+  ]
+
+  const mlopsFeatures = [
+    "Data/feature pipelines and orchestration",
+    "Model registry, versioning, and CI/CD",
+    "Model serving, APIs, and scaling",
+    "Monitoring, drift detection, and alerts",
+    "LLMOps stack for GenAI reliability",
+    "Cloud deployment and infra basics",
+    "Production incident playbooks",
+    "Portfolio with deployable systems",
   ]
 
   return (
     <div className="container mx-auto px-4 py-16">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Flexible Pricing Options</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">2026 AI Learning Tracks</h2>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-          Choose the learning path that fits your goals—commit to our full-stack programs or jump into the new
-          project-based accelerator to ship production-ready AI in weeks.
+          Pick a focused track or go end-to-end. Each pathway is designed for job-ready outcomes in Data Science,
+          GenAI + Agentic AI, Full Stack AI, or MLOps.
         </p>
       </div>
 
@@ -65,11 +71,10 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
             <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
               <Lightbulb className="h-12 w-12 text-purple-500 flex-shrink-0" />
               <div>
-                <h3 className="text-xl font-bold mb-2">Personalized Learning Experience</h3>
+                <h3 className="text-xl font-bold mb-2">Personalized Track Selection</h3>
                 <p className="text-muted-foreground">
-                  Our program offers a customized curriculum based on your current knowledge and learning curve. We
-                  assess your skills and adapt the content to ensure optimal learning progress, whether you're a
-                  beginner or have some experience in the field.
+                  We assess your current level and align you to the right pathway. Whether you're starting from zero
+                  or upskilling into agentic AI, the curriculum adapts to your pace and goals.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
                   <div className="flex items-start gap-2">
@@ -109,67 +114,78 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
 
       <Tabs defaultValue="all" className="w-full">
         <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-8">
-          <TabsTrigger value="all">All Options</TabsTrigger>
-          <TabsTrigger value="compare">Program Comparison</TabsTrigger>
-          <TabsTrigger value="competitors">Rbyte vs Others</TabsTrigger>
+          <TabsTrigger value="all">All Tracks</TabsTrigger>
+          <TabsTrigger value="compare">Track Comparison</TabsTrigger>
+          <TabsTrigger value="competitors">Rbyte Advantage</TabsTrigger>
         </TabsList>
         <TabsContent value="all">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
             <div className="relative">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
                 <Badge className="bg-amber-100 text-amber-800 border-amber-200 px-3 py-1 text-xs font-medium">
-                  Best Value
+                  Best For Foundations
                 </Badge>
               </div>
               <PricingCard
-                title="Online Program"
-                price="₹59,000"
-                originalPrice="₹1,18,000"
-                discountPercentage={50}
-                description="Comprehensive online AI engineering program with live weekend classes and flexible learning options."
-                features={onlineFeatures}
-                buttonText="Enroll Now"
-                popular={true}
-                duration="6 Months"
-                audience="Engineering Students & Working Professionals"
+                title="Data Science (ML + DL)"
+                price="Custom"
+                description="Master the data science stack with modern ML/DL projects and industry-grade workflows."
+                features={dataScienceFeatures}
+                buttonText="Get Pricing"
+                duration="12-16 Weeks"
+                audience="Students & Analysts"
                 onClick={onEnroll}
               />
             </div>
             <div className="relative">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
                 <Badge className="bg-purple-100 text-purple-800 border-purple-200 px-3 py-1 text-xs font-medium">
-                  Premium Experience
+                  Most Popular
                 </Badge>
               </div>
               <PricingCard
-                title="Offline Program"
-                price="₹89,999"
-                originalPrice="₹1,28,570"
-                discountPercentage={30}
-                description="Immersive in-person learning experience with direct mentorship and enhanced networking opportunities."
-                features={offlineFeatures}
-                buttonText="Enroll Now"
-                duration="9 Months"
-                audience="Engineering & UG Students and Professionals"
+                title="GenAI + Agentic AI"
+                price="Custom"
+                description="Build real agentic systems, RAG copilots, and GenAI applications that run in production."
+                features={genAiAgenticFeatures}
+                buttonText="Get Pricing"
+                popular={true}
+                duration="10-14 Weeks"
+                audience="Developers & Product Teams"
                 onClick={onEnroll}
               />
             </div>
             <div className="relative">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
                 <Badge className="bg-emerald-100 text-emerald-800 border-emerald-200 px-3 py-1 text-xs font-medium">
-                  Project-Based Sprint
+                  End-to-End Track
                 </Badge>
               </div>
               <PricingCard
-                title="AI Project Accelerator"
-                price="₹13,000"
-                originalPrice="₹18,571"
-                discountPercentage={30}
-                description="Build agentic assistants, RAG systems, and deployable AI products with a guided GenAI-first playbook."
-                features={projectSprintFeatures}
-                buttonText="Start Building"
-                duration="4 Weeks"
-                audience="Developers & Analysts upskilling to AI Engineers"
+                title="Full Stack AI (Basics to Advanced)"
+                price="Custom"
+                description="From fundamentals to production-grade AI and agentic systems with career support."
+                features={fullStackAiFeatures}
+                buttonText="Get Pricing"
+                duration="24-28 Weeks"
+                audience="Career Switchers"
+                onClick={onEnroll}
+              />
+            </div>
+            <div className="relative">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                <Badge className="bg-sky-100 text-sky-800 border-sky-200 px-3 py-1 text-xs font-medium">
+                  Production Focus
+                </Badge>
+              </div>
+              <PricingCard
+                title="MLOps + LLMOps"
+                price="Custom"
+                description="Own the production layer: pipelines, deployment, monitoring, and reliability."
+                features={mlopsFeatures}
+                buttonText="Get Pricing"
+                duration="8-12 Weeks"
+                audience="ML Engineers & DevOps"
                 onClick={onEnroll}
               />
             </div>
@@ -181,56 +197,58 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
               <thead>
                 <tr>
                   <th className="text-left p-4 bg-muted/50">Feature</th>
-                  <th className="text-center p-4 bg-muted/50">Online Program</th>
-                  <th className="text-center p-4 bg-muted/50">Offline Program</th>
-                  <th className="text-center p-4 bg-muted/50">AI Project Accelerator</th>
+                  <th className="text-center p-4 bg-muted/50">Data Science</th>
+                  <th className="text-center p-4 bg-muted/50">GenAI + Agentic</th>
+                  <th className="text-center p-4 bg-muted/50">Full Stack AI</th>
+                  <th className="text-center p-4 bg-muted/50">MLOps</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b">
-                  <td className="p-4 font-medium">Price</td>
-                  <td className="p-4 text-center">
-                    ₹59,000 <span className="text-sm text-green-600">(50% off)</span>
-                  </td>
-                  <td className="p-4 text-center">
-                    ₹89,999 <span className="text-sm text-green-600">(30% off)</span>
-                  </td>
-                  <td className="p-4 text-center">
-                    ₹13,000 <span className="text-sm text-emerald-600">(30% off)</span>
-                  </td>
+                  <td className="p-4 font-medium">Pricing</td>
+                  <td className="p-4 text-center">Custom</td>
+                  <td className="p-4 text-center">Custom</td>
+                  <td className="p-4 text-center">Custom</td>
+                  <td className="p-4 text-center">Custom</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Duration</td>
-                  <td className="p-4 text-center">6 Months</td>
-                  <td className="p-4 text-center">9 Months</td>
-                  <td className="p-4 text-center">4 Weeks</td>
+                  <td className="p-4 text-center">12-16 Weeks</td>
+                  <td className="p-4 text-center">10-14 Weeks</td>
+                  <td className="p-4 text-center">24-28 Weeks</td>
+                  <td className="p-4 text-center">8-12 Weeks</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Class Format</td>
-                  <td className="p-4 text-center">Live Online</td>
-                  <td className="p-4 text-center">In-Person</td>
-                  <td className="p-4 text-center">Agentic build labs (Live + async)</td>
+                  <td className="p-4 text-center">Live + async</td>
+                  <td className="p-4 text-center">Live + labs</td>
+                  <td className="p-4 text-center">Live weekend cohorts</td>
+                  <td className="p-4 text-center">Live + infra labs</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Projects</td>
-                  <td className="p-4 text-center">8+</td>
+                  <td className="p-4 text-center">6-8</td>
+                  <td className="p-4 text-center">4-6</td>
                   <td className="p-4 text-center">10+</td>
-                  <td className="p-4 text-center">3 agentic GenAI builds</td>
+                  <td className="p-4 text-center">4-6</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Personalized Curriculum</td>
                   <td className="p-4 text-center">✅</td>
+                  <td className="p-4 text-center">✅ Agent roadmaps</td>
                   <td className="p-4 text-center">✅</td>
-                  <td className="p-4 text-center">✅ Agent & RAG roadmaps</td>
+                  <td className="p-4 text-center">✅</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Placement Support</td>
-                  <td className="p-4 text-center">✅</td>
-                  <td className="p-4 text-center">✅ Enhanced</td>
-                  <td className="p-4 text-center">Agent portfolio review & hiring radar</td>
+                  <td className="p-4 text-center">Career guidance</td>
+                  <td className="p-4 text-center">Portfolio review</td>
+                  <td className="p-4 text-center">Full support</td>
+                  <td className="p-4 text-center">Role-specific prep</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Recorded Sessions</td>
+                  <td className="p-4 text-center">✅</td>
                   <td className="p-4 text-center">✅</td>
                   <td className="p-4 text-center">✅</td>
                   <td className="p-4 text-center">✅</td>
@@ -238,20 +256,23 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
                 <tr className="border-b">
                   <td className="p-4 font-medium">Industry Networking</td>
                   <td className="p-4 text-center">Virtual</td>
-                  <td className="p-4 text-center">In-Person</td>
-                  <td className="p-4 text-center">Demo day with founders</td>
+                  <td className="p-4 text-center">Virtual + demo day</td>
+                  <td className="p-4 text-center">Hiring demo day</td>
+                  <td className="p-4 text-center">Infra & platform labs</td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Learning Pace</td>
                   <td className="p-4 text-center">Flexible</td>
+                  <td className="p-4 text-center">Accelerated</td>
                   <td className="p-4 text-center">Structured</td>
                   <td className="p-4 text-center">Accelerated</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium">Target Audience</td>
-                  <td className="p-4 text-center">Working Professionals & Students</td>
-                  <td className="p-4 text-center">Engineering & UG Students and Professionals</td>
-                  <td className="p-4 text-center">Builders showcasing deploy-ready GenAI</td>
+                  <td className="p-4 text-center">Students & Analysts</td>
+                  <td className="p-4 text-center">Developers & Product Teams</td>
+                  <td className="p-4 text-center">Career Switchers</td>
+                  <td className="p-4 text-center">ML Engineers & DevOps</td>
                 </tr>
               </tbody>
             </table>
@@ -259,9 +280,9 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
         </TabsContent>
         <TabsContent value="competitors">
           <div className="mb-6 text-center">
-            <h3 className="text-2xl font-bold mb-2">How Rbyte Compares to Big Brands</h3>
+            <h3 className="text-2xl font-bold mb-2">Why Rbyte.ai Wins in 2026</h3>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Choose the right learning path for your career growth with a transparent comparison
+              Depth, portfolio outcomes, and production readiness—without the fluff.
             </p>
           </div>
           <div className="overflow-x-auto">
@@ -271,14 +292,8 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
                   <th className="text-left p-4">Feature</th>
                   <th className="text-center p-4">
                     <div className="flex flex-col items-center">
-                      <span className="font-bold text-purple-600">Rbyte.ai Online</span>
+                      <span className="font-bold text-purple-600">Rbyte.ai Tracks</span>
                       <Badge className="mt-1 bg-amber-100 text-amber-800 border-amber-200">Best Value</Badge>
-                    </div>
-                  </th>
-                  <th className="text-center p-4">
-                    <div className="flex flex-col items-center">
-                      <span className="font-bold text-purple-600">Rbyte.ai Offline</span>
-                      <Badge className="mt-1 bg-purple-100 text-purple-800 border-purple-200">Premium Experience</Badge>
                     </div>
                   </th>
                   <th className="text-center p-4">
@@ -291,20 +306,13 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
                   <td className="p-4 font-medium">Price</td>
                   <td className="p-4 text-center">
                     <div className="flex flex-col items-center">
-                      <span className="font-bold text-green-600">₹59,000</span>
-                      <span className="text-xs text-green-600">(50% Off)</span>
-                    </div>
-                  </td>
-                  <td className="p-4 text-center">
-                    <div className="flex flex-col items-center">
-                      <span className="font-bold text-purple-600">₹89,999</span>
-                      <span className="text-xs text-purple-600">(30% Off)</span>
+                      <span className="font-bold text-green-600">Custom for each track</span>
                     </div>
                   </td>
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <AlertTriangle className="h-4 w-4 text-amber-500" />
-                      <span>₹1,00,000 – ₹2,50,000</span>
+                      <span>High & opaque pricing</span>
                     </div>
                   </td>
                 </tr>
@@ -313,19 +321,13 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <Check className="h-5 w-5 text-green-500" />
-                      <span>6 Months</span>
-                    </div>
-                  </td>
-                  <td className="p-4 text-center">
-                    <div className="flex items-center justify-center gap-1">
-                      <Check className="h-5 w-5 text-green-500" />
-                      <span>9 Months</span>
+                      <span>Optimized by track</span>
                     </div>
                   </td>
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <AlertTriangle className="h-4 w-4 text-amber-500" />
-                      <span>8–12 Months</span>
+                      <span>One-size-fits-all</span>
                     </div>
                   </td>
                 </tr>
@@ -334,19 +336,13 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <Check className="h-5 w-5 text-green-500" />
-                      <span>Live Online</span>
-                    </div>
-                  </td>
-                  <td className="p-4 text-center">
-                    <div className="flex items-center justify-center gap-1">
-                      <Check className="h-5 w-5 text-green-500" />
-                      <span>In-Person</span>
+                      <span>Live + project labs</span>
                     </div>
                   </td>
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <AlertTriangle className="h-4 w-4 text-amber-500" />
-                      <span>Mostly Online (Few In-Person)</span>
+                      <span>Mostly recorded</span>
                     </div>
                   </td>
                 </tr>
@@ -355,19 +351,13 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <Check className="h-5 w-5 text-green-500" />
-                      <span>8+ Real Projects</span>
-                    </div>
-                  </td>
-                  <td className="p-4 text-center">
-                    <div className="flex items-center justify-center gap-1">
-                      <Check className="h-5 w-5 text-green-500" />
-                      <span>10+ Real Projects</span>
+                      <span>Production-grade portfolios</span>
                     </div>
                   </td>
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <X className="h-5 w-5 text-red-500" />
-                      <span>3–5 Academic Projects</span>
+                      <span>Template projects</span>
                     </div>
                   </td>
                 </tr>
@@ -376,19 +366,13 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <Check className="h-5 w-5 text-green-500" />
-                      <span>1-on-1 Mentoring</span>
-                    </div>
-                  </td>
-                  <td className="p-4 text-center">
-                    <div className="flex items-center justify-center gap-1">
-                      <Check className="h-5 w-5 text-green-500" />
-                      <span>1-on-1 Mentoring + Labs</span>
+                      <span>1-on-1 mentor reviews</span>
                     </div>
                   </td>
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <X className="h-5 w-5 text-red-500" />
-                      <span>Group Sessions</span>
+                      <span>Group-only sessions</span>
                     </div>
                   </td>
                 </tr>
@@ -397,19 +381,13 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <Check className="h-5 w-5 text-green-500" />
-                      <span>Personalized</span>
-                    </div>
-                  </td>
-                  <td className="p-4 text-center">
-                    <div className="flex items-center justify-center gap-1">
-                      <Check className="h-5 w-5 text-green-500" />
-                      <span>On-Campus & Online</span>
+                      <span>Role-aligned coaching</span>
                     </div>
                   </td>
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <X className="h-5 w-5 text-red-500" />
-                      <span>Resume Reviews & Mock Calls</span>
+                      <span>Generic prep</span>
                     </div>
                   </td>
                 </tr>
@@ -418,19 +396,13 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <Check className="h-5 w-5 text-green-500" />
-                      <span>Yes</span>
-                    </div>
-                  </td>
-                  <td className="p-4 text-center">
-                    <div className="flex items-center justify-center gap-1">
-                      <Check className="h-5 w-5 text-green-500" />
-                      <span>Yes</span>
+                      <span>Track-specific support</span>
                     </div>
                   </td>
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <AlertTriangle className="h-4 w-4 text-amber-500" />
-                      <span>Often Conditional</span>
+                      <span>Often conditional</span>
                     </div>
                   </td>
                 </tr>
@@ -439,13 +411,7 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <Check className="h-5 w-5 text-green-500" />
-                      <span>Direct Access</span>
-                    </div>
-                  </td>
-                  <td className="p-4 text-center">
-                    <div className="flex items-center justify-center gap-1">
-                      <Check className="h-5 w-5 text-green-500" />
-                      <span>Classroom Access</span>
+                      <span>Direct access to mentors</span>
                     </div>
                   </td>
                   <td className="p-4 text-center">
@@ -457,12 +423,6 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Refund Policy</td>
-                  <td className="p-4 text-center">
-                    <div className="flex items-center justify-center gap-1">
-                      <Check className="h-5 w-5 text-green-500" />
-                      <span>Transparent</span>
-                    </div>
-                  </td>
                   <td className="p-4 text-center">
                     <div className="flex items-center justify-center gap-1">
                       <Check className="h-5 w-5 text-green-500" />

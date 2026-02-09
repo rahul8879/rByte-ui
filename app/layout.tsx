@@ -11,16 +11,17 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "RByte.ai - AI Engineering Training & Product Development",
+  title: "RByte.ai - Data Science, GenAI & Agentic AI Courses | MLOps Training",
   description:
-    "Premier AI Engineering training program for working professionals. Learn to build cutting-edge AI products and transform your career in just 6 months.",
+    "Become job-ready in 2026 with focused AI tracks: Data Science (ML/DL), GenAI + Agentic AI, Full Stack AI from basics to advanced, and MLOps. Live weekend cohorts and real-world projects.",
   keywords:
-    "AI engineering, machine learning training, AI product development, career transition, weekend program, working professionals",
+    "data science course, machine learning course, deep learning training, genai course, agentic ai course, llm course, mlops training, ai engineering, live weekend program, ai projects, ai career transition",
   generator: "Next.js",
   viewport: "width=device-width, initial-scale=1, maximum-scale=5",
   openGraph: {
-    title: "RByte.ai - AI Engineering Training & Product Development",
-    description: "Transform your career with our comprehensive AI Engineering program for working professionals",
+    title: "RByte.ai - Data Science, GenAI & Agentic AI Courses | MLOps Training",
+    description:
+      "Focused AI tracks for 2026: Data Science (ML/DL), GenAI + Agentic AI, Full Stack AI, and MLOps with live cohorts and real projects.",
     url: "https://rbyte.ai",
     siteName: "RByte.ai",
     images: [
@@ -36,8 +37,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "RByte.ai - AI Engineering Training & Product Development",
-    description: "Transform your career with our comprehensive AI Engineering program for working professionals",
+    title: "RByte.ai - Data Science, GenAI & Agentic AI Courses | MLOps Training",
+    description:
+      "Focused AI tracks for 2026: Data Science (ML/DL), GenAI + Agentic AI, Full Stack AI, and MLOps with live cohorts and real projects.",
     images: ["/rbyte-ai-hero.png"],
   },
 }

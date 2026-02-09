@@ -72,20 +72,20 @@ export default function Home() {
 
   const holidayHighlights = [
     {
-      title: "Christmas Countdown Offer",
-      description: "50% off the online program—lock your seat at ₹59,000 before the New Year bell rings.",
-      icon: Gift,
-      accent: "from-red-400/20 via-amber-300/10 to-transparent",
-    },
-    {
-      title: "Year-End Career Reset",
-      description: "Holiday mentor hours, interview drills, and project polishing to launch strong in January.",
+      title: "2026 Agentic AI Launch",
+      description: "Build autonomous agents, multi-tool copilots, and RAG systems that deliver real business outcomes.",
       icon: Sparkles,
       accent: "from-emerald-400/20 via-sky-300/10 to-transparent",
     },
     {
-      title: "Demo Day Fireworks",
-      description: "Ship a festive AI sprint and present it in our New Year hiring showcase with partner startups.",
+      title: "Career-Ready Portfolio",
+      description: "Ship deployable projects with LLMOps, evals, and monitoring to prove production readiness.",
+      icon: Gift,
+      accent: "from-amber-400/20 via-orange-300/10 to-transparent",
+    },
+    {
+      title: "Focused Learning Tracks",
+      description: "Pick Data Science, GenAI + Agentic AI, Full Stack AI, or MLOps—tailored for your role.",
       icon: PartyPopper,
       accent: "from-sky-400/20 via-indigo-300/10 to-transparent",
     },
@@ -266,7 +266,7 @@ export default function Home() {
       <DiwaliSaleModal onEnroll={openEnrollmentDrawer} storageKey="holiday-sale-modal-seen" />
       {/* Announcement Bar */}
       <AnnouncementBar
-        nextBatchDateText="Holiday batch starts in 2 weeks"
+        nextBatchDateText="Next batch starts in 2 weeks"
         ctaText="Claim 50% Off"
         onCtaClick={openEnrollmentDrawer}
       />
@@ -341,30 +341,30 @@ export default function Home() {
               <div className="flex flex-col justify-center space-y-5 order-2 lg:order-1">
                 <div className="inline-flex items-center gap-2 self-start rounded-full border border-emerald-300/50 bg-emerald-400/20 px-3 py-1 text-sm font-semibold text-emerald-50 shadow-sm shadow-emerald-500/30 backdrop-blur-sm">
                   <Sparkles className="h-4 w-4" />
-                  <span>Holiday Cohort • 50% Christmas &amp; New Year Savings</span>
+                  <span>2026 Cohort • Agentic AI Career Upgrade</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <Badge className="bg-red-400/20 text-red-100 border-red-300/40 hover:bg-red-400/30">
-                    Christmas &amp; New Year Batch
+                    2026 Agentic AI Track
                   </Badge>
                   <Badge className="bg-emerald-400/20 text-emerald-100 border-emerald-300/30 hover:bg-emerald-400/30">
-                    6-Month Program
+                    Beginner to Advanced
                   </Badge>
                   <Badge className="bg-pink-400/20 text-pink-100 border-pink-300/30 hover:bg-pink-400/30">
-                    Weekend Batches
+                    Live Weekend Cohorts
                   </Badge>
                   <Badge className="bg-sky-400/20 text-sky-100 border-sky-300/30 hover:bg-sky-400/30">
-                    For Working Professionals
+                    For Students & Professionals
                   </Badge>
                 </div>
                 <div className="space-y-3">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-gradient-ai">
-                    Launch Your AI Career for the New Year
+                    Become an Agentic AI Engineer in 2026
                   </h1>
                   <p className="max-w-[600px] text-gray-100 md:text-xl">
-                    Celebrate Christmas and the New Year by mastering GenAI and ML with evening-friendly mentor hours,
-                    festive cohort projects, and guaranteed placement backing — all with our limited-time 50% online
-                    offer at ₹59,000.
+                    AI is changing every role. Lead the change with a structured path from data science foundations to
+                    GenAI, agentic systems, and production MLOps—choose the track that fits your goals and ship
+                    job-ready projects. Cohorts are intentionally small to keep mentor time high and outcomes strong.
                   </p>
                 </div>
 
@@ -372,13 +372,13 @@ export default function Home() {
                   <FeatureBadge text="Python & Data Science" />
                   <FeatureBadge text="Machine Learning" />
                   <FeatureBadge text="Deep Learning" />
-                  <FeatureBadge text="TensorFlow" />
-                  <FeatureBadge text="NLP & Transformers" />
-                  <FeatureBadge text="LLM Fine-tuning" />
-                  <FeatureBadge text="RAG Systems" />
-                  <FeatureBadge text="Langgraph" />
-                  <FeatureBadge text="Holiday Mentor Hours" />
-                  <FeatureBadge text="New Year Demo Day" />
+                  <FeatureBadge text="GenAI & LLMs" />
+                  <FeatureBadge text="Agentic AI Systems" />
+                  <FeatureBadge text="RAG & Tool Use" />
+                  <FeatureBadge text="MLOps & LLMOps" />
+                  <FeatureBadge text="Deployment & Monitoring" />
+                  <FeatureBadge text="Live Weekend Cohorts" />
+                  <FeatureBadge text="Placement Support" />
                 </div>
 
                 <EnrollmentBanner seatsLeft={5} />
@@ -386,14 +386,17 @@ export default function Home() {
                 {/* Why to Join Video */}
                 <VideoPlayer
                   thumbnailUrl="/course-preview-thumbnail.png"
-                  videoTitle="Applied Data Science course with GenAI"
-                  videoDescription="Learn how our comprehensive program can transform your career with AI/ML & GenAI skills"
+                  videoTitle="Data Science, GenAI, and Agentic AI in one platform"
+                  videoDescription="Explore the tracks and projects that take you from basics to production-grade AI systems"
                   youtubeId="mdcEz7Gg7b4"
                 />
 
                 <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20 mt-4">
                   <p className="font-medium text-center text-white">Next Batch Starting In:</p>
                   <CountdownTimer targetDate={targetDate} className="my-3" />
+                  <p className="text-center text-xs text-white/80">
+                    Seats fill quickly as soon as the project slots are announced.
+                  </p>
                   <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center mt-2">
                     <ConsistentButton
                       size="lg"
@@ -449,7 +452,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Holiday Specials */}
+        {/* 2026 Launch Highlights */}
         <section className="relative w-full py-10 bg-gradient-to-r from-sky-50/60 via-emerald-50/50 to-indigo-50/60 dark:from-sky-500/10 dark:via-emerald-500/10 dark:to-indigo-500/10">
           <div className="absolute inset-0 pointer-events-none">
             <div className="holiday-sparkle holiday-sparkle--3" />
@@ -458,14 +461,14 @@ export default function Home() {
             <div className="flex flex-col items-center text-center gap-3 mb-8">
               <div className="inline-flex items-center gap-2 rounded-full border border-sky-400/40 bg-white/60 px-3 py-1 text-sm font-medium text-sky-700 shadow-sm shadow-sky-200/50 backdrop-blur">
                 <Sparkles className="h-4 w-4" />
-                <span>Holiday Exclusives</span>
+                <span>2026 Cohort Highlights</span>
               </div>
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-slate-900 dark:text-white">
-                Christmas &amp; New Year Specials For Our New Cohort
+                Agentic AI Tracks Built For Real-World Impact
               </h2>
               <p className="max-w-2xl text-muted-foreground">
-                Join a celebratory learning experience with extra mentor time, festive sprint demos, and holiday-only
-                savings crafted to start 2025 strong.
+                Choose a focused path or go end-to-end—from foundations to deployment—so you can lead AI initiatives in
+                2026.
               </p>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
