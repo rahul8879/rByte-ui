@@ -2,8 +2,8 @@
  * API utility functions for RByte.ai frontend
  */
 
-// Update the API_BASE_URL to match the production backend URL
-const API_BASE_URL = "https://bytex-backend.onrender.com/api"
+// Production backend — Azure East Asia
+const API_BASE_URL = "https://rbyteai-backend-aua4hva9dhcxekdq.eastasia-01.azurewebsites.net/api"
 
 /**
  * Helper function to handle API responses

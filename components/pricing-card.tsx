@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { CheckCircle } from "lucide-react"
+import { CheckCircle, CreditCard, IndianRupee } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
 import EnrollmentDrawer from "./enrollment-drawer"
@@ -84,7 +84,7 @@ export default function PricingCard({
           ))}
         </ul>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex flex-col gap-3">
         <Button
           className={cn(
             "w-full",
@@ -97,6 +97,17 @@ export default function PricingCard({
         >
           {buttonText}
         </Button>
+        <div className="w-full flex flex-col gap-1.5">
+          <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
+            <CreditCard className="h-3.5 w-3.5 text-green-500" />
+            <span className="text-green-700 font-medium">No-cost EMI available</span>
+            <span className="text-slate-400">· 3, 6, 12-month options</span>
+          </div>
+          <div className="flex items-center justify-center gap-1.5 text-xs text-slate-500">
+            <IndianRupee className="h-3 w-3" />
+            <span>Pricing personalised to your track & background</span>
+          </div>
+        </div>
       </CardFooter>
       {isEnrollmentOpen && <EnrollmentDrawer isOpen={isEnrollmentOpen} onClose={() => setIsEnrollmentOpen(false)} />}
     </Card>

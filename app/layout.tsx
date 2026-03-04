@@ -1,5 +1,5 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import "./globals.css"
 import { ToastContainer } from "@/components/ui/toast"
 import { Inter } from "next/font/google"
@@ -10,14 +10,20 @@ const inter = Inter({
   display: "swap", // Optimize font loading
 })
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+}
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://rbyte.ai"),
   title: "RByte.ai - Data Science, GenAI & Agentic AI Courses | MLOps Training",
   description:
     "Become job-ready in 2026 with focused AI tracks: Data Science (ML/DL), GenAI + Agentic AI, Full Stack AI from basics to advanced, and MLOps. Live weekend cohorts and real-world projects.",
   keywords:
     "data science course, machine learning course, deep learning training, genai course, agentic ai course, llm course, mlops training, ai engineering, live weekend program, ai projects, ai career transition",
   generator: "Next.js",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
   openGraph: {
     title: "RByte.ai - Data Science, GenAI & Agentic AI Courses | MLOps Training",
     description:
