@@ -3,6 +3,16 @@
 @tailwind utilities;
 
 @layer base {
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -137,10 +147,18 @@
     top: 1.75rem;
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
+    display: none; /* hidden on mobile */
     gap: 1.75rem;
     pointer-events: none;
     z-index: 25;
+    max-width: 100vw;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .holiday-light-string {
+      display: flex;
+    }
   }
 
   .holiday-light-string::before {
@@ -201,13 +219,13 @@
   }
 
   .holiday-glow--left {
-    left: -60px;
+    left: 0;
     top: 14%;
     animation: diwali-glide 18s ease-in-out infinite alternate;
   }
 
   .holiday-glow--right {
-    right: -60px;
+    right: 0;
     top: 24%;
     animation: diwali-glide 22s ease-in-out infinite alternate-reverse;
   }

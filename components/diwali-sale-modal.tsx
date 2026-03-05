@@ -17,7 +17,7 @@ interface DiwaliSaleModalProps {
   storageKey?: string
 }
 
-const DEFAULT_STORAGE_KEY = "cohort-2026-launch-modal-seen"
+const DEFAULT_STORAGE_KEY = "cohort-may2026-modal-seen"
 
 export default function DiwaliSaleModal({
   onEnroll,
@@ -75,7 +75,7 @@ export default function DiwaliSaleModal({
                 in 2026
               </DialogTitle>
               <DialogDescription className="mt-3 text-sm text-slate-300 sm:text-base">
-                New cohort starts <strong className="text-white">April 5, 2026</strong>. Only 5 seats
+                New cohort starts <strong className="text-white">May 5, 2026</strong>. Only 5 seats
                 remaining. Claim your 50% early-bird discount before they're gone.
               </DialogDescription>
             </DialogHeader>

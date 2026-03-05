@@ -32,7 +32,9 @@ import VideoPlayer from "@/components/video-player"
 import CountdownTimer from "@/components/countdown-timer"
 import EnrollmentBanner from "@/components/enrollment-banner"
 import FeatureBadge from "@/components/feature-badge"
-import JobMarketTrends from "@/components/job-market-trends"
+import WhyGenAISection from "@/components/why-genai-section"
+import WhoIsThisFor from "@/components/who-is-this-for"
+import FAQSection from "@/components/faq-section"
 import CourseDifferentiators from "@/components/course-differentiators"
 import FreeMasterclassBanner from "@/components/free-masterclass-banner"
 import DetailedCurriculum from "@/components/detailed-curriculum"
@@ -41,7 +43,6 @@ import SuccessMetrics from "@/components/success-metrics"
 import PlacementGuarantee from "@/components/placement-guarantee"
 import { useState } from "react"
 // Update the import to include the new FutureJobMarketPredictions component
-import FutureJobMarketPredictions from "@/components/future_job_market_predictions"
 // First, let's fix the enrollment drawer functionality by adding the missing import and component
 // Add this import at the top with the other imports:
 import EnrollmentDrawer from "@/components/enrollment-drawer"
@@ -62,11 +63,10 @@ import AnnouncementBar from "@/components/announcement-bar"
 import SocialProof from "@/components/social-proof"
 import TestimonialsSection from "@/components/testimonials-section"
 import DiwaliSaleModal from "@/components/diwali-sale-modal"
-import WhatsAppTestimonials from "@/components/whatsapp-testimonials"
 
 export default function Home() {
-  // Next batch date: April 5, 2026
-  const targetDate = new Date("2026-04-05T09:00:00+05:30")
+  // Next batch date: May 5, 2026
+  const targetDate = new Date("2026-05-05T09:00:00+05:30")
 
   const holidayLightColors = ["#dc2626", "#16a34a", "#facc15", "#38bdf8", "#dc2626", "#16a34a", "#facc15", "#38bdf8"]
 
@@ -265,11 +265,11 @@ export default function Home() {
         : "Download Syllabus"
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <DiwaliSaleModal onEnroll={openEnrollmentDrawer} storageKey="cohort-2026-launch-modal-seen" />
+    <div className="flex min-h-screen flex-col overflow-x-hidden w-full">
+      <DiwaliSaleModal onEnroll={openEnrollmentDrawer} storageKey="cohort-may2026-modal-seen" />
       {/* Announcement Bar */}
       <AnnouncementBar
-        nextBatchDateText="Next batch: April 5, 2026 — Only 5 seats left"
+        nextBatchDateText="Next batch: May 5, 2026 — Only 5 seats left"
         ctaText="Claim 50% Off"
         onCtaClick={openEnrollmentDrawer}
       />
@@ -322,9 +322,9 @@ export default function Home() {
       </header>
 
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative w-full py-12 md:py-24 lg:py-32 xl:py-36 bg-gradient-to-br from-slate-950 via-sky-950 to-emerald-950 overflow-hidden">
-          {/* AI background layers */}
+        {/* ── Hero ─────────────────────────────────────────── */}
+        <section className="relative w-full py-14 md:py-24 lg:py-28 bg-gradient-to-br from-slate-950 via-sky-950 to-emerald-950 overflow-hidden">
+          {/* Background layers */}
           <div className="ai-grid" />
           <div className="absolute inset-0 -z-10">
             <div className="ai-aurora ai-aurora--1" />
@@ -332,686 +332,190 @@ export default function Home() {
             <div className="ai-aurora ai-aurora--3" />
             <div className="ai-noise" />
           </div>
-          <div className="holiday-glow holiday-glow--left" />
-          <div className="holiday-glow holiday-glow--right" />
-          <div className="holiday-sparkle holiday-sparkle--1" />
-          <div className="holiday-sparkle holiday-sparkle--2" />
           <div className="holiday-light-string">
             {holidayLightColors.map((color, index) => (
-              <span
-                key={`holiday-bulb-${index}`}
-                className="holiday-bulb"
-                style={{ "--bulb-color": color } as React.CSSProperties}
-              />
+              <span key={`holiday-bulb-${index}`} className="holiday-bulb"
+                style={{ "--bulb-color": color } as React.CSSProperties} />
             ))}
           </div>
+
           <div className="container px-4 md:px-6 relative">
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-start">
-              <div className="flex flex-col justify-center space-y-5 order-2 lg:order-1">
-                <div className="inline-flex items-center gap-2 self-start rounded-full border border-emerald-300/50 bg-emerald-400/20 px-3 py-1 text-sm font-semibold text-emerald-50 shadow-sm shadow-emerald-500/30 backdrop-blur-sm">
-                  <Sparkles className="h-4 w-4" />
-                  <span>2026 Cohort • Agentic AI Career Upgrade</span>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <Badge className="bg-red-400/20 text-red-100 border-red-300/40 hover:bg-red-400/30">
-                    2026 Agentic AI Track
-                  </Badge>
-                  <Badge className="bg-emerald-400/20 text-emerald-100 border-emerald-300/30 hover:bg-emerald-400/30">
-                    Beginner to Advanced
-                  </Badge>
-                  <Badge className="bg-pink-400/20 text-pink-100 border-pink-300/30 hover:bg-pink-400/30">
-                    Live Weekend Cohorts
-                  </Badge>
-                  <Badge className="bg-sky-400/20 text-sky-100 border-sky-300/30 hover:bg-sky-400/30">
-                    For Students & Professionals
-                  </Badge>
-                </div>
-                <div className="space-y-3">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-gradient-ai">
-                    Become an Agentic AI Engineer in 2026
-                  </h1>
-                  <p className="max-w-[600px] text-gray-100 md:text-xl">
-                    AI is changing every role. Lead the change with a structured path from data science foundations to
-                    GenAI, agentic systems, and production MLOps—choose the track that fits your goals and ship
-                    job-ready projects. Cohorts are intentionally small to keep mentor time high and outcomes strong.
-                  </p>
+            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
+
+              {/* ── Left: text (always first — mobile & desktop) ── */}
+              <div className="flex flex-col gap-6">
+
+                {/* Pill */}
+                <div className="inline-flex items-center gap-2 self-start rounded-full border border-emerald-400/40 bg-emerald-400/15 px-4 py-1.5 text-sm font-semibold text-emerald-300 backdrop-blur-sm">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  May 2026 Cohort · Only 5 seats left
                 </div>
 
-                <div className="flex flex-wrap gap-3 my-2">
-                  <FeatureBadge text="Python & Data Science" />
-                  <FeatureBadge text="Machine Learning" />
-                  <FeatureBadge text="Deep Learning" />
-                  <FeatureBadge text="GenAI & LLMs" />
-                  <FeatureBadge text="Agentic AI Systems" />
-                  <FeatureBadge text="RAG & Tool Use" />
-                  <FeatureBadge text="MLOps & LLMOps" />
-                  <FeatureBadge text="Deployment & Monitoring" />
-                  <FeatureBadge text="Live Weekend Cohorts" />
-                  <FeatureBadge text="Placement Support" />
+                {/* Headline */}
+                <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl xl:text-6xl leading-[1.1] text-gradient-ai">
+                  Become an Agentic AI Engineer in 2026
+                </h1>
+
+                {/* Subline — punchy, 15 words */}
+                <p className="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-lg">
+                  Live weekend cohorts. Real projects. Mentor reviews.
+                  <span className="text-white font-semibold"> Supported until you land a ₹20 LPA+ AI role.</span>
+                </p>
+
+                {/* Trust stats */}
+                <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+                  {[
+                    { icon: "🎓", stat: "200+", label: "learners placed" },
+                    { icon: "💰", stat: "₹22 LPA", label: "avg. salary" },
+                    { icon: "⭐", stat: "4.9", label: "rating" },
+                    { icon: "👥", stat: "<25", label: "per cohort" },
+                  ].map(({ icon, stat, label }) => (
+                    <div key={label} className="flex items-center gap-1.5 text-slate-300">
+                      <span>{icon}</span>
+                      <span className="font-bold text-white">{stat}</span>
+                      <span className="text-slate-400">{label}</span>
+                    </div>
+                  ))}
                 </div>
 
-                <EnrollmentBanner seatsLeft={5} />
-
-                {/* Why to Join Video */}
-                <VideoPlayer
-                  thumbnailUrl="/course-preview-thumbnail.png"
-                  videoTitle="Data Science, GenAI, and Agentic AI in one platform"
-                  videoDescription="Explore the tracks and projects that take you from basics to production-grade AI systems"
-                  youtubeId="mdcEz7Gg7b4"
-                />
-
-                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20 mt-4">
-                  <p className="font-medium text-center text-white">Next Batch Starting In:</p>
-                  <CountdownTimer targetDate={targetDate} className="my-3" />
-                  <p className="text-center text-xs text-white/80">
-                    Seats fill quickly as soon as the project slots are announced.
-                  </p>
-                  <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center mt-2">
-                    <ConsistentButton
-                      size="lg"
-                      variant="gradient"
-                      className="btn-shimmer"
-                      onClick={openEnrollmentDrawer}
-                      rightIcon={<ArrowRight className="ml-2 h-4 w-4" />}
-                    >
-                      Secure Your Spot Now
-                    </ConsistentButton>
-                    <ConsistentButton
-                      size="lg"
-                      variant="outline"
-                      className="text-white border-white hover:bg-white/20"
-                      onClick={openSyllabusForm}
-                    >
-                      Get Course Details
-                    </ConsistentButton>
-                  </div>
-                  <div className="mt-3 flex justify-center">
-                    <CareerPathQuiz onEnroll={openEnrollmentDrawer} onGetDetails={openSyllabusForm} />
-                  </div>
+                {/* CTAs */}
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <ConsistentButton
+                    size="lg"
+                    variant="gradient"
+                    className="btn-shimmer w-full sm:w-auto"
+                    onClick={openEnrollmentDrawer}
+                    rightIcon={<ArrowRight className="ml-1 h-4 w-4" />}
+                  >
+                    Secure My Spot
+                  </ConsistentButton>
+                  <ConsistentButton
+                    size="lg"
+                    variant="outline"
+                    className="text-white border-white/40 hover:bg-white/10 w-full sm:w-auto"
+                    onClick={openSyllabusForm}
+                  >
+                    Get Course Details
+                  </ConsistentButton>
                 </div>
+
+                {/* Countdown */}
+                <div className="flex flex-col items-start gap-1">
+                  <p className="text-xs text-slate-400 uppercase tracking-wide font-medium">Next batch starts in</p>
+                  <CountdownTimer targetDate={targetDate} className="text-white" />
+                </div>
+
               </div>
 
-              <div className="flex items-center justify-center order-1 lg:order-2">
-                <div className="relative w-full max-w-[640px] aspect-video rounded-xl overflow-hidden shadow-2xl">
-                  {/* Hero Image */}
+              {/* ── Right: image ─────────────────────────────── */}
+              <div className="relative flex justify-center lg:justify-end">
+                <div className="relative w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl shadow-sky-900/40 aspect-[4/3]">
                   <Image
                     src="/rbyte-ai-team-hero.png"
-                    alt="Rbyte.ai - Learn AI, Build Products"
+                    alt="Rbyte.ai learners building AI projects"
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 520px"
                     priority
                   />
+                  {/* Subtle bottom gradient only — no competing CTA */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+                </div>
 
-                  {/* Interactive overlay */}
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-transparent to-transparent flex items-end justify-center p-6 cursor-pointer transition-all duration-300 hover:from-purple-900/90"
-                    onClick={openEnrollmentDrawer}
-                  >
-                    <div className="text-center">
-                      <h2 className="text-white text-2xl font-bold mb-2">Rbyte.ai - Learn AI, Build Products</h2>
-                      <div className="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full hover:bg-white/30 transition-all inline-block">
-                        <span className="text-white font-medium">Enroll Now</span>
-                      </div>
-                    </div>
+                {/* Floating achievement card */}
+                <div className="absolute -bottom-4 -left-4 sm:left-4 bg-white rounded-xl shadow-xl px-4 py-3 flex items-center gap-3 max-w-[220px]">
+                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-100 text-lg">🎉</div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-slate-900 truncate">Priya S. got placed</p>
+                    <p className="text-xs text-emerald-600 font-semibold">₹8L → ₹22 LPA · ML Engineer</p>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </section>
 
-        {/* 2026 Launch Highlights */}
-        <section className="relative w-full py-10 bg-gradient-to-r from-sky-50/60 via-emerald-50/50 to-indigo-50/60 dark:from-sky-500/10 dark:via-emerald-500/10 dark:to-indigo-500/10">
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="holiday-sparkle holiday-sparkle--3" />
+        {/* ── Video — below fold once user is interested ────── */}
+        <section className="w-full py-12 bg-slate-950 border-t border-slate-800/60">
+          <div className="container px-4 md:px-6 max-w-3xl mx-auto text-center space-y-4">
+            <p className="text-sm font-medium text-slate-400 uppercase tracking-wide">See it in action</p>
+            <h2 className="text-2xl font-bold text-white">Watch: Data Science → GenAI → Agentic AI in one program</h2>
+            <VideoPlayer
+              thumbnailUrl="/course-preview-thumbnail.png"
+              videoTitle="Data Science, GenAI, and Agentic AI in one platform"
+              videoDescription="Explore the tracks and projects that take you from basics to production-grade AI systems"
+              youtubeId="mdcEz7Gg7b4"
+            />
           </div>
-          <div className="container px-4 md:px-6 relative">
-            <div className="flex flex-col items-center text-center gap-3 mb-8">
-              <div className="inline-flex items-center gap-2 rounded-full border border-sky-400/40 bg-white/60 px-3 py-1 text-sm font-medium text-sky-700 shadow-sm shadow-sky-200/50 backdrop-blur">
-                <Sparkles className="h-4 w-4" />
-                <span>2026 Cohort Highlights</span>
+        </section>
+
+        {/* ── Why GenAI + Agentic AI ──────────────────────── */}
+        <WhyGenAISection />
+
+        {/* ── Social Proof bar ────────────────────────────── */}
+        <SocialProof />
+
+        {/* ── Who Is This For ─────────────────────────────── */}
+        <WhoIsThisFor />
+
+        {/* ── Free Masterclass nudge ──────────────────────── */}
+        <section className="w-full py-12 md:py-16 bg-slate-50">
+          <div className="container px-4 md:px-6">
+            <FreeMasterclassBanner onRegister={openRegistrationDrawer} />
+          </div>
+        </section>
+
+        {/* ── What You'll Build ───────────────────────────── */}
+        <ProjectsSection />
+
+        {/* ── How It Works (4 steps) ──────────────────────── */}
+        <section id="how-it-works" className="w-full py-16 md:py-24 bg-white">
+          <div className="container px-4 md:px-6 max-w-5xl mx-auto">
+            <div className="text-center space-y-3 mb-12">
+              <div className="inline-block rounded-lg bg-blue-100 px-3 py-1 text-sm text-blue-600 font-medium">
+                How It Works
               </div>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-slate-900 dark:text-white">
-                Agentic AI Tracks Built For Real-World Impact
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                From Enrolment to Offer Letter
               </h2>
-              <p className="max-w-2xl text-muted-foreground">
-                Choose a focused path or go end-to-end—from foundations to deployment—so you can lead AI initiatives in
-                2026.
+              <p className="text-muted-foreground max-w-xl mx-auto">
+                4 phases. 6 months. One career transformation.
               </p>
             </div>
-            <div className="grid gap-6 md:grid-cols-3">
-              {holidayHighlights.map(({ title, category, description, icon: Icon, accent }, index) => (
-                <div
-                  key={title}
-                  className="relative overflow-hidden rounded-xl border border-white/60 bg-white/70 p-6 shadow-lg shadow-sky-200/40 backdrop-blur dark:border-white/10 dark:bg-slate-900/60"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${accent}`} aria-hidden />
-                  <div className="relative flex flex-col gap-3 text-left text-slate-900 dark:text-slate-100">
-                    <div className="flex items-center gap-3 text-amber-600 dark:text-amber-300">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-400/40 bg-amber-500/20 text-amber-100 shadow-sm shadow-amber-500/30">
-                        <Icon className="h-5 w-5" />
-                      </span>
-                      <span className="text-sm font-semibold uppercase tracking-wide">{category}</span>
-                    </div>
-                    <h3 className="text-xl font-semibold">{title}</h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-300">{description}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { step: "01", icon: "📋", title: "Enrol & Assess", desc: "Register, complete a short skills assessment, and get placed in the right track. No prior AI experience needed." },
+                { step: "02", icon: "🏗️", title: "Learn by Building", desc: "Live weekend sessions every Saturday & Sunday. Build 3–5 real projects per track with weekly mentor code reviews." },
+                { step: "03", icon: "🚀", title: "Ship Your Portfolio", desc: "Push your projects to GitHub. We help you write case studies and structure your profile for AI job applications." },
+                { step: "04", icon: "💼", title: "Land the Role", desc: "Resume reviews, mock interviews, hiring partner referrals, and salary negotiation coaching until you're placed." },
+              ].map((s) => (
+                <div key={s.step} className="relative rounded-xl border border-slate-200 bg-slate-50 p-6 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-3xl">{s.icon}</span>
+                    <span className="text-4xl font-black text-slate-100">{s.step}</span>
                   </div>
+                  <h3 className="font-bold text-slate-900">{s.title}</h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">{s.desc}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Social Proof */}
-        <SocialProof />
 
-        {/* Free Masterclass Section */}
-        <section className="w-full py-12 md:py-16">
-          <div className="container px-4 md:px-6">
-            <FreeMasterclassBanner onRegister={openRegistrationDrawer} />
-          </div>
-        </section>
-
-        {/* Job Market Trends Section */}
-        <section className="w-full py-12 md:py-16 bg-slate-50 dark:bg-slate-900">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-indigo-100 px-3 py-1 text-sm text-indigo-500 dark:bg-indigo-800/30 dark:text-indigo-300">
-                  Industry Transformation
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-                  The Shift from Data Science to GenAI
-                </h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Stay ahead of the curve as traditional data science roles evolve into GenAI engineering positions
-                </p>
-              </div>
-            </div>
-
-            <div className="mx-auto max-w-5xl">
-              <JobMarketTrends />
-            </div>
-            {/* Inside the Job Market Trends Section, add: */}
-            <div className="mx-auto max-w-5xl mt-8">
-              <FutureJobMarketPredictions />
-            </div>
-          </div>
-        </section>
-
-        {/* Why Choose Us Section */}
-        <section id="why-us" className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-purple-100 px-3 py-1 text-sm text-purple-500 dark:bg-purple-800/30 dark:text-purple-300">
-                  Why Choose Us
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">What Makes Our Program Different</h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Our program is specifically designed for working professionals looking to transition into AI
-                  engineering roles
-                </p>
-              </div>
-            </div>
-            <div className="mx-auto max-w-6xl mt-12">
-              <CourseDifferentiators />
-            </div>
-          </div>
-        </section>
-
-        {/* Features Section */}
-        <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-slate-50 dark:bg-slate-900">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-purple-100 px-3 py-1 text-sm text-purple-500 dark:bg-purple-800/30 dark:text-purple-300">
-                  What We Offer
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  Comprehensive AI Engineering Program
-                </h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Our program takes you from fundamentals to advanced AI engineering concepts with hands-on projects and
-                  expert guidance
-                </p>
-              </div>
-            </div>
-            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mt-12">
-              <CourseFeatureCard
-                icon={<BookMarked className="h-10 w-10 text-purple-500" />}
-                title="Python & Data Science"
-                description="Master Python programming and essential libraries like Pandas, NumPy, and SciPy"
-              />
-              <CourseFeatureCard
-                icon={<BarChart className="h-10 w-10 text-indigo-500" />}
-                title="Machine Learning"
-                description="Learn core ML algorithms, feature engineering, and model evaluation techniques"
-              />
-              <CourseFeatureCard
-                icon={<Brain className="h-10 w-10 text-pink-500" />}
-                title="Deep Learning"
-                description="Build neural networks with TensorFlow and understand CNN, RNN architectures"
-              />
-              <CourseFeatureCard
-                icon={<BookOpen className="h-10 w-10 text-blue-500" />}
-                title="NLP & Transformers"
-                description="Master natural language processing and transformer architectures like BERT"
-              />
-              <CourseFeatureCard
-                icon={<Zap className="h-10 w-10 text-amber-500" />}
-                title="LLM Fine-tuning"
-                description="Learn to customize large language models for specific tasks and domains"
-              />
-              <CourseFeatureCard
-                icon={<Database className="h-10 w-10 text-green-500" />}
-                title="RAG Applications"
-                description="Build retrieval-augmented generation systems for knowledge-intensive tasks"
-              />
-              <CourseFeatureCard
-                icon={<Code className="h-10 w-10 text-red-500" />}
-                title="Software Engineering"
-                description="Master CI/CD pipelines and software engineering best practices for AI systems"
-              />
-              <CourseFeatureCard
-                icon={<Briefcase className="h-10 w-10 text-teal-500" />}
-                title="Career Transition"
-                description="Get specialized guidance for transitioning from your current role to AI engineering"
-              />
-              <CourseFeatureCard
-                icon={<GraduationCap className="h-10 w-10 text-cyan-500" />}
-                title="Placement Assistance"
-                description="Receive support until you successfully transition to an AI engineering role"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Roadmap Section */}
-        <section id="roadmap" className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-blue-100 px-3 py-1 text-sm text-blue-500 dark:bg-blue-800/30 dark:text-blue-300">
-                  Your Journey
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  Your Path to AI Engineering Excellence
-                </h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  A clear step-by-step process from enrollment to career transformation
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-16 max-w-5xl mx-auto">
-              <div className="relative">
-                {/* Connecting line - hidden on mobile, visible on md screens and up */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-purple-400 to-pink-500 hidden md:block"></div>
-
-                {/* Step 1: Registration */}
-                <div className="relative mb-16 md:mb-24">
-                  <div className="flex flex-col md:flex-row items-center">
-                    <div className="w-full md:w-1/2 md:pr-12 mb-8 md:mb-0 text-center md:text-right order-2 md:order-1">
-                      <h3 className="text-2xl font-bold mb-3">1. Course Registration</h3>
-                      <p className="text-slate-600">
-                        Begin your AI journey by registering for the course. Our team will guide you through the
-                        enrollment process and answer any questions you may have about the program.
-                      </p>
-                      <div className="mt-4 flex justify-center md:justify-end">
-                        <ConsistentButton
-                          variant="outline"
-                          className="border-purple-300 text-purple-700 hover:bg-purple-50"
-                          onClick={openRegistrationDrawer}
-                          rightIcon={<ArrowRight className="ml-2 h-4 w-4" />}
-                        >
-                          Register Now
-                        </ConsistentButton>
-                      </div>
-                    </div>
-                    {/* Circle indicator - centered on mobile, positioned at timeline on md screens */}
-                    <div className="flex items-center justify-center mb-6 md:mb-0 md:absolute md:left-1/2 md:transform md:-translate-x-1/2 z-10">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
-                        <ClipboardCheck className="h-8 w-8 text-white" />
-                      </div>
-                    </div>
-                    <div className="w-full md:w-1/2 md:pl-12 order-1 md:order-2">
-                      <div className="bg-purple-50 p-6 rounded-xl border border-purple-100 shadow-sm">
-                        <h4 className="font-medium text-purple-800 mb-2">What to Expect:</h4>
-                        <ul className="space-y-2">
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Simple online registration form</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Course fee payment options</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Welcome email with next steps</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Step 2: Pre-test Assessment */}
-                <div className="relative mb-16 md:mb-24">
-                  <div className="flex flex-col md:flex-row items-center">
-                    <div className="w-full md:w-1/2 md:pr-12 mb-8 md:mb-0 order-2">
-                      <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 shadow-sm">
-                        <h4 className="font-medium text-blue-800 mb-2">Assessment Areas:</h4>
-                        <ul className="space-y-2">
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Python programming knowledge</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Basic data science understanding</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Learning style preferences</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Career goals and aspirations</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    {/* Circle indicator - centered on mobile, positioned at timeline on md screens */}
-                    <div className="flex items-center justify-center my-6 md:my-0 md:absolute md:left-1/2 md:transform md:-translate-x-1/2 z-10">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 flex items-center justify-center">
-                        <FileText className="h-8 w-8 text-white" />
-                      </div>
-                    </div>
-                    <div className="w-full md:w-1/2 md:pl-12 text-center md:text-left order-1">
-                      <h3 className="text-2xl font-bold mb-3">2. Pre-Course Assessment</h3>
-                      <p className="text-slate-600">
-                        Complete a comprehensive pre-test to assess your current skills and knowledge. This helps us
-                        tailor the learning experience to your specific needs and starting point.
-                      </p>
-                      <div className="mt-4 bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded-r-md">
-                        <p className="text-sm text-yellow-800">
-                          <span className="font-bold">Note:</span> No prior AI experience is required. This assessment
-                          helps us understand your learning needs.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Step 3: Role Understanding */}
-                <div className="relative mb-16 md:mb-24">
-                  <div className="flex flex-col md:flex-row items-center">
-                    <div className="w-full md:w-1/2 md:pr-12 mb-8 md:mb-0 text-center md:text-right order-2 md:order-1">
-                      <h3 className="text-2xl font-bold mb-3">3. Current Role Analysis</h3>
-                      <p className="text-slate-600">
-                        Our career advisors will conduct a detailed analysis of your current role and responsibilities
-                        to identify transferable skills and areas for development in your AI career transition.
-                      </p>
-                      <div className="mt-4 bg-green-50 border-l-4 border-green-400 p-3 rounded-r-md">
-                        <p className="text-sm text-green-800">
-                          <span className="font-bold">Benefit:</span> Personalized guidance on how to leverage your
-                          existing expertise in your AI career transition.
-                        </p>
-                      </div>
-                    </div>
-                    {/* Circle indicator - centered on mobile, positioned at timeline on md screens */}
-                    <div className="flex items-center justify-center my-6 md:my-0 md:absolute md:left-1/2 md:transform md:-translate-x-1/2 z-10">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
-                        <UserCheck className="h-8 w-8 text-white" />
-                      </div>
-                    </div>
-                    <div className="w-full md:w-1/2 md:pl-12 order-1 md:order-2">
-                      <div className="bg-green-50 p-6 rounded-xl border border-green-100 shadow-sm">
-                        <h4 className="font-medium text-green-800 mb-2">What We'll Analyze:</h4>
-                        <ul className="space-y-2">
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Current technical skills and expertise</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Industry-specific knowledge</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Soft skills and leadership experience</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Career goals and aspirations</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Step 4: Course Journey */}
-                <div className="relative mb-16 md:mb-24">
-                  <div className="flex flex-col md:flex-row items-center">
-                    <div className="w-full md:w-1/2 md:pr-12 mb-8 md:mb-0 order-2">
-                      <div className="bg-indigo-50 p-6 rounded-xl border border-indigo-100 shadow-sm">
-                        <h4 className="font-medium text-indigo-800 mb-2">Course Structure:</h4>
-                        <ul className="space-y-2">
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Live weekend sessions designed for working professionals</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Live coding sessions with instructors</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Weekly mentorship and doubt-clearing</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Industry expert guest lectures</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    {/* Circle indicator - centered on mobile, positioned at timeline on md screens */}
-                    <div className="flex items-center justify-center my-6 md:my-0 md:absolute md:left-1/2 md:transform md:-translate-x-1/2 z-10">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center">
-                        <BookOpenIcon className="h-8 w-8 text-white" />
-                      </div>
-                    </div>
-                    <div className="w-full md:w-1/2 md:pl-12 text-center md:text-left order-1">
-                      <h3 className="text-2xl font-bold mb-3">4. Comprehensive Course Journey</h3>
-                      <p className="text-slate-600">
-                        Embark on your 6-month learning journey covering everything from Python fundamentals to advanced
-                        GenAI engineering. Our curriculum is designed to build your skills progressively with hands-on
-                        projects.
-                      </p>
-                      <div className="mt-4 flex justify-center md:justify-start">
-                        <ConsistentButton
-                          variant="outline"
-                          className="border-indigo-300 text-indigo-700 hover:bg-indigo-50"
-                          onClick={() => document.getElementById("curriculum")?.scrollIntoView({ behavior: "smooth" })}
-                          rightIcon={<ArrowRight className="ml-2 h-4 w-4" />}
-                        >
-                          View Full Curriculum
-                        </ConsistentButton>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Step 5: Career Transition */}
-                <div className="relative mb-8">
-                  <div className="flex flex-col md:flex-row items-center">
-                    <div className="w-full md:w-1/2 md:pr-12 mb-8 md:mb-0 text-center md:text-right order-2 md:order-1">
-                      <h3 className="text-2xl font-bold mb-3">5. Career Transition Support</h3>
-                      <p className="text-slate-600">
-                        After completing the course, our dedicated placement team will help you transition into an AI
-                        engineering role with resume building, interview preparation, and direct connections to hiring
-                        partners.
-                      </p>
-                      <div className="mt-4 bg-pink-50 border-l-4 border-pink-400 p-3 rounded-r-md">
-                        <p className="text-sm text-pink-800">
-                          <span className="font-bold">Our Promise:</span> We provide ongoing support until you
-                          successfully transition to an AI role.
-                        </p>
-                      </div>
-                    </div>
-                    {/* Circle indicator - centered on mobile, positioned at timeline on md screens */}
-                    <div className="flex items-center justify-center my-6 md:my-0 md:absolute md:left-1/2 md:transform md:-translate-x-1/2 z-10">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center">
-                        <Briefcase className="h-8 w-8 text-white" />
-                      </div>
-                    </div>
-                    <div className="w-full md:w-1/2 md:pl-12 order-1 md:order-2">
-                      <div className="bg-pink-50 p-6 rounded-xl border border-pink-100 shadow-sm">
-                        <h4 className="font-medium text-pink-800 mb-2">Placement Support:</h4>
-                        <ul className="space-y-2">
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Resume and portfolio optimization</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Mock interviews with AI professionals</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Direct referrals to hiring partners</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Salary negotiation guidance</span>
-                          </li>
-                          <li className="flex items-start">
-                            <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                            <span>Ongoing career coaching</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Final CTA */}
-                <div className="mt-16 md:mt-24 text-center">
-                  <div className="bg-gradient-to-r from-purple-100 to-pink-100 p-6 md:p-8 rounded-xl border border-purple-200">
-                    <h3 className="text-2xl font-bold mb-4">Ready to Begin Your AI Engineering Journey?</h3>
-                    <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
-                      Join our 6-month weekend program and transform your career with in-demand AI skills. Our
-                      structured roadmap ensures a smooth transition from your current role to AI engineering
-                      excellence.
-                    </p>
-                    <ConsistentButton
-                      size="lg"
-                      variant="gradient"
-                      rightIcon={<ArrowRight className="ml-2 h-5 w-5" />}
-                      onClick={openEnrollmentDrawer}
-                    >
-                      Start Your Journey Today
-                    </ConsistentButton>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Projects Showcase Section */}
-        <ProjectsSection />
-
-        {/* Detailed Curriculum Section */}
-        <section id="curriculum" className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-pink-100 px-3 py-1 text-sm text-pink-500 dark:bg-pink-800/30 dark:text-pink-300">
-                  Comprehensive Curriculum
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Complete AI Engineering Curriculum</h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Our 6-month program covers everything from Python fundamentals to advanced GenAI engineering
-                </p>
-              </div>
-            </div>
-
-            <div className="mx-auto max-w-5xl mt-12">
-              <DetailedCurriculum />
-            </div>
-          </div>
-        </section>
-
-        {/* Career ROI Section */}
-        <section id="career-roi" className="w-full py-12 md:py-24 lg:py-32 bg-slate-50 dark:bg-slate-900">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-500 dark:bg-green-800/30 dark:text-green-300">
-                  Career Impact
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Maximize Your Career ROI</h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Our course delivers exceptional return on investment with complete placement assistance
-                </p>
-              </div>
-            </div>
-
-            <div className="mx-auto max-w-5xl mt-12 space-y-10">
-              <SalaryComparison />
-
-              <SuccessMetrics />
-
-              <PlacementGuarantee />
-
-              <div className="bg-white p-6 rounded-xl border border-purple-100 shadow-sm">
-                <h3 className="text-xl font-bold mb-4 text-center">Success Stories: Career Transitions</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="border border-slate-200 rounded-lg p-4">
-                    <p className="font-medium">Python Developer → AI Engineer</p>
-                    <p className="text-sm text-slate-600">Salary increase: 120%</p>
-                    <p className="text-xs text-slate-500 mt-2">
-                      "The course helped me pivot from backend development to AI engineering in just 2 months."
-                    </p>
-                  </div>
-                  <div className="border border-slate-200 rounded-lg p-4">
-                    <p className="font-medium">Data Analyst → NLP Specialist</p>
-                    <p className="text-sm text-slate-600">Salary increase: 85%</p>
-                    <p className="text-xs text-slate-500 mt-2">
-                      "The NLP curriculum was exactly what I needed to specialize and increase my market value."
-                    </p>
-                  </div>
-                  <div className="border border-slate-200 rounded-lg p-4">
-                    <p className="font-medium">Fresh Graduate → LLM Engineer</p>
-                    <p className="text-sm text-slate-600">Starting salary: 18 LPA</p>
-                    <p className="text-xs text-slate-500 mt-2">
-                      "This course helped me skip entry-level roles and go straight to specialized AI work."
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials Section */}
+        {/* ── Testimonials ────────────────────────────────── */}
         <TestimonialsSection />
 
-        {/* WhatsApp Learner Feedback */}
-        <WhatsAppTestimonials />
-
-        {/* Pricing Section */}
+        {/* ── Pricing ─────────────────────────────────────── */}
         <section id="pricing" className="py-16 bg-gray-50">
           <PricingSection onEnroll={openEnrollmentDrawer} />
         </section>
 
-        {/* CTA Section */}
+        {/* ── FAQ ─────────────────────────────────────────── */}
+        <FAQSection />
+
+        {/* ── CTA ─────────────────────────────────────────── */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center text-white">
