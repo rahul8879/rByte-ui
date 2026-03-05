@@ -3,6 +3,7 @@
 import React, {
   useState,
   useRef,
+  useEffect,
   useCallback,
   useId,
 } from "react"
@@ -12,7 +13,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { CheckCircle, Loader2 } from "lucide-react"
 import { Drawer } from "@/components/ui/drawer"
-import { sendOTP, verifyOTP, registerInterest, enrollUser } from "@/utils/api"
+import { sendOtp, verifyOtp, registerLead, enrollStudent } from "@/lib/api"
 import { toast } from "@/hooks/use-toast"
 
 interface EnrollmentDrawerProps {
@@ -48,6 +49,14 @@ export default function EnrollmentDrawer({
   const [otp, setOtp] = useState<string[]>(Array(6).fill(""))
   const [otpError, setOtpError] = useState<string | null>(null)
   const otpInputRefs = useRef<(HTMLInputElement | null)[]>(Array(6).fill(null))
+  const [resendCooldown, setResendCooldown] = useState(0)
+
+  /* Tick down resend cooldown every second */
+  useEffect(() => {
+    if (resendCooldown <= 0) return
+    const t = setTimeout(() => setResendCooldown((c) => c - 1), 1000)
+    return () => clearTimeout(t)
+  }, [resendCooldown])
 
   /* ─────────────────────── derived labels ─────────────────── */
   const title          = mode === "enroll" ? "Enroll in AI Engineering Course" : "Register Your Interest"
@@ -94,27 +103,26 @@ export default function EnrollmentDrawer({
       return
     }
 
-    try {
-      setIsLoading(true)
-      await sendOTP(formData.phone, formData.countryCode)
+    setIsLoading(true)
+    const otpRes = await sendOtp({ phone: formData.phone, country_code: formData.countryCode })
+    setIsLoading(false)
 
-      toast({
-        title: "OTP Sent",
-        description: `A verification code has been sent to ${formData.countryCode} ${formData.phone}`,
-      })
-
-      setStep("otp")
-      setTimeout(() => otpInputRefs.current[0]?.focus(), 100)
-    } catch (err) {
-      console.error(err)
+    if (otpRes.error) {
       toast({
         title: "Failed to send OTP",
-        description: err instanceof Error ? err.message : "Please try again later",
+        description: otpRes.error,
         variant: "destructive",
       })
-    } finally {
-      setIsLoading(false)
+      return
     }
+
+    toast({
+      title: "OTP Sent",
+      description: `A verification code has been sent to ${formData.countryCode} ${formData.phone}`,
+    })
+    setResendCooldown(10)
+    setStep("otp")
+    setTimeout(() => otpInputRefs.current[0]?.focus(), 100)
   }
 
   /* ─────────────────────── OTP field logic ─────────────────── */
@@ -135,58 +143,72 @@ export default function EnrollmentDrawer({
     }
   }
 
-  const resendOtp = () => {
+  const resendOtp = async () => {
     setOtp(Array(6).fill(""))
     setOtpError(null)
-    toast({ title: "OTP Resent", description: "A new code has been sent." })
+    const res = await sendOtp({ phone: formData.phone, country_code: formData.countryCode })
+    if (res.error) {
+      toast({ title: "Failed to resend OTP", description: res.error, variant: "destructive" })
+    } else {
+      setResendCooldown(10)
+      toast({ title: "OTP Resent", description: "A new code has been sent." })
+    }
   }
 
   /* ─────────────────────── verify OTP & submit data ────────── */
   const handleVerifyOtp = async () => {
-    try {
-      setIsVerifying(true)
-      await verifyOTP(formData.phone, otp.join(""), formData.countryCode)
+    setIsVerifying(true)
 
-      if (mode === "enroll") {
-        await enrollUser({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          country_code: formData.countryCode,
-          current_role: formData.currentRole,
-          experience: formData.experience,
-          programming_experience: formData.programmingExperience,
-          goals: formData.goals,
-          heard_from: formData.heardFrom,
-          preferred_batch: formData.preferredBatch,
-        })
-      } else {
-        await registerInterest({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          country_code: formData.countryCode,
-          heard_from: formData.heardFrom,
-        })
-      }
+    const verifyRes = await verifyOtp({
+      phone: formData.phone,
+      country_code: formData.countryCode,
+      otp: otp.join(""),
+    })
 
-      setStep("success")
-      toast({
-        title: "Success!",
-        description:
-          mode === "enroll" ? "Enrollment submitted." : "Registration submitted.",
-      })
-    } catch (err) {
-      console.error(err)
-      setOtpError(err instanceof Error ? err.message : "Invalid OTP")
-      toast({
-        title: "Verification failed",
-        description: err instanceof Error ? err.message : "Please try again",
-        variant: "destructive",
-      })
-    } finally {
+    if (verifyRes.error) {
+      setOtpError(verifyRes.error)
+      toast({ title: "Verification failed", description: verifyRes.error, variant: "destructive" })
       setIsVerifying(false)
+      return
     }
+
+    let submitRes
+    if (mode === "enroll") {
+      submitRes = await enrollStudent({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        country_code: formData.countryCode,
+        current_role: formData.currentRole,
+        experience: formData.experience,
+        programming_experience: formData.programmingExperience,
+        goals: formData.goals,
+        heard_from: formData.heardFrom,
+        preferred_batch: formData.preferredBatch,
+      })
+    } else {
+      submitRes = await registerLead({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        country_code: formData.countryCode,
+        heard_from: formData.heardFrom,
+      })
+    }
+
+    setIsVerifying(false)
+
+    if (submitRes.error) {
+      setOtpError(submitRes.error)
+      toast({ title: "Submission failed", description: submitRes.error, variant: "destructive" })
+      return
+    }
+
+    setStep("success")
+    toast({
+      title: "Success!",
+      description: mode === "enroll" ? "Enrollment submitted." : "Registration submitted.",
+    })
   }
 
   /* ─────────────────────── render ───────────────────────────── */
@@ -446,7 +468,7 @@ export default function EnrollmentDrawer({
                     value={digit}
                     onChange={e => handleOtpChange(e, i)}
                     onKeyDown={e => handleKeyDown(e, i)}
-                    ref={el => (otpInputRefs.current[i] = el)}
+                    ref={el => { otpInputRefs.current[i] = el }}
                   />
                 ))}
               </div>
@@ -472,8 +494,13 @@ export default function EnrollmentDrawer({
                 </Button>
 
                 <div className="mt-2 flex justify-between text-sm">
-                  <button type="button" onClick={resendOtp} className="text-purple-600 hover:text-purple-800">
-                    Resend OTP
+                  <button
+                    type="button"
+                    onClick={resendOtp}
+                    disabled={resendCooldown > 0}
+                    className={resendCooldown > 0 ? "text-slate-400 cursor-not-allowed" : "text-purple-600 hover:text-purple-800"}
+                  >
+                    {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : "Resend OTP"}
                   </button>
                   <button type="button" onClick={() => setStep("form")} className="text-slate-600 hover:text-slate-800">
                     Edit phone number

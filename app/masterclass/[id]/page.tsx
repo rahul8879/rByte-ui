@@ -26,7 +26,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { toast } from "@/hooks/use-toast"
 import Logo from "@/components/logo"
 import masterclassData from "@/data/masterclasses.json"
-import { sendOTP, verifyOTP, registerForMasterclass } from "@/utils/api"
+import { sendOtp, verifyOtp, registerMasterclass } from "@/lib/api"
 import { ConsistentButton } from "@/components/ui/consistent-button"
 import EnrollmentDrawer from "@/components/enrollment-drawer"
 
@@ -85,6 +85,14 @@ export default function MasterclassDetailPage() {
   const [isVerifying, setIsVerifying] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [registrationSuccess, setRegistrationSuccess] = useState(false)
+  const [resendCooldown, setResendCooldown] = useState(0)
+
+  /* Tick down resend cooldown every second */
+  useEffect(() => {
+    if (resendCooldown <= 0) return
+    const t = setTimeout(() => setResendCooldown((c) => c - 1), 1000)
+    return () => clearTimeout(t)
+  }, [resendCooldown])
 
   useEffect(() => {
     // Find the masterclass with the matching ID
@@ -135,29 +143,25 @@ export default function MasterclassDetailPage() {
       return
     }
 
-    try {
-      setIsSubmitting(true)
+    setIsSubmitting(true)
+    const otpRes = await sendOtp({ phone: formData.phone, country_code: formData.countryCode })
+    setIsSubmitting(false)
 
-      // Send OTP
-      await sendOTP(formData.phone, formData.countryCode)
-
-      // Move to OTP verification step
-      setOtpSent(true)
-
-      toast({
-        title: "OTP Sent",
-        description: `A verification code has been sent to ${formData.countryCode} ${formData.phone}`,
-      })
-    } catch (error) {
-      console.error("Error sending OTP:", error)
+    if (otpRes.error) {
       toast({
         title: "Failed to send OTP",
-        description: error instanceof Error ? error.message : "Please try again later",
+        description: otpRes.error,
         variant: "destructive",
       })
-    } finally {
-      setIsSubmitting(false)
+      return
     }
+
+    setOtpSent(true)
+    setResendCooldown(10)
+    toast({
+      title: "OTP Sent",
+      description: `A verification code has been sent to ${formData.countryCode} ${formData.phone}`,
+    })
   }
 
   const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -184,51 +188,46 @@ export default function MasterclassDetailPage() {
     }
   }
 
-  const verifyOtp = async () => {
-    try {
-      setIsVerifying(true)
+  const handleVerifyOtp = async () => {
+    setIsVerifying(true)
 
-      // Call the API to verify OTP
-      await verifyOTP(formData.phone, otp.join(""), formData.countryCode)
-
-      // After OTP verification, register for masterclass
-      await registerForMasterclass({
-        name: formData.name,
-        phone: formData.phone,
-        country_code: formData.countryCode,
-        email: formData.email,
-        masterclass_id: id,
-      })
-
-      setOtpError(null)
-      setRegistrationSuccess(true)
-
-      toast({
-        title: "Registration Successful!",
-        description: "You have been registered for the masterclass.",
-      })
-    } catch (error) {
-      console.error("Error verifying OTP:", error)
-      setOtpError(error instanceof Error ? error.message : "Invalid OTP. Please try again.")
-      toast({
-        title: "Verification Failed",
-        description: error instanceof Error ? error.message : "Please try again",
-        variant: "destructive",
-      })
-    } finally {
+    const verifyRes = await verifyOtp({ phone: formData.phone, country_code: formData.countryCode, otp: otp.join("") })
+    if (verifyRes.error) {
+      setOtpError(verifyRes.error)
+      toast({ title: "Verification Failed", description: verifyRes.error, variant: "destructive" })
       setIsVerifying(false)
+      return
     }
+
+    const regRes = await registerMasterclass({
+      name: formData.name,
+      phone: formData.phone,
+      country_code: formData.countryCode,
+      email: formData.email,
+    })
+    setIsVerifying(false)
+
+    if (regRes.error) {
+      setOtpError(regRes.error)
+      toast({ title: "Registration Failed", description: regRes.error, variant: "destructive" })
+      return
+    }
+
+    setOtpError(null)
+    setRegistrationSuccess(true)
+    toast({ title: "Registration Successful!", description: "You have been registered for the masterclass." })
   }
 
-  const resendOtp = () => {
-    // In a real implementation, this would trigger a new OTP to be sent
+  const resendOtp = async () => {
     setOtp(Array(6).fill(""))
     setOtpError(null)
-    // Show a toast or message that OTP was resent
-    toast({
-      title: "OTP Resent",
-      description: "A new verification code has been sent to your phone",
-    })
+    const res = await sendOtp({ phone: formData.phone, country_code: formData.countryCode })
+    if (res.error) {
+      toast({ title: "Failed to resend OTP", description: res.error, variant: "destructive" })
+    } else {
+      setResendCooldown(10)
+      toast({ title: "OTP Resent", description: "A new verification code has been sent to your phone." })
+    }
   }
 
   const resetForm = () => {
@@ -856,7 +855,7 @@ export default function MasterclassDetailPage() {
 
                   <div className="flex flex-col gap-2 sm:gap-3">
                     <Button
-                      onClick={verifyOtp}
+                      onClick={handleVerifyOtp}
                       className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-xs sm:text-sm h-8 sm:h-10"
                       disabled={otp.join("").length !== 6 || isVerifying}
                     >
@@ -871,8 +870,13 @@ export default function MasterclassDetailPage() {
                     </Button>
 
                     <div className="flex justify-between text-xs sm:text-sm mt-1 sm:mt-2">
-                      <button type="button" className="text-purple-600 hover:text-purple-800" onClick={resendOtp}>
-                        Resend OTP
+                      <button
+                        type="button"
+                        onClick={resendOtp}
+                        disabled={resendCooldown > 0}
+                        className={resendCooldown > 0 ? "text-slate-400 cursor-not-allowed" : "text-purple-600 hover:text-purple-800"}
+                      >
+                        {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : "Resend OTP"}
                       </button>
                       <button
                         type="button"

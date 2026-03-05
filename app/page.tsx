@@ -41,7 +41,7 @@ import DetailedCurriculum from "@/components/detailed-curriculum"
 import SalaryComparison from "@/components/salary-comparison"
 import SuccessMetrics from "@/components/success-metrics"
 import PlacementGuarantee from "@/components/placement-guarantee"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 // Update the import to include the new FutureJobMarketPredictions component
 // First, let's fix the enrollment drawer functionality by adding the missing import and component
 // Add this import at the top with the other imports:
@@ -49,7 +49,7 @@ import EnrollmentDrawer from "@/components/enrollment-drawer"
 import { Input } from "@/components/ui/input"
 import WhatsAppButton from "@/components/whatsapp-button"
 // Add the import for API utilities
-import { sendOTP, verifyOTP, downloadCurriculum, registerInterest } from "@/utils/api"
+import { sendOtp, verifyOtp, getCurriculumUrl, registerLead } from "@/lib/api"
 import { toast } from "@/hooks/use-toast"
 import { Loader2 } from "lucide-react"
 // Import the ConsistentButton component
@@ -112,6 +112,40 @@ export default function Home() {
   const [syllabusFormLoading, setSyllabusFormLoading] = useState(false)
   const [syllabusVerifying, setSyllabusVerifying] = useState(false)
   const isEnrollMode = syllabusFormMode === "enroll"
+  const [syllabusResendCooldown, setSyllabusResendCooldown] = useState(0)
+
+  /* Tick down OTP resend cooldown every second */
+  useEffect(() => {
+    if (syllabusResendCooldown <= 0) return
+    const t = setTimeout(() => setSyllabusResendCooldown((c) => c - 1), 1000)
+    return () => clearTimeout(t)
+  }, [syllabusResendCooldown])
+
+  // ── Rotating achievement card ───────────────────────────
+  const achievements = [
+    { emoji: "🎉", name: "Priya S.", from: "Data Analyst", result: "₹8L → ₹22 LPA", role: "ML Engineer · Pune" },
+    { emoji: "🚀", name: "Arjun M.", from: "Software Dev", result: "₹12L → ₹28 LPA", role: "GenAI Engineer · Razorpay" },
+    { emoji: "🏆", name: "Neha K.", from: "MBA",          result: "Promoted internally",  role: "AI Product Manager" },
+    { emoji: "⭐", name: "Rohan P.", from: "Fresher",      result: "₹0 → ₹12 LPA",  role: "Data Scientist · Series B" },
+    { emoji: "💼", name: "Kiran V.", from: "QA Engineer",  result: "₹9L → ₹24 LPA", role: "LLM Engineer · Bengaluru" },
+    { emoji: "🎯", name: "Sneha R.", from: "Teacher",      result: "Career switch",   role: "AI Trainer · EdTech MNC" },
+  ]
+  const [achIdx, setAchIdx] = useState(0)
+  const [achVisible, setAchVisible] = useState(true)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setAchVisible(false)
+      setTimeout(() => {
+        setAchIdx((i) => (i + 1) % achievements.length)
+        setAchVisible(true)
+      }, 400)
+    }, 3200)
+    return () => clearInterval(timer)
+  }, [achievements.length])
+
+  const currentAch = achievements[achIdx]
+  // ────────────────────────────────────────────────────────
 
   const openEnrollmentDrawer = () => {
     setSyllabusFormMode("enroll")
@@ -158,29 +192,25 @@ export default function Home() {
       return
     }
 
-    try {
-      setSyllabusFormLoading(true)
+    setSyllabusFormLoading(true)
+    const otpRes = await sendOtp({ phone: syllabusFormData.phone, country_code: syllabusFormData.countryCode })
+    setSyllabusFormLoading(false)
 
-      // Send OTP
-      await sendOTP(syllabusFormData.phone, syllabusFormData.countryCode)
-
-      // Set OTP sent state
-      setSyllabusOtpSent(true)
-
-      toast({
-        title: "OTP Sent",
-        description: `A verification code has been sent to ${syllabusFormData.countryCode} ${syllabusFormData.phone}`,
-      })
-    } catch (error) {
-      console.error("Error sending OTP:", error)
+    if (otpRes.error) {
       toast({
         title: "Failed to send OTP",
-        description: error instanceof Error ? error.message : "Please try again later",
+        description: otpRes.error,
         variant: "destructive",
       })
-    } finally {
-      setSyllabusFormLoading(false)
+      return
     }
+
+    setSyllabusOtpSent(true)
+    setSyllabusResendCooldown(10)
+    toast({
+      title: "OTP Sent",
+      description: `A verification code has been sent to ${syllabusFormData.countryCode} ${syllabusFormData.phone}`,
+    })
   }
 
   const handleSyllabusOtpChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -207,50 +237,59 @@ export default function Home() {
     }
   }
 
-  // Update the verifySyllabusOtp function
   const verifySyllabusOtp = async () => {
-    try {
-      setSyllabusVerifying(true)
+    setSyllabusVerifying(true)
 
-      // Call the API to verify OTP
-      await verifyOTP(syllabusFormData.phone, syllabusOtp.join(""), syllabusFormData.countryCode)
+    const verifyRes = await verifyOtp({
+      phone: syllabusFormData.phone,
+      country_code: syllabusFormData.countryCode,
+      otp: syllabusOtp.join(""),
+    })
 
-      if (isEnrollMode) {
-        await registerInterest({
-          name: syllabusFormData.name,
-          email: syllabusFormData.email || undefined,
-          phone: syllabusFormData.phone,
-          country_code: syllabusFormData.countryCode,
-          heard_from: "Homepage Enroll CTA",
-        })
-      }
-
-      setSyllabusSuccess(true)
-      setSyllabusOtpError(null)
-
-      toast({
-        title: isEnrollMode ? "Enrollment request received" : "Verification Successful!",
-        description: isEnrollMode
-          ? "Our admissions team will reach out shortly to help you secure your seat."
-          : "You can now download the curriculum.",
-      })
-    } catch (error) {
-      console.error("Error verifying OTP:", error)
-      setSyllabusOtpError(error instanceof Error ? error.message : "Invalid OTP. Please try again.")
-      toast({
-        title: "Verification Failed",
-        description: error instanceof Error ? error.message : "Please try again",
-        variant: "destructive",
-      })
-    } finally {
+    if (verifyRes.error) {
+      setSyllabusOtpError(verifyRes.error)
+      toast({ title: "Verification Failed", description: verifyRes.error, variant: "destructive" })
       setSyllabusVerifying(false)
+      return
     }
+
+    // Always save the lead — differentiate source by mode
+    const leadRes = await registerLead({
+      name: syllabusFormData.name,
+      email: syllabusFormData.email || undefined,
+      phone: syllabusFormData.phone,
+      country_code: syllabusFormData.countryCode,
+      heard_from: isEnrollMode ? "Homepage Enroll CTA" : "Curriculum Download",
+    })
+
+    setSyllabusVerifying(false)
+
+    if (leadRes.error) {
+      setSyllabusOtpError(leadRes.error)
+      toast({ title: "Submission Failed", description: leadRes.error, variant: "destructive" })
+      return
+    }
+
+    setSyllabusSuccess(true)
+    setSyllabusOtpError(null)
+    toast({
+      title: isEnrollMode ? "Enrollment request received" : "Verification Successful!",
+      description: isEnrollMode
+        ? "Our admissions team will reach out shortly to help you secure your seat."
+        : "You can now download the curriculum.",
+    })
   }
 
-  // Update the downloadSyllabus function
   const downloadSyllabus = () => {
-    // Call the API utility to download the curriculum
-    downloadCurriculum()
+    // Track the download and open PDF — passes user info so backend can log the request
+    window.open(
+      getCurriculumUrl({
+        name: syllabusFormData.name,
+        phone: syllabusFormData.phone,
+        email: syllabusFormData.email || undefined,
+      }),
+      "_blank"
+    )
     closeSyllabusForm()
   }
 
@@ -422,12 +461,20 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
                 </div>
 
-                {/* Floating achievement card */}
-                <div className="absolute -bottom-4 -left-4 sm:left-4 bg-white rounded-xl shadow-xl px-4 py-3 flex items-center gap-3 max-w-[220px]">
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-100 text-lg">🎉</div>
+                {/* Rotating achievement card */}
+                <div
+                  className="absolute -bottom-4 left-2 sm:left-4 bg-white rounded-xl shadow-xl px-4 py-3 flex items-center gap-3 w-[230px] transition-all duration-400"
+                  style={{ opacity: achVisible ? 1 : 0, transform: achVisible ? "translateY(0)" : "translateY(8px)", transition: "opacity 0.35s ease, transform 0.35s ease" }}
+                >
+                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-100 text-lg">
+                    {currentAch.emoji}
+                  </div>
                   <div className="min-w-0">
-                    <p className="text-xs font-bold text-slate-900 truncate">Priya S. got placed</p>
-                    <p className="text-xs text-emerald-600 font-semibold">₹8L → ₹22 LPA · ML Engineer</p>
+                    <p className="text-xs font-bold text-slate-900 truncate">
+                      {currentAch.name} · {currentAch.from}
+                    </p>
+                    <p className="text-xs text-emerald-600 font-semibold truncate">{currentAch.result}</p>
+                    <p className="text-[10px] text-slate-400 truncate">{currentAch.role}</p>
                   </div>
                 </div>
               </div>
@@ -840,21 +887,19 @@ export default function Home() {
                     <div className="flex justify-between text-sm mt-2">
                       <button
                         type="button"
-                        className="text-purple-600 hover:text-purple-800"
+                        disabled={syllabusResendCooldown > 0}
+                        className={syllabusResendCooldown > 0 ? "text-slate-400 cursor-not-allowed" : "text-purple-600 hover:text-purple-800"}
                         onClick={async () => {
-                          try {
-                            await sendOTP(syllabusFormData.phone, syllabusFormData.countryCode)
+                          const res = await sendOtp({ phone: syllabusFormData.phone, country_code: syllabusFormData.countryCode })
+                          if (res.error) {
+                            toast({ title: "Failed to resend OTP", description: res.error, variant: "destructive" })
+                          } else {
+                            setSyllabusResendCooldown(10)
                             toast({ title: "OTP Resent", description: "A new verification code has been sent." })
-                          } catch (error) {
-                            toast({
-                              title: "Failed to resend OTP",
-                              description: error instanceof Error ? error.message : "Please try again later",
-                              variant: "destructive",
-                            })
                           }
                         }}
                       >
-                        Resend OTP
+                        {syllabusResendCooldown > 0 ? `Resend in ${syllabusResendCooldown}s` : "Resend OTP"}
                       </button>
                       <button
                         type="button"
