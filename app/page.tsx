@@ -592,7 +592,7 @@ export default function Home() {
                     className="text-white border-white hover:bg-white/20"
                     onClick={() =>
                       window.open(
-                        "https://wa.me/919152091676?text=Hi%2C%20I%27m%20interested%20in%20the%20Rbyte.ai%20AI%20Engineering%20course.%20Can%20you%20share%20more%20details%3F",
+                        "https://wa.me/919893989103?text=Hi%2C%20I%27m%20interested%20in%20the%20Rbyte.ai%20AI%20Engineering%20course.%20Can%20you%20share%20more%20details%3F",
                         "_blank",
                       )
                     }
@@ -653,7 +653,7 @@ export default function Home() {
                   </svg>
                 </a>
                 <a
-                  href="https://wa.me/919152091676"
+                  href="https://wa.me/919893989103"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-white transition-colors"
@@ -688,7 +688,7 @@ export default function Home() {
                 <li><a href="#career-roi" className="hover:text-white transition-colors">Placement Record</a></li>
                 <li>
                   <a
-                    href="https://wa.me/919152091676?text=Hi%2C%20I%27m%20interested%20in%20Rbyte.ai"
+                    href="https://wa.me/919893989103?text=Hi%2C%20I%27m%20interested%20in%20Rbyte.ai"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-white transition-colors"
@@ -707,7 +707,7 @@ export default function Home() {
                   <svg className="h-4 w-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <a href="tel:+919152091676" className="hover:text-white transition-colors">+91 91520 91676</a>
+                  <a href="tel:+919893989103" className="hover:text-white transition-colors">+91 98939 89103</a>
                 </li>
                 <li className="flex items-center gap-2">
                   <svg className="h-4 w-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -911,7 +911,7 @@ export default function Home() {
                     </div>
 
                     <div className="text-center text-xs text-slate-500 mt-4">
-                      <p>Please call us at +91 9152091676</p>
+                      <p>Please call us at +91 9893989103</p>
                     </div>
                   </div>
                 </div>

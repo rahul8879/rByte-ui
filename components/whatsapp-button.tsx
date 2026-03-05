@@ -5,7 +5,7 @@ import { MessageCircle } from "lucide-react"
 
 const WhatsAppButton = () => {
   const [isHovered, setIsHovered] = useState(false)
-  const phoneNumber = "+919152091676" // Updated WhatsApp number
+  const phoneNumber = "+919893989103" // Updated WhatsApp number
   const message = "Hi! I'm interested in the AI Engineering course. Can you provide more information?"
 
   const handleClick = () => {

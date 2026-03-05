@@ -325,7 +325,7 @@ CREATE INDEX ON otp_sessions(phone);
 ## 5. Notifications
 
 ### 5.1 Admin Alert on New Enrollment
-When `POST /api/enroll` succeeds, send a WhatsApp or email to the admin number (`+919152091676`).
+When `POST /api/enroll` succeeds, send a WhatsApp or email to the admin number (`+919893989103`).
 
 **Message template:**
 ```
@@ -402,7 +402,7 @@ TWILIO_AUTH_TOKEN=...
 TWILIO_WHATSAPP_FROM=whatsapp:+14155238886
 
 # Admin
-ADMIN_WHATSAPP=+919152091676
+ADMIN_WHATSAPP=+919893989103
 ADMIN_EMAIL=admin@rbyte.ai
 ADMIN_API_KEY=<strong-random-secret>
 
@@ -457,4 +457,4 @@ app = FastAPI(
 2. Is there currently a database connected, or are leads being dropped after API response?
 3. Is there an admin panel or are leads being viewed directly in the DB?
 4. Should curriculum PDF be stored in Azure Blob Storage or served from the API server?
-5. Is WhatsApp Business API already set up for the admin number `+919152091676`?
+5. Is WhatsApp Business API already set up for the admin number `+919893989103`?

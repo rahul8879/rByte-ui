@@ -83,7 +83,7 @@ export default function FAQSection() {
         <p className="text-center text-sm text-slate-500">
           Still have questions?{" "}
           <a
-            href="https://wa.me/919152091676?text=Hi%2C%20I%20have%20a%20question%20about%20Rbyte.ai"
+            href="https://wa.me/919893989103?text=Hi%2C%20I%20have%20a%20question%20about%20Rbyte.ai"
             target="_blank"
             rel="noopener noreferrer"
             className="text-emerald-600 font-medium underline underline-offset-2"
