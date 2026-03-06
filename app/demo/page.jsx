@@ -305,7 +305,7 @@ function LeadForm({ seats }) {
 
         {/* WhatsApp community CTA */}
         <a
-          href="https://chat.whatsapp.com/REPLACE_WITH_YOUR_COMMUNITY_INVITE_LINK"
+          href="https://chat.whatsapp.com/LpZ6WqOhMiiCIDUSMX7PCz"
           target="_blank"
           rel="noopener noreferrer"
           style={{
