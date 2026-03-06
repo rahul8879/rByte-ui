@@ -57,12 +57,51 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
 
   return (
     <div className="container mx-auto px-4 py-16">
-      <div className="text-center mb-12">
+      <div className="text-center mb-8">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">2026 AI Learning Tracks</h2>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
           Pick a focused track or go end-to-end. Each pathway is designed for job-ready outcomes in Data Science,
           GenAI + Agentic AI, Full Stack AI, or MLOps.
         </p>
+      </div>
+
+      {/* Founder Batch Banner */}
+      <div className="mb-10 rounded-2xl bg-gradient-to-r from-purple-950 via-indigo-950 to-purple-950 border border-purple-500/30 p-6 md:p-8 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="flex-1">
+            <div className="inline-flex items-center gap-2 bg-amber-400/15 border border-amber-400/30 rounded-full px-3 py-1 mb-3">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse inline-block" />
+              <span className="text-amber-300 text-xs font-bold uppercase tracking-wider">Founding Batch · May 5, 2026</span>
+            </div>
+            <h3 className="text-white text-xl md:text-2xl font-bold mb-2">
+              We're launching our first cohort. Fees are intentionally low.
+            </h3>
+            <p className="text-slate-300 text-sm leading-relaxed max-w-2xl">
+              No inflated alumni numbers. No fake reviews. Just a straightforward deal — you get direct instructor access,
+              small batch sizes, and help shape the curriculum. We get our first real learners and honest feedback.
+              Once the cohort fills, prices go up permanently.
+            </p>
+            <div className="flex flex-wrap gap-4 mt-4">
+              {[
+                "🎯 Direct WhatsApp access to instructor",
+                "👥 Batch size capped at 20 students",
+                "🔁 Lifetime access to all future updates",
+                "🛡️ 7-day no-questions-asked refund",
+              ].map(item => (
+                <span key={item} className="text-emerald-300 text-xs font-medium flex items-center gap-1">{item}</span>
+              ))}
+            </div>
+          </div>
+          <div className="flex-shrink-0 text-center bg-white/5 border border-white/10 rounded-xl p-4 min-w-[160px]">
+            <p className="text-slate-400 text-xs mb-1">Seats filled</p>
+            <div className="text-white text-3xl font-black mb-1">3 / 20</div>
+            <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
+              <div className="h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400" style={{ width: "15%" }} />
+            </div>
+            <p className="text-purple-300 text-xs mt-2 font-medium">17 seats remaining</p>
+          </div>
+        </div>
       </div>
 
       <div className="mb-12">
@@ -128,10 +167,12 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
               </div>
               <PricingCard
                 title="Data Science (ML + DL)"
-                price="Custom"
+                price="₹17,999"
+                originalPrice="₹34,999"
+                discountPercentage={49}
                 description="Master the data science stack with modern ML/DL projects and industry-grade workflows."
                 features={dataScienceFeatures}
-                buttonText="Get Pricing"
+                buttonText="Enroll at Founder Price →"
                 duration="12-16 Weeks"
                 audience="Students & Analysts"
                 onClick={onEnroll}
@@ -145,10 +186,12 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
               </div>
               <PricingCard
                 title="GenAI + Agentic AI"
-                price="Custom"
+                price="₹19,999"
+                originalPrice="₹39,999"
+                discountPercentage={50}
                 description="Build real agentic systems, RAG copilots, and GenAI applications that run in production."
                 features={genAiAgenticFeatures}
-                buttonText="Get Pricing"
+                buttonText="Enroll at Founder Price →"
                 popular={true}
                 duration="10-14 Weeks"
                 audience="Developers & Product Teams"
@@ -163,10 +206,12 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
               </div>
               <PricingCard
                 title="Full Stack AI (Basics to Advanced)"
-                price="Custom"
+                price="₹29,999"
+                originalPrice="₹69,999"
+                discountPercentage={57}
                 description="From fundamentals to production-grade AI and agentic systems with career support."
                 features={fullStackAiFeatures}
-                buttonText="Get Pricing"
+                buttonText="Enroll at Founder Price →"
                 duration="24-28 Weeks"
                 audience="Career Switchers"
                 onClick={onEnroll}
@@ -180,10 +225,12 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
               </div>
               <PricingCard
                 title="MLOps + LLMOps"
-                price="Custom"
+                price="₹14,999"
+                originalPrice="₹24,999"
+                discountPercentage={40}
                 description="Own the production layer: pipelines, deployment, monitoring, and reliability."
                 features={mlopsFeatures}
-                buttonText="Get Pricing"
+                buttonText="Enroll at Founder Price →"
                 duration="8-12 Weeks"
                 audience="ML Engineers & DevOps"
                 onClick={onEnroll}
@@ -205,11 +252,11 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
               </thead>
               <tbody>
                 <tr className="border-b">
-                  <td className="p-4 font-medium">Pricing</td>
-                  <td className="p-4 text-center">Custom</td>
-                  <td className="p-4 text-center">Custom</td>
-                  <td className="p-4 text-center">Custom</td>
-                  <td className="p-4 text-center">Custom</td>
+                  <td className="p-4 font-medium">Founder Price</td>
+                  <td className="p-4 text-center"><span className="font-bold text-purple-700">₹17,999</span><br/><span className="text-xs text-muted-foreground line-through">₹34,999</span></td>
+                  <td className="p-4 text-center"><span className="font-bold text-purple-700">₹19,999</span><br/><span className="text-xs text-muted-foreground line-through">₹39,999</span></td>
+                  <td className="p-4 text-center"><span className="font-bold text-purple-700">₹29,999</span><br/><span className="text-xs text-muted-foreground line-through">₹69,999</span></td>
+                  <td className="p-4 text-center"><span className="font-bold text-purple-700">₹14,999</span><br/><span className="text-xs text-muted-foreground line-through">₹24,999</span></td>
                 </tr>
                 <tr className="border-b">
                   <td className="p-4 font-medium">Duration</td>
@@ -305,8 +352,10 @@ export default function PricingSection({ onEnroll }: PricingSectionProps) {
                 <tr className="border-b">
                   <td className="p-4 font-medium">Price</td>
                   <td className="p-4 text-center">
-                    <div className="flex flex-col items-center">
-                      <span className="font-bold text-green-600">Custom for each track</span>
+                    <div className="flex flex-col items-center gap-1">
+                      <span className="font-bold text-green-600">₹14,999 – ₹29,999</span>
+                      <span className="text-xs text-muted-foreground">Founder Batch pricing</span>
+                      <span className="text-xs bg-green-100 text-green-700 rounded-full px-2 py-0.5 font-medium">7-day refund guarantee</span>
                     </div>
                   </td>
                   <td className="p-4 text-center">

@@ -36,6 +36,13 @@ export const verifyOtp = (payload: { phone: string; country_code: string; otp: s
 export const registerLead = (payload: { name: string; email?: string; phone: string; country_code: string; heard_from?: string }) =>
   apiFetch<{ message: string; id: number }>("/api/register", { method: "POST", body: JSON.stringify(payload) });
 
+// Demo session registration (includes role, triggers WhatsApp community notification on backend)
+export const registerDemoLead = (payload: { name: string; email?: string; phone: string; country_code: string; role: string }) =>
+  apiFetch<{ message: string; id: number }>("/api/demo-register", {
+    method: "POST",
+    body: JSON.stringify({ ...payload, heard_from: "Demo Session Registration" }),
+  });
+
 export const enrollStudent = (payload: { name: string; email: string; phone: string; country_code: string; current_role: string; experience: string; programming_experience: string; goals: string; heard_from?: string; preferred_batch: string }) =>
   apiFetch<{ message: string; id: number }>("/api/enroll", { method: "POST", body: JSON.stringify(payload) });
 

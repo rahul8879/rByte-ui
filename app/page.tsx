@@ -57,11 +57,13 @@ import { ConsistentButton } from "@/components/ui/consistent-button"
 // Find the section where pricing is displayed and replace it with our new component
 // Import the PricingSection component at the top of the file
 import PricingSection from "@/components/pricing-section"
-import ProjectsSection from "@/components/projects-section"
+// ProjectsSection moved to /projects page
 import CareerPathQuiz from "@/components/career-path-quiz"
 import AnnouncementBar from "@/components/announcement-bar"
 import SocialProof from "@/components/social-proof"
-import TestimonialsSection from "@/components/testimonials-section"
+import TrustSection from "@/components/trust-section"
+import AIEraSection from "@/components/ai-era-section"
+import CurriculumPathSection from "@/components/curriculum-path-section"
 import DiwaliSaleModal from "@/components/diwali-sale-modal"
 
 export default function Home() {
@@ -384,15 +386,27 @@ export default function Home() {
               {/* ── Left: text (always first — mobile & desktop) ── */}
               <div className="flex flex-col gap-6">
 
-                {/* Pill */}
-                <div className="inline-flex items-center gap-2 self-start rounded-full border border-emerald-400/40 bg-emerald-400/15 px-4 py-1.5 text-sm font-semibold text-emerald-300 backdrop-blur-sm">
-                  <Sparkles className="h-3.5 w-3.5" />
-                  May 2026 Cohort · Only 5 seats left
+                {/* Pills — program name + urgency */}
+                <div className="flex flex-wrap items-center gap-2 self-start">
+                  <div
+                    className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-black tracking-wide backdrop-blur-sm"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(168,85,247,0.2), rgba(236,72,153,0.15))",
+                      border: "1px solid rgba(168,85,247,0.4)",
+                      color: "#e879f9",
+                    }}
+                  >
+                    Full Stack AI Engineering
+                  </div>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-400/15 px-4 py-1.5 text-sm font-semibold text-emerald-300 backdrop-blur-sm">
+                    <Sparkles className="h-3.5 w-3.5" />
+                    May 2026 · Only 5 seats left
+                  </div>
                 </div>
 
                 {/* Headline */}
                 <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl xl:text-6xl leading-[1.1] text-gradient-ai">
-                  Become an Agentic AI Engineer in 2026
+                  Become a Full Stack AI Engineer in 2026
                 </h1>
 
                 {/* Subline — punchy, 15 words */}
@@ -513,8 +527,67 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── What You'll Build ───────────────────────────── */}
-        <ProjectsSection />
+        {/* ── What You'll Build — teaser ──────────────────── */}
+        <section className="w-full py-12 md:py-16 relative overflow-hidden" style={{ background: "#020617" }}>
+          <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 40% at 50% 50%, rgba(99,102,241,0.08), transparent 65%)" }} />
+          <div className="container px-4 md:px-6 relative">
+            <div className="max-w-4xl mx-auto rounded-2xl border border-slate-700/50 overflow-hidden"
+              style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.08), rgba(168,85,247,0.06), rgba(236,72,153,0.04))" }}
+            >
+              <div className="p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-8">
+                {/* Left text */}
+                <div className="flex-1">
+                  <div className="inline-block rounded-full bg-indigo-500/15 border border-indigo-500/25 px-3 py-1 text-xs font-bold text-indigo-300 uppercase tracking-widest mb-3">
+                    Real-World Projects
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-black text-white mb-3 leading-tight">
+                    Ship 10 projects hiring managers actually want to see
+                  </h2>
+                  <p className="text-slate-400 text-sm leading-relaxed mb-5">
+                    Every project runs on a live URL — not just a Jupyter notebook. Fraud detection engines, RAG chatbots,
+                    LLM monitoring dashboards, agentic AI systems — all deployed to the cloud and ready for your portfolio.
+                  </p>
+                  {/* Mini track pills */}
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      { label: "Data Science", color: "#3b82f6" },
+                      { label: "GenAI + Agentic", color: "#a855f7" },
+                      { label: "Full Stack AI", color: "#10b981" },
+                      { label: "MLOps", color: "#f59e0b" },
+                    ].map(t => (
+                      <span key={t.label} className="text-xs font-semibold px-3 py-1 rounded-full"
+                        style={{ background: `${t.color}18`, border: `1px solid ${t.color}35`, color: t.color }}
+                      >
+                        {t.label}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                {/* Right CTA */}
+                <div className="flex-shrink-0 flex flex-col items-center gap-4 text-center">
+                  <div className="grid grid-cols-2 gap-3 text-center mb-2">
+                    {[
+                      { num: "10", label: "Projects" },
+                      { num: "4", label: "Tracks" },
+                      { num: "100%", label: "Deployed" },
+                      { num: "GitHub", label: "Ready" },
+                    ].map(s => (
+                      <div key={s.label} className="rounded-xl px-4 py-3 bg-slate-900/60 border border-slate-700/40">
+                        <div className="text-xl font-black text-white">{s.num}</div>
+                        <div className="text-xs text-slate-400">{s.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <Link href="/projects">
+                    <ConsistentButton variant="gradient" size="lg" className="btn-shimmer w-full" rightIcon={<ArrowRight className="ml-1 h-4 w-4" />}>
+                      See All Projects →
+                    </ConsistentButton>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* ── How It Works (4 steps) ──────────────────────── */}
         <section id="how-it-works" className="w-full py-16 md:py-24 bg-white">
@@ -552,7 +625,10 @@ export default function Home() {
 
 
         {/* ── Testimonials ────────────────────────────────── */}
-        <TestimonialsSection />
+        <TrustSection />
+
+        {/* ── Full Curriculum Map ──────────────────────────── */}
+        <CurriculumPathSection />
 
         {/* ── Pricing ─────────────────────────────────────── */}
         <section id="pricing" className="py-16 bg-gray-50">
