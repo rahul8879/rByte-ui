@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import Logo from "@/components/logo"
-import { sendOtp, verifyOtp, registerDemoLead } from "@/lib/api"
+import { sendOtp, verifyOtp, registerDemo } from "@/lib/api"
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -178,6 +178,7 @@ function LeadForm({ seats }) {
   const [loading, setLoading]       = useState(false)
   const [apiError, setApiError]     = useState("")
   const [resendCooldown, setResendCooldown] = useState(0)
+  const [inviteLink, setInviteLink] = useState("https://chat.whatsapp.com/LpZ6WqOhMiiCIDUSMX7PCz")
 
   // Countdown for resend button
   useEffect(() => {
@@ -246,7 +247,7 @@ function LeadForm({ seats }) {
     }
 
     // OTP verified → register
-    const regRes = await registerDemoLead({
+    const regRes = await registerDemo({
       name: form.name,
       email: form.email || undefined,
       phone: form.phone.replace(/[\s\-]/g, ""),
@@ -257,6 +258,7 @@ function LeadForm({ seats }) {
 
     if (regRes.error) { setApiError(regRes.error); return }
 
+    if (regRes.data?.invite_link) setInviteLink(regRes.data.invite_link)
     setPhase("success")
   }
 
@@ -305,7 +307,7 @@ function LeadForm({ seats }) {
 
         {/* WhatsApp community CTA */}
         <a
-          href="https://chat.whatsapp.com/LpZ6WqOhMiiCIDUSMX7PCz"
+          href={inviteLink}
           target="_blank"
           rel="noopener noreferrer"
           style={{
