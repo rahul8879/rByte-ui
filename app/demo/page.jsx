@@ -364,7 +364,7 @@ function LeadForm({ seats }) {
         {/* OTP boxes */}
         <div>
           <label style={labelSt}>Enter 6-digit OTP</label>
-          <div style={{ display: "flex", gap: 8, justifyContent: "space-between" }}>
+          <div className="demo-otp-row" style={{ display: "flex", gap: 8, justifyContent: "space-between" }}>
             {otpDigits.map((d, i) => (
               <input
                 key={i}
@@ -375,10 +375,11 @@ function LeadForm({ seats }) {
                 value={d}
                 onChange={e => handleOtpDigit(e.target.value, i)}
                 onKeyDown={e => handleOtpKey(e, i)}
+                className="demo-otp-box"
                 style={{
                   width: 44, height: 52, textAlign: "center",
                   fontSize: 22, fontWeight: 800,
-                  borderRadius: 8,
+                  borderRadius: 8, flexShrink: 0,
                   border: `1.5px solid ${d ? "rgba(168,85,247,0.7)" : "rgba(255,255,255,0.12)"}`,
                   background: d ? "rgba(168,85,247,0.12)" : "rgba(255,255,255,0.04)",
                   color: "#f9fafb", outline: "none",
@@ -649,7 +650,7 @@ const WHO_CARDS = [
 const FAQS = [
   {
     q: "Is this session really free?",
-    a: "Yes, 100% free. No credit card, no catch. We run this live demo to show you what the full 8-week programme looks like and give you hands-on value in 90 minutes. If you love it, you can apply for the full cohort.",
+    a: "Yes, 100% free. No payment required, no catch. We run this live demo to show you what the full 8-week programme looks like and give you hands-on value in 90 minutes. If you love it, you can apply for the full cohort.",
   },
   {
     q: "What is covered in the free demo session?",
@@ -753,7 +754,7 @@ export default function DemoPage() {
       pointer-events: none;
     }
     @media (max-width: 768px) {
-      .demo-hero-grid { grid-template-columns: 1fr !important; }
+      .demo-hero-grid  { grid-template-columns: 1fr !important; }
       .demo-sticky-form { position: static !important; }
       .demo-stat-grid  { grid-template-columns: 1fr 1fr !important; }
       .demo-who-grid   { grid-template-columns: 1fr 1fr !important; }
@@ -762,6 +763,29 @@ export default function DemoPage() {
     @media (max-width: 480px) {
       .demo-stat-grid  { grid-template-columns: 1fr !important; }
       .demo-who-grid   { grid-template-columns: 1fr !important; }
+    }
+    /* ── Mobile form + OTP fixes ── */
+    @media (max-width: 640px) {
+      .demo-form-card    { padding: 18px !important; }
+      .demo-hero-section { padding: 36px 0 28px !important; }
+      .demo-otp-row      { gap: 5px !important; }
+      .demo-otp-box      { flex: 1 !important; width: auto !important; min-width: 0 !important;
+                           height: 46px !important; font-size: 18px !important; }
+      .demo-module-body  { padding-left: 20px !important; }
+      .demo-mob-bar      { display: flex !important; }
+    }
+    /* ── Sticky mobile bottom CTA bar ── */
+    .demo-mob-bar {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0; z-index: 60;
+      background: rgba(2,6,23,0.97);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(168,85,247,0.28);
+      padding: 10px 16px 10px;
+      align-items: center; gap: 10px;
+      box-shadow: 0 -4px 28px rgba(168,85,247,0.18);
     }
     input::placeholder, textarea::placeholder { color: #4b5563 }
     input:focus, select:focus { border-color: rgba(168,85,247,0.65) !important; box-shadow: 0 0 0 3px rgba(168,85,247,0.14) }
@@ -776,6 +800,30 @@ export default function DemoPage() {
   return (
     <div style={{ background: PAGE_BG, minHeight: "100vh", color: "#f9fafb", fontFamily: "inherit" }}>
       <style>{css}</style>
+
+      {/* ── STICKY MOBILE BOTTOM BAR ───────────────────────────────────────── */}
+      <div className="demo-mob-bar">
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <p style={{ fontSize: 11, color: "#c084fc", fontWeight: 700, margin: "0 0 1px", letterSpacing: "0.04em" }}>
+            🔴 LIVE · {formattedDate}
+          </p>
+          <p style={{ fontSize: 12, color: "#9ca3af", margin: 0 }}>{seats} seats left · Free session</p>
+        </div>
+        <a
+          href="#demo-form"
+          className="demo-shimmer-btn"
+          style={{
+            flexShrink: 0,
+            padding: "11px 20px", borderRadius: 8,
+            background: "linear-gradient(135deg,#a855f7,#ec4899,#6366f1)",
+            color: "#fff", fontWeight: 800, fontSize: 14,
+            textDecoration: "none", whiteSpace: "nowrap",
+            boxShadow: "0 2px 12px rgba(168,85,247,0.4)",
+          }}
+        >
+          Book Free Seat →
+        </a>
+      </div>
 
       {/* ── NAV ─────────────────────────────────────────────────────────────── */}
       <header style={{
@@ -824,7 +872,7 @@ export default function DemoPage() {
       </header>
 
       {/* ── HERO ────────────────────────────────────────────────────────────── */}
-      <section style={{ position: "relative", padding: "72px 0 80px", overflow: "hidden" }}>
+      <section className="demo-hero-section" style={{ position: "relative", padding: "72px 0 80px", overflow: "hidden" }}>
         {/* AI grid overlay — matches main site .ai-grid */}
         <div className="demo-ai-grid" />
 
@@ -949,7 +997,7 @@ export default function DemoPage() {
             {/* RIGHT — sticky form */}
             <div
               id="demo-form"
-              className="demo-sticky-form"
+              className="demo-sticky-form demo-form-card"
               style={{
                 position: "sticky",
                 top: 80,
@@ -1053,7 +1101,7 @@ export default function DemoPage() {
                     <span style={{ color: mod.color, fontSize: 20, transform: open ? "rotate(90deg)" : "none", transition: "transform 0.2s", flexShrink: 0 }}>›</span>
                   </button>
                   {open && (
-                    <div style={{ padding: "0 24px 20px", paddingLeft: 82, background: `${mod.color}06`, borderTop: `1px solid ${BORDER}` }}>
+                    <div className="demo-module-body" style={{ padding: "0 24px 20px", paddingLeft: 82, background: `${mod.color}06`, borderTop: `1px solid ${BORDER}` }}>
                       <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10, paddingTop: 16 }}>
                         {mod.topics.map((t, j) => (
                           <li key={j} style={{ display: "flex", gap: 10, fontSize: 14, color: "#d1d5db", lineHeight: 1.5 }}>
@@ -1067,6 +1115,107 @@ export default function DemoPage() {
                 </div>
               )
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── OUTCOMES / GUARANTEE ────────────────────────────────────────────── */}
+      <section style={{ padding: "72px 0", borderTop: `1px solid ${BORDER}`, background: "rgba(34,197,94,0.02)" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 20px" }}>
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
+            <span style={{
+              display: "inline-block", padding: "4px 14px", borderRadius: 99, marginBottom: 12,
+              background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.3)",
+              fontSize: 12, fontWeight: 700, color: "#4ade80", textTransform: "uppercase", letterSpacing: "0.1em",
+            }}>
+              90-Minute Guarantee
+            </span>
+            <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, margin: "0 0 12px", letterSpacing: "-0.02em" }}>
+              You'll Walk Out With All of This — Free
+            </h2>
+            <p style={{ fontSize: 16, color: "#6b7280", maxWidth: 520, margin: "0 auto" }}>
+              No fluff. No sales pitch for 80 minutes. Real code, real deployment, real understanding.
+            </p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+            {[
+              {
+                icon: "🧠",
+                title: "Full mental model of how AI works",
+                desc: "LLMs → Embeddings → Vector DBs → Agents — you'll finally understand the whole stack, explained visually, no jargon.",
+                color: "#3b82f6",
+              },
+              {
+                icon: "💻",
+                title: "A working AI app you built yourself",
+                desc: "You'll watch it get coded live, line by line. It reads real data, answers questions, and runs in the cloud.",
+                color: "#a855f7",
+              },
+              {
+                icon: "🌐",
+                title: "A live public URL to show anyone",
+                desc: "Your app gets deployed. You get a shareable link — a real portfolio piece you can show to recruiters or your manager.",
+                color: "#10b981",
+              },
+              {
+                icon: "🗺️",
+                title: "Your personal 8-week AI roadmap",
+                desc: "A step-by-step path from where you are now to landing an AI engineering role — tailored to your current skill level.",
+                color: "#f59e0b",
+              },
+              {
+                icon: "📦",
+                title: "Full source code + session recording",
+                desc: "Every file we write during the session, yours to keep. Plus the full recording so you can re-watch at your own pace.",
+                color: "#ec4899",
+              },
+              {
+                icon: "👥",
+                title: "Access to the Rbyte.ai community",
+                desc: "WhatsApp group with 200+ Indian AI engineers — weekly code reviews, job leads, accountability partners.",
+                color: "#6366f1",
+              },
+            ].map((item, i) => (
+              <div key={i} style={{
+                padding: "24px 20px",
+                borderRadius: 12,
+                background: `${item.color}08`,
+                border: `1px solid ${item.color}22`,
+                display: "flex", gap: 16, alignItems: "flex-start",
+              }}>
+                <div style={{
+                  width: 44, height: 44, borderRadius: 10, flexShrink: 0,
+                  background: `${item.color}18`, border: `1px solid ${item.color}33`,
+                  display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22,
+                }}>
+                  {item.icon}
+                </div>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: 15, color: "#f9fafb", marginBottom: 6 }}>{item.title}</div>
+                  <div style={{ fontSize: 13, color: "#9ca3af", lineHeight: 1.6 }}>{item.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Zero-risk strip */}
+          <div style={{
+            marginTop: 32, padding: "18px 24px", borderRadius: 10,
+            background: "rgba(34,197,94,0.06)", border: "1px solid rgba(34,197,94,0.2)",
+            display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 16,
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14, color: "#4ade80" }}>
+              <span style={{ fontSize: 20 }}>✓</span> <strong>100% Free</strong> — no payment, no catch
+            </div>
+            <div style={{ width: 1, height: 20, background: "rgba(34,197,94,0.3)" }} />
+            <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14, color: "#4ade80" }}>
+              <span style={{ fontSize: 20 }}>✓</span> <strong>Zero prep needed</strong> — join on any laptop
+            </div>
+            <div style={{ width: 1, height: 20, background: "rgba(34,197,94,0.3)" }} />
+            <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14, color: "#4ade80" }}>
+              <span style={{ fontSize: 20 }}>✓</span> <strong>No prior AI experience</strong> required
+            </div>
           </div>
         </div>
       </section>
@@ -1125,6 +1274,62 @@ export default function DemoPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── INSTRUCTOR ──────────────────────────────────────────────────────── */}
+      <section style={{ padding: "72px 0", borderTop: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.01)" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 20px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: 40, alignItems: "center" }}
+            className="demo-instructor-grid">
+            <style>{`.demo-instructor-grid { grid-template-columns: auto 1fr; } @media(max-width:640px){ .demo-instructor-grid { grid-template-columns: 1fr !important; } }`}</style>
+            {/* Avatar */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+              <div style={{
+                width: 120, height: 120, borderRadius: "50%",
+                background: "linear-gradient(135deg,#a855f7,#6366f1,#ec4899)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                fontSize: 42,
+                boxShadow: "0 0 0 4px rgba(168,85,247,0.2), 0 8px 32px rgba(168,85,247,0.3)",
+              }}>
+                🧑‍💻
+              </div>
+              <div style={{ textAlign: "center" }}>
+                <div style={{ fontSize: 11, color: "#4ade80", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>● Live in this session</div>
+              </div>
+            </div>
+            {/* Bio */}
+            <div>
+              <div style={{
+                display: "inline-block", padding: "4px 14px", borderRadius: 99, marginBottom: 14,
+                background: "rgba(168,85,247,0.1)", border: "1px solid rgba(168,85,247,0.3)",
+                fontSize: 12, fontWeight: 700, color: "#c084fc", textTransform: "uppercase", letterSpacing: "0.1em",
+              }}>Your Instructor</div>
+              <h2 style={{ fontSize: "clamp(22px, 3vw, 32px)", fontWeight: 900, margin: "0 0 6px", letterSpacing: "-0.02em" }}>
+                10+ Years in AI/ML & Software Engineering
+              </h2>
+              <p style={{ fontSize: 14, color: "#c084fc", fontWeight: 600, margin: "0 0 16px" }}>
+                Senior AI Engineer · Educator · Founder, Rbyte.ai
+              </p>
+              <p style={{ fontSize: 15, color: "#9ca3af", lineHeight: 1.7, margin: "0 0 20px" }}>
+                A practising AI engineer with over a decade of experience building production-grade ML and GenAI systems. Made the jump from traditional software engineering to AI — and now teaches working Indian IT professionals how to do the same, faster. Has personally guided developers, analysts, and QA engineers through end-to-end career transitions into AI roles.
+              </p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+                {[
+                  "10+ yrs industry experience",
+                  "Python · LangChain · FastAPI",
+                  "RAG · Vector DBs · Agents",
+                  "Production AI systems",
+                ].map((tag, i) => (
+                  <span key={i} style={{
+                    padding: "4px 12px", borderRadius: 99, fontSize: 12, fontWeight: 600,
+                    background: "rgba(168,85,247,0.1)", border: "1px solid rgba(168,85,247,0.2)",
+                    color: "#c084fc",
+                  }}>{tag}</span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
