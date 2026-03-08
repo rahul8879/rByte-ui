@@ -164,6 +164,41 @@ export default function BlogPostPage() {
         a { cursor: pointer; }
         .article-img { transition: transform 0.5s ease; }
         .article-img:hover { transform: scale(1.01); }
+        /* ── Mobile layout ── */
+        @media (max-width: 900px) {
+          .article-body-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .article-body-aside {
+            position: static !important;
+            height: auto !important;
+            border-right: none !important;
+            border-top: 1px solid #1a1a20 !important;
+            padding: 40px 20px !important;
+          }
+          .article-body-main {
+            padding: 40px 20px 48px !important;
+            border-right: none !important;
+          }
+          .article-cover-title {
+            padding: 0 20px 28px !important;
+          }
+          .article-cover-hero {
+            height: clamp(220px, 50vw, 400px) !important;
+          }
+          .article-byline { padding: 14px 20px !important; }
+          .article-excerpt { padding: 20px 20px !important; }
+          .article-header { padding: 0 20px !important; }
+          .article-nav-label { display: none !important; }
+        }
+        @media (max-width: 480px) {
+          .article-byline-stats { flex-direction: column !important; gap: 4px !important; align-items: flex-start !important; }
+          .article-byline-sep { display: none !important; }
+          .article-cover-h1 { font-size: clamp(26px, 8vw, 44px) !important; }
+          .article-nocov-h1 { font-size: clamp(28px, 9vw, 60px) !important; }
+          .article-nocov-block { padding: 48px 20px 36px !important; }
+          .article-footer { flex-direction: column !important; gap: 8px !important; }
+        }
       `}</style>
 
       {/* ── NAV ─────────────────────────────────────────────────────────────── */}
@@ -198,7 +233,7 @@ export default function BlogPostPage() {
 
       {/* ── HERO COVER ──────────────────────────────────────────────────────── */}
       {post.cover_image ? (
-        <div style={{ position: "relative", width: "100%", height: "clamp(340px,55vh,560px)", overflow: "hidden" }}>
+        <div className="article-cover-hero" style={{ position: "relative", width: "100%", height: "clamp(340px,55vh,560px)", overflow: "hidden" }}>
           <img
             src={post.cover_image}
             alt={post.title}
@@ -211,7 +246,7 @@ export default function BlogPostPage() {
             background: "linear-gradient(to bottom, rgba(10,10,11,0) 0%, rgba(10,10,11,0.5) 50%, rgba(10,10,11,0.97) 100%)",
           }} />
           {/* Title floated over cover */}
-          <div style={{
+          <div className="article-cover-title" style={{
             position: "absolute", bottom: 0, left: 0, right: 0,
             padding: "0 5vw 40px",
             maxWidth: 900,
@@ -225,7 +260,7 @@ export default function BlogPostPage() {
               {c.label}
               {post.featured && <span style={{ marginLeft: 8, color: "#f5c842" }}>★ FEATURED</span>}
             </div>
-            <h1 style={{
+            <h1 className="article-cover-h1" style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: "clamp(32px,5vw,64px)",
               fontWeight: 900,
@@ -241,7 +276,7 @@ export default function BlogPostPage() {
         </div>
       ) : (
         /* No cover — editorial title block */
-        <div style={{
+        <div className="article-nocov-block" style={{
           padding: "80px 5vw 60px",
           borderBottom: "1px solid #1a1a20",
           position: "relative", overflow: "hidden",
@@ -260,7 +295,7 @@ export default function BlogPostPage() {
             {c.label}
             {post.featured && <span style={{ marginLeft: 8, color: "#f5c842" }}>★ FEATURED</span>}
           </div>
-          <h1 style={{
+          <h1 className="article-nocov-h1" style={{
             fontFamily: "'Playfair Display', serif",
             fontSize: "clamp(36px,6vw,72px)",
             fontWeight: 900, lineHeight: 1.06,
@@ -277,7 +312,7 @@ export default function BlogPostPage() {
       )}
 
       {/* ── BYLINE BAR ──────────────────────────────────────────────────────── */}
-      <div style={{
+      <div className="article-byline" style={{
         borderBottom: "1px solid #1a1a20",
         padding: "18px 5vw",
         display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 16,
@@ -300,16 +335,16 @@ export default function BlogPostPage() {
             </div>
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 20, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#6b6b7a", letterSpacing: "1px" }}>
+        <div className="article-byline-stats" style={{ display: "flex", alignItems: "center", gap: 20, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#6b6b7a", letterSpacing: "1px" }}>
           <span>{rt} MIN READ</span>
-          <span style={{ color: "#2a2a30" }}>|</span>
+          <span className="article-byline-sep" style={{ color: "#2a2a30" }}>|</span>
           <span>{post.views.toLocaleString()} VIEWS</span>
         </div>
       </div>
 
       {/* ── EXCERPT (when cover image present) ──────────────────────────────── */}
       {post.cover_image && post.excerpt && (
-        <div style={{ borderBottom: "1px solid #1a1a20", padding: "28px 5vw", maxWidth: 800 }}>
+        <div className="article-excerpt" style={{ borderBottom: "1px solid #1a1a20", padding: "28px 5vw", maxWidth: 800 }}>
           <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(17px,2vw,21px)", fontStyle: "italic", color: "#6b6b7a", lineHeight: 1.6, margin: 0 }}>
             {post.excerpt}
           </p>
@@ -317,10 +352,10 @@ export default function BlogPostPage() {
       )}
 
       {/* ── BODY: article + sidebar ─────────────────────────────────────────── */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr min(320px, 28vw)", gap: 0, maxWidth: 1300, margin: "0 auto" }}>
+      <div className="article-body-grid" style={{ display: "grid", gridTemplateColumns: "1fr min(320px, 28vw)", gap: 0, maxWidth: 1300, margin: "0 auto" }}>
 
         {/* ── ARTICLE ───────────────────────────────────────────────────────── */}
-        <main style={{ padding: "64px 5vw 80px", borderRight: "1px solid #1a1a20", minWidth: 0 }}>
+        <main className="article-body-main" style={{ padding: "64px 5vw 80px", borderRight: "1px solid #1a1a20", minWidth: 0 }}>
           <div style={{ maxWidth: 680 }}>
             {/* Rendered markdown */}
             <div dangerouslySetInnerHTML={{ __html: html }} />
@@ -361,7 +396,7 @@ export default function BlogPostPage() {
         </main>
 
         {/* ── SIDEBAR ───────────────────────────────────────────────────────── */}
-        <aside style={{ padding: "48px 32px", position: "sticky", top: 60, height: "fit-content" }}>
+        <aside className="article-body-aside" style={{ padding: "48px 32px", position: "sticky", top: 60, height: "fit-content" }}>
 
           {/* Article info */}
           <div style={{ marginBottom: 40 }}>
@@ -446,7 +481,7 @@ export default function BlogPostPage() {
       </div>
 
       {/* ── FOOTER ──────────────────────────────────────────────────────────── */}
-      <footer style={{ borderTop: "1px solid #1a1a20", padding: "32px 5vw", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+      <footer className="article-footer" style={{ borderTop: "1px solid #1a1a20", padding: "32px 5vw", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
         <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 14, color: "#e8e8ec", fontWeight: 600 }}>
           R<span style={{ color: "#f5c842" }}>Byte</span>.ai
         </div>

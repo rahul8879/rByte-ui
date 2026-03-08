@@ -70,7 +70,7 @@ function HeroPost({ post }: { post: BlogPost }) {
   const c = catStyle(post.category)
   const rt = readingTime(post.content)
   return (
-    <Link href={`/blog/${post.slug}`} className="group block relative rounded-3xl overflow-hidden border border-white/[0.06] shadow-2xl mb-10" style={{ minHeight: 480 }}>
+    <Link href={`/blog/${post.slug}`} className="blog-hero-link group block relative rounded-3xl overflow-hidden border border-white/[0.06] shadow-2xl mb-10" style={{ minHeight: "clamp(260px, 50vw, 480px)" }}>
       {/* Full-bleed image */}
       {post.cover_image
         ? <img src={post.cover_image} alt={post.title}
@@ -84,39 +84,39 @@ function HeroPost({ post }: { post: BlogPost }) {
       }} />
 
       {/* Featured pill top-left */}
-      <div className="absolute top-5 left-5">
+      <div className="absolute top-4 left-4">
         <span className="text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full text-white"
           style={{ background: "linear-gradient(90deg,#a855f7,#ec4899)" }}>★ Featured</span>
       </div>
 
       {/* Content bottom */}
-      <div className="absolute bottom-0 left-0 right-0 p-7 md:p-10">
-        <div className="flex items-center gap-3 mb-4">
+      <div className="blog-hero-bottom absolute bottom-0 left-0 right-0 p-5 md:p-10">
+        <div className="blog-hero-meta flex items-center gap-3 mb-3">
           <span className="text-xs font-bold uppercase tracking-wide px-2.5 py-1 rounded-md text-white" style={{ background: c.bg }}>
             {c.label}
           </span>
           <span className="text-slate-400 text-xs">{rt} min read</span>
-          <span className="text-slate-600 text-xs">·</span>
-          <span className="text-slate-400 text-xs">{fmt(post.published_at)}</span>
+          <span className="text-slate-600 text-xs hidden sm:inline">·</span>
+          <span className="text-slate-400 text-xs hidden sm:inline">{fmt(post.published_at)}</span>
         </div>
-        <h2 className="text-2xl md:text-4xl font-black text-white leading-tight mb-3 max-w-3xl group-hover:text-purple-100 transition-colors" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.8)" }}>
+        <h2 className="blog-hero-title text-2xl md:text-4xl font-black text-white leading-tight mb-3 max-w-3xl group-hover:text-purple-100 transition-colors" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.8)" }}>
           {post.title}
         </h2>
         {post.excerpt && (
-          <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-2xl line-clamp-2 mb-4">
+          <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-2xl line-clamp-2 mb-4 hidden sm:block">
             {post.excerpt}
           </p>
         )}
-        <div className="flex items-center justify-between max-w-2xl">
+        <div className="blog-hero-footer flex items-center justify-between max-w-2xl">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
+            <div className="w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
               style={{ background: "linear-gradient(135deg,#a855f7,#6366f1)" }}>
               {post.author.charAt(0)}
             </div>
             <span className="text-slate-300 text-sm font-medium">{post.author}</span>
           </div>
           <span className="text-purple-400 font-bold text-sm group-hover:translate-x-1 transition-transform inline-block">
-            Read article →
+            Read →
           </span>
         </div>
       </div>
@@ -280,6 +280,21 @@ export default function BlogPage() {
 
   return (
     <div style={{ background: "#020617", minHeight: "100vh", color: "#f9fafb" }}>
+      <style>{`
+        .blog-chip-row::-webkit-scrollbar { display: none; }
+        .blog-chip-row { scrollbar-width: none; -ms-overflow-style: none; }
+        @media (max-width: 480px) {
+          .blog-hero-link { min-height: 260px !important; }
+          .blog-hero-meta { flex-wrap: wrap; gap: 8px !important; }
+          .blog-hero-footer { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+          .blog-hero-title { font-size: 22px !important; }
+          .blog-hero-bottom { padding: 20px !important; }
+          .blog-masthead-title { font-size: 24px !important; }
+        }
+        @media (min-width: 481px) and (max-width: 767px) {
+          .blog-hero-link { min-height: 340px !important; }
+        }
+      `}</style>
 
       {/* ── NAV ─────────────────────────────────────────────────────────────── */}
       <header style={{
@@ -315,7 +330,7 @@ export default function BlogPage() {
         </div>
 
         {/* Category tabs — mobile */}
-        <div className="md:hidden flex gap-1 px-4 pb-3 overflow-x-auto">
+        <div className="blog-chip-row md:hidden flex gap-2 px-4 pb-3 overflow-x-auto">
           {CATEGORIES.map(cat => (
             <button
               key={cat.value}
@@ -336,7 +351,7 @@ export default function BlogPage() {
       {/* ── MASTHEAD ────────────────────────────────────────────────────────── */}
       <div className="border-b border-white/[0.06] py-8 text-center">
         <div className="max-w-6xl mx-auto px-4">
-          <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-1.5"
+          <h1 className="blog-masthead-title text-3xl md:text-4xl font-black tracking-tight mb-1.5"
             style={{
               background: "linear-gradient(90deg,#f0abfc,#fff,#c7d2fe)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
