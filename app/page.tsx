@@ -349,6 +349,12 @@ export default function Home() {
                 🎓 Free Masterclass
               </Link>
               <Link
+                href="/service"
+                className="hidden text-sm font-medium transition-colors sm:flex items-center gap-1 rounded-full bg-purple-950 border border-purple-700/40 text-purple-300 hover:bg-purple-900/60 px-3 py-1"
+              >
+                🤝 AI Services
+              </Link>
+              <Link
                 href="#pricing"
                 className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:block"
               >
@@ -751,6 +757,7 @@ export default function Home() {
                 <li><a href="#pricing" className="hover:text-white transition-colors">Full Stack AI</a></li>
                 <li><a href="#pricing" className="hover:text-white transition-colors">MLOps + LLMOps</a></li>
                 <li><a href="/masterclass" className="hover:text-white transition-colors">Free Masterclass 🎓</a></li>
+                <li><a href="/service" className="hover:text-white transition-colors">AI Services 🤝</a></li>
               </ul>
             </div>
 
