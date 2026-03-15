@@ -11,6 +11,7 @@ const SERVICES = [
     color: "#3b82f6",
     gradient: "linear-gradient(135deg,#3b82f6,#6366f1)",
     title: "AI Consulting & Roadmap",
+    price: "From $1,500",
     short: "Know exactly where AI fits — and where it doesn't.",
     bullets: [
       "Audit your stack and workflows for AI readiness",
@@ -27,6 +28,7 @@ const SERVICES = [
     color: "#a855f7",
     gradient: "linear-gradient(135deg,#a855f7,#ec4899)",
     title: "Custom AI App Development",
+    price: "From $4,000",
     short: "We build the AI product — you ship it to your customers.",
     bullets: [
       "RAG assistants that read your documents, FAQs, or databases",
@@ -43,6 +45,7 @@ const SERVICES = [
     color: "#10b981",
     gradient: "linear-gradient(135deg,#10b981,#06b6d4)",
     title: "AI Integration & Automation",
+    price: "From $2,500",
     short: "Plug AI into the tools you already use.",
     bullets: [
       "Connect AI to your CRM, Slack, Notion, HubSpot, or ERP",
@@ -59,6 +62,7 @@ const SERVICES = [
     color: "#f59e0b",
     gradient: "linear-gradient(135deg,#f59e0b,#ef4444)",
     title: "Team AI Upskilling",
+    price: "From $2,000",
     short: "Turn your engineers into AI engineers — in 8 weeks.",
     bullets: [
       "Live cohort training tailored to your team's tech stack",
@@ -78,6 +82,7 @@ const PROJECTS = [
     icon: "🤖",
     title: "Automated Lead Qualification Pipeline",
     industry: "B2B SaaS",
+    client: "US-based SaaS startup · Under NDA",
     stack: ["Python", "LangChain", "FastAPI", "GPT-4o", "n8n"],
     what: "End-to-end pipeline that ingests inbound leads, scores them against an ICP using an LLM, drafts personalised outreach, and routes hot leads to the CRM — zero human touch.",
     metric: "3 min",
@@ -91,6 +96,7 @@ const PROJECTS = [
     icon: "📄",
     title: "Internal Knowledge Base Assistant",
     industry: "Professional Services",
+    client: "Consulting firm · Under NDA",
     stack: ["Python", "LangChain", "Pinecone", "Next.js", "OpenAI"],
     what: "Replaced a 200-page static PDF manual with a conversational AI that reads SOPs, policies, and product docs. Staff get cited answers in plain English — with source + page reference.",
     metric: "30 sec",
@@ -104,6 +110,7 @@ const PROJECTS = [
     icon: "⚙️",
     title: "Invoice & PO Extraction Automation",
     industry: "Logistics & Supply Chain",
+    client: "Logistics company · Under NDA",
     stack: ["Python", "GPT-4o Vision", "FastAPI", "PostgreSQL", "Zapier"],
     what: "Document intelligence pipeline that ingests scanned invoices via email, extracts structured fields, validates against PO records, and flags mismatches — replacing a 3-person data-entry team.",
     metric: "11 sec",
@@ -117,6 +124,7 @@ const PROJECTS = [
     icon: "🧠",
     title: "AI Research & Reporting Agent",
     industry: "Marketing Agency",
+    client: "Digital marketing agency · Under NDA",
     stack: ["Python", "LangChain Agents", "Serper API", "GPT-4o", "FastAPI"],
     what: "Multi-step agent that takes a competitor or topic, searches the web autonomously, scrapes relevant pages, and produces a structured competitive analysis report — prompt to PDF, hands-free.",
     metric: "6 min",
@@ -148,17 +156,18 @@ const RESULTS = [
 
 const PROCESS = [
   { num: "01", icon: "📞", color: "#3b82f6",  title: "Discovery Call",     desc: "30-min no-pressure call. We learn your stack, your pain points, and where AI can move the needle fastest." },
-  { num: "02", icon: "📋", color: "#a855f7",  title: "Scope & Proposal",   desc: "Written proposal in 48 hours — scope, timeline, fixed cost, expected outcomes. No vague retainers." },
-  { num: "03", icon: "🔨", color: "#10b981",  title: "Build & Demo Weekly", desc: "You see real progress every 7 days. We ship in testable increments — no big reveals at the end." },
+  { num: "02", icon: "📋", color: "#a855f7",  title: "Scope & Proposal",   desc: "Written proposal in 48 hours — scope, timeline, fixed cost, expected outcomes. We match the right engineers from our network to your project." },
+  { num: "03", icon: "🔨", color: "#10b981",  title: "Build & Demo Weekly", desc: "Your matched engineers build. Dipanjali manages. You see real progress every 7 days — testable increments, no big reveals at the end." },
   { num: "04", icon: "🚀", color: "#f59e0b",  title: "Launch & Hand-off",  desc: "Deployed, documented, yours. Full source code + 30-day support window after go-live." },
 ]
 
 const FAQS = [
+  { q: "Who actually builds the AI — is it you or a third party?", a: "Dipanjali acts as your AI Project Manager and single point of contact. The build is handled by vetted senior AI engineers from our global network — specialists in LLMs, RAG, automation, and deployment. Every engineer is pre-screened. You always know who's on your project." },
   { q: "Do you work with international clients remotely?",     a: "Yes — 100% remote. We operate async-first: Slack or email for daily comms, weekly video calls for demos. We adapt to your time zone." },
   { q: "How quickly can you deliver a working prototype?",     a: "Most AI integration projects deliver a working demo in 10–14 business days. Full production builds take 4–8 weeks depending on scope." },
-  { q: "What does it cost?",                                   a: "Consulting starts at $1,500 USD. Custom development starts at $3,000 USD. Team training is scoped per cohort size. All prices are fixed — no hourly surprises." },
-  { q: "Do we keep ownership of the code and models?",        a: "Always. 100% of everything we build is yours — source code, fine-tuned models, prompts, architecture. We sign an NDA before any project starts." },
-  { q: "We don't have an engineering team. Can you help?",    a: "Yes. We work with non-technical founders regularly. We handle the full build and hand over a deployed product. Ongoing maintenance retainers available." },
+  { q: "What does it cost?",                                   a: "Consulting starts at $1,500 USD. Custom development starts at $4,000 USD. Team training is scoped per cohort size. All prices are fixed — no hourly surprises." },
+  { q: "Do we keep ownership of the code and models?",        a: "Always. 100% of everything built is yours — source code, fine-tuned models, prompts, architecture. We sign an NDA before any project starts." },
+  { q: "We don't have an engineering team. Can you help?",    a: "Yes — that's exactly who we work best with. We handle the full build and hand over a deployed product with documentation. Ongoing maintenance retainers available." },
 ]
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -358,23 +367,28 @@ export default function ServicePage() {
             <div style={{ flex: "1 1 0", minWidth: 0 }}>
               {/* Badge */}
               <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "7px 18px", borderRadius: 99, marginBottom: 28, border: "1px solid rgba(168,85,247,0.45)", background: "rgba(168,85,247,0.12)", fontSize: 13, fontWeight: 700, color: "#c084fc", animation: "pulse-ring 2.5s ease-out infinite" }}>
-                🤝 AI Agency · Remote-First, Global
+                🌍 AI Project Management · Global Engineer Network
               </div>
 
               {/* Headline */}
-              <h1 style={{ fontSize: "clamp(38px, 5.5vw, 66px)", fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "0 0 8px" }}>
-                <span style={{ background: "linear-gradient(100deg,#f0abfc 0%,#fff 45%,#93c5fd 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>We Build AI</span>
+              <h1 style={{ fontSize: "clamp(34px, 5vw, 62px)", fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "0 0 8px" }}>
+                <span style={{ background: "linear-gradient(100deg,#f0abfc 0%,#fff 45%,#93c5fd 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Ship Your First AI Feature</span>
               </h1>
-              <h1 style={{ fontSize: "clamp(38px, 5.5vw, 66px)", fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "0 0 28px" }}>
-                <span style={{ color: "#f9fafb" }}>Into Your Business</span>
+              <h1 style={{ fontSize: "clamp(34px, 5vw, 62px)", fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "0 0 22px" }}>
+                <span style={{ color: "#f9fafb" }}>in 2 Weeks.</span>
               </h1>
 
+              {/* ICP callout pill */}
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 16px", borderRadius: 8, marginBottom: 20, background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.25)", fontSize: 13, color: "#86efac" }}>
+                <span>🎯</span>
+                <span>For founders &amp; SMBs who need senior AI talent — without the 6-month hiring process.</span>
+              </div>
+
               {/* Sub */}
-              <p style={{ fontSize: 18, color: "#9ca3af", lineHeight: 1.7, maxWidth: 560, margin: "0 0 36px" }}>
-                From AI strategy and custom development to workflow automation and team training —
-                Rbyte.ai is the engineering partner for{" "}
-                <span style={{ color: "#e9d5ff", fontWeight: 600 }}>startups and small businesses worldwide</span>
-                {" "}that want to use AI without hiring a full AI team.
+              <p style={{ fontSize: 17, color: "#9ca3af", lineHeight: 1.7, maxWidth: 560, margin: "0 0 32px" }}>
+                We <span style={{ color: "#f9fafb", fontWeight: 600 }}>connect you with vetted senior AI engineers</span> from our global network
+                and manage the entire project for you — scope, delivery, and weekly demos.
+                You get a working AI feature in 2 weeks without posting a single job ad.
               </p>
 
               {/* CTAs */}
@@ -540,6 +554,15 @@ export default function ServicePage() {
                   <div style={{ padding: "12px 14px", borderRadius: 8, background: `${svc.color}0e`, border: `1px solid ${svc.color}28`, fontSize: 13, color: "#9ca3af", lineHeight: 1.55 }}>
                     <span style={{ color: svc.color, fontWeight: 700 }}>Best for: </span>{svc.who}
                   </div>
+
+                  {/* Pricing */}
+                  <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <span style={{ fontSize: 16, fontWeight: 900, color: svc.color }}>{svc.price}</span>
+                    <a href="https://calendly.com/rbyteai-info/rbyte-ai-ai-usecase-discussion" target="_blank" rel="noopener noreferrer"
+                      style={{ fontSize: 13, fontWeight: 700, color: svc.color, textDecoration: "none", display: "flex", alignItems: "center", gap: 5 }}>
+                      Book a call →
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
@@ -605,9 +628,14 @@ export default function ServicePage() {
 
                     <div style={{ width: 40, height: 1, background: `${proj.color}44` }} />
 
-                    {/* Industry */}
-                    <div style={{ display: "flex", alignItems: "center", gap: 7, padding: "8px 14px", borderRadius: 8, background: "rgba(255,255,255,0.04)", border: `1px solid ${BORDER}`, fontSize: 12, color: "#6b7280" }}>
-                      <span>🏢</span><span>{proj.industry}</span>
+                    {/* Industry + Client */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 7, alignItems: "center" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 7, padding: "6px 12px", borderRadius: 8, background: "rgba(255,255,255,0.04)", border: `1px solid ${BORDER}`, fontSize: 12, color: "#6b7280" }}>
+                        <span>🏢</span><span>{proj.industry}</span>
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "5px 10px", borderRadius: 6, background: "rgba(168,85,247,0.06)", border: "1px solid rgba(168,85,247,0.2)", fontSize: 11, color: "#a78bfa" }}>
+                        <span>🔒</span><span>{proj.client}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -668,10 +696,12 @@ export default function ServicePage() {
                 Why Rbyte.ai?
               </span>
               <h2 style={{ fontSize: "clamp(24px,3.5vw,38px)", fontWeight: 900, margin: "0 0 18px", letterSpacing: "-0.025em" }}>
-                Engineers who build AI daily — not consultants who read about it
+                Senior AI engineers, sourced and managed for you
               </h2>
               <p style={{ fontSize: 15, color: "#9ca3af", lineHeight: 1.75, margin: "0 0 28px" }}>
-                Rbyte.ai was built by practitioners — engineers who build and ship production AI systems for a living. Every project is delivered by the people who write the code, not managers who oversee it.
+                Hiring one good AI engineer takes 3–6 months and costs $150k+/yr. We give you access to our
+                global network of vetted AI specialists — and Dipanjali manages the project end-to-end so
+                you never deal with scope creep, missed deadlines, or technical miscommunication.
               </p>
               <a href="https://calendly.com/rbyteai-info/rbyte-ai-ai-usecase-discussion" target="_blank" rel="noopener noreferrer" className="svc-shimmer-btn"
                 style={{ display: "inline-block", padding: "13px 28px", borderRadius: 9, background: "linear-gradient(135deg,#a855f7,#ec4899,#6366f1)", color: "#fff", fontWeight: 800, fontSize: 15, textDecoration: "none", boxShadow: "0 4px 20px rgba(168,85,247,0.4)" }}>
@@ -680,10 +710,10 @@ export default function ServicePage() {
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {[
-                { icon: "🛠️", color: "#a855f7", title: "Practitioners, not consultants", desc: "We ship production code every day. Real deployed AI systems, not slide decks." },
-                { icon: "🔬", color: "#3b82f6", title: "Niche-deep AI expertise",          desc: "LangChain, RAG, fine-tuning, vector DBs, agentic systems — this is all we do." },
-                { icon: "⚡", color: "#10b981", title: "Speed without shortcuts",          desc: "First working demo in 2 weeks. Production-ready in 6–8. No bloated timelines." },
-                { icon: "🌐", color: "#f59e0b", title: "Remote-native & async-first",      desc: "Slack, Loom, weekly calls. Seamlessly across any time zone." },
+                { icon: "🌍", color: "#a855f7", title: "Global AI engineer network",      desc: "We source from a vetted pool of senior AI engineers worldwide — you get the best fit for your stack and budget, fast." },
+                { icon: "📋", color: "#3b82f6", title: "Full project management",          desc: "Dipanjali owns the scope, timeline, and communication. You get weekly demos and a clear delivery date — no surprises." },
+                { icon: "⚡", color: "#10b981", title: "Fraction of the hiring cost",      desc: "Same engineer quality as a $150k+/yr hire. No recruiting fees, no onboarding, no HR overhead. Pay per project." },
+                { icon: "🔒", color: "#f59e0b", title: "Outcome accountability",           desc: "Fixed scope, fixed price. If it's not right, we fix it. You own all source code — no lock-in, ever." },
               ].map((item, i) => (
                 <div key={i} style={{ display: "flex", gap: 14, padding: "16px 18px", borderRadius: 12, background: "rgba(255,255,255,0.03)", border: `1px solid ${BORDER}`, transition: "border-color 0.2s" }}>
                   <div style={{ width: 38, height: 38, borderRadius: 9, flexShrink: 0, background: `${item.color}1a`, border: `1px solid ${item.color}33`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>{item.icon}</div>
@@ -694,6 +724,53 @@ export default function ServicePage() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOUNDER ─────────────────────────────────────────────────────────── */}
+      <section style={{ padding: "72px 0", borderTop: `1px solid ${BORDER}`, background: "rgba(168,85,247,0.025)" }}>
+        <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px" }}>
+          <div style={{ display: "flex", gap: 36, alignItems: "center", flexWrap: "wrap" }}>
+
+            {/* Avatar circle */}
+            <div style={{ flexShrink: 0, width: 88, height: 88, borderRadius: "50%", background: "linear-gradient(135deg,#a855f7 0%,#ec4899 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 38, boxShadow: "0 0 0 4px rgba(168,85,247,0.2), 0 8px 32px rgba(168,85,247,0.35)" }}>
+              🤝
+            </div>
+
+            {/* Bio */}
+            <div style={{ flex: "1 1 300px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 10, flexWrap: "wrap" }}>
+                <h3 style={{ fontSize: 22, fontWeight: 900, margin: 0, color: "#f9fafb" }}>Dipanjali Shukla</h3>
+                <span style={{ padding: "3px 12px", borderRadius: 99, background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.35)", fontSize: 12, fontWeight: 700, color: "#c084fc" }}>
+                  AI Project Manager · Founder, Rbyte.ai
+                </span>
+              </div>
+              <p style={{ fontSize: 15, color: "#9ca3af", lineHeight: 1.7, margin: "0 0 16px", maxWidth: 580 }}>
+                I help businesses transition to AI — without the 6-month hiring headache.
+                I don't just consult; I <span style={{ color: "#e9d5ff", fontWeight: 600 }}>connect you with vetted senior AI engineers from our global network</span> and
+                manage the entire project for you: scope, timelines, weekly demos, and delivery.
+                You stay focused on your business. I make sure the right engineers build the right thing.
+              </p>
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                <a
+                  href="https://www.linkedin.com/in/dipanjali-shukla-aa1b16243/"
+                  target="_blank" rel="noopener noreferrer"
+                  style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "9px 18px", borderRadius: 8, background: "rgba(10,102,194,0.15)", border: "1px solid rgba(10,102,194,0.4)", color: "#60a5fa", fontWeight: 700, fontSize: 14, textDecoration: "none", transition: "background 0.2s" }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  Connect on LinkedIn
+                </a>
+                <a
+                  href="https://calendly.com/rbyteai-info/rbyte-ai-ai-usecase-discussion"
+                  target="_blank" rel="noopener noreferrer"
+                  style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "9px 18px", borderRadius: 8, background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.35)", color: "#c084fc", fontWeight: 700, fontSize: 14, textDecoration: "none" }}
+                >
+                  📅 Book a call with me →
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
