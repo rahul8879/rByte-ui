@@ -306,7 +306,7 @@ export default function Home() {
         : "Download Syllabus"
 
   return (
-    <div className="flex min-h-screen flex-col overflow-x-hidden w-full">
+    <div className="flex min-h-screen flex-col overflow-x-hidden w-full pb-16 sm:pb-0">
       <DiwaliSaleModal onEnroll={openEnrollmentDrawer} storageKey="cohort-may2026-modal-seen" />
       {/* Announcement Bar */}
       <AnnouncementBar
@@ -1032,6 +1032,27 @@ export default function Home() {
 
       {/* Registration drawer */}
       <EnrollmentDrawer isOpen={isRegistrationDrawerOpen} onClose={closeRegistrationDrawer} mode="register" />
+
+      {/* ── Sticky mobile bottom CTA bar ─────────────────────────────────────
+          Visible only on phones (hidden sm+). Keeps the two most important
+          actions always in thumb-reach while the user scrolls.              */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 sm:hidden border-t border-slate-700/80 bg-slate-950/95 backdrop-blur-md px-3 py-2.5 flex gap-2 safe-area-pb">
+        <button
+          onClick={openEnrollmentDrawer}
+          className="flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-bold text-white"
+          style={{ background: "linear-gradient(135deg,#a855f7,#ec4899,#6366f1)", boxShadow: "0 2px 12px rgba(168,85,247,0.45)" }}
+        >
+          🎓 Enroll Now
+        </button>
+        <a
+          href="https://wa.me/919893989103?text=Hi%2C%20I%27m%20interested%20in%20the%20Rbyte.ai%20AI%20course.%20Can%20you%20share%20details%3F"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 flex items-center justify-center gap-1.5 rounded-lg py-2.5 text-sm font-bold text-white bg-green-600 hover:bg-green-500 transition-colors"
+        >
+          💬 WhatsApp
+        </a>
+      </div>
     </div>
   )
 }

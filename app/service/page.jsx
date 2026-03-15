@@ -1,5 +1,6 @@
 import Link from "next/link"
 import Logo from "@/components/logo"
+import ServiceLeadForm from "./lead-form"
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -314,6 +315,13 @@ export default function ServicePage() {
       .svc-uc-grid      { grid-template-columns:1fr !important; }
       .svc-res-grid     { grid-template-columns:1fr !important; }
       .svc-step         { flex-direction:column; gap:10px; }
+      /* Hero CTA buttons — full width on phones */
+      .svc-hero-cta-wrap { flex-direction:column !important; }
+      .svc-hero-cta-wrap a { width:100% !important; text-align:center !important; box-sizing:border-box; }
+      /* Ticker — hide on very small screens to save space */
+      .svc-ticker-wrap  { display:none !important; }
+      /* Project metric panel — stack vertically */
+      .svc-proj-metric  { width:100% !important; border-left:none !important; border-top:1px solid rgba(255,255,255,0.07) !important; }
     }
   `
 
@@ -370,7 +378,7 @@ export default function ServicePage() {
               </p>
 
               {/* CTAs */}
-              <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 44 }}>
+              <div className="svc-hero-cta-wrap" style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 44 }}>
                 <a href="https://calendly.com/rbyteai-info/rbyte-ai-ai-usecase-discussion" target="_blank" rel="noopener noreferrer" className="svc-shimmer-btn"
                   style={{ padding: "15px 32px", borderRadius: 10, background: "linear-gradient(135deg,#a855f7,#ec4899,#6366f1)", color: "#fff", fontWeight: 800, fontSize: 16, textDecoration: "none", boxShadow: "0 8px 32px rgba(168,85,247,0.5)" }}>
                   Book Free Discovery Call →
@@ -585,7 +593,7 @@ export default function ServicePage() {
                   </div>
 
                   {/* Right — metric panel */}
-                  <div style={{ width: 220, padding: "28px 24px", display: "flex", flexDirection: "column", gap: 20, justifyContent: "center", alignItems: "center", background: `${proj.color}09`, textAlign: "center" }}>
+                  <div className="svc-proj-metric" style={{ width: 220, padding: "28px 24px", display: "flex", flexDirection: "column", gap: 20, justifyContent: "center", alignItems: "center", background: `${proj.color}09`, textAlign: "center" }}>
                     {/* Big metric */}
                     <div>
                       <p style={{ fontSize: "clamp(38px,4vw,54px)", fontWeight: 900, color: proj.color, margin: 0, letterSpacing: "-0.03em", lineHeight: 1 }}>
@@ -718,6 +726,9 @@ export default function ServicePage() {
           </div>
         </div>
       </section>
+
+      {/* ── QUICK ENQUIRY FORM ───────────────────────────────────────────────── */}
+      <ServiceLeadForm />
 
       {/* ── FAQ ─────────────────────────────────────────────────────────────── */}
       <section style={{ padding: "80px 0", borderTop: `1px solid ${BORDER}`, background: "rgba(168,85,247,0.02)" }}>
