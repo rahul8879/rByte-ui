@@ -82,7 +82,7 @@ const PROJECTS = [
     icon: "🤖",
     title: "Automated Lead Qualification Pipeline",
     industry: "B2B SaaS",
-    client: "US-based SaaS startup · Under NDA",
+    client: "US-based SaaS startup",
     stack: ["Python", "LangChain", "FastAPI", "GPT-4o", "n8n"],
     what: "End-to-end pipeline that ingests inbound leads, scores them against an ICP using an LLM, drafts personalised outreach, and routes hot leads to the CRM — zero human touch.",
     metric: "3 min",
@@ -96,7 +96,7 @@ const PROJECTS = [
     icon: "📄",
     title: "Internal Knowledge Base Assistant",
     industry: "Professional Services",
-    client: "Consulting firm · Under NDA",
+    client: "Consulting firm",
     stack: ["Python", "LangChain", "Pinecone", "Next.js", "OpenAI"],
     what: "Replaced a 200-page static PDF manual with a conversational AI that reads SOPs, policies, and product docs. Staff get cited answers in plain English — with source + page reference.",
     metric: "30 sec",
@@ -110,7 +110,7 @@ const PROJECTS = [
     icon: "⚙️",
     title: "Invoice & PO Extraction Automation",
     industry: "Logistics & Supply Chain",
-    client: "Logistics company · Under NDA",
+    client: "Logistics company",
     stack: ["Python", "GPT-4o Vision", "FastAPI", "PostgreSQL", "Zapier"],
     what: "Document intelligence pipeline that ingests scanned invoices via email, extracts structured fields, validates against PO records, and flags mismatches — replacing a 3-person data-entry team.",
     metric: "11 sec",
@@ -124,7 +124,7 @@ const PROJECTS = [
     icon: "🧠",
     title: "AI Research & Reporting Agent",
     industry: "Marketing Agency",
-    client: "Digital marketing agency · Under NDA",
+    client: "Digital marketing agency",
     stack: ["Python", "LangChain Agents", "Serper API", "GPT-4o", "FastAPI"],
     what: "Multi-step agent that takes a competitor or topic, searches the web autonomously, scrapes relevant pages, and produces a structured competitive analysis report — prompt to PDF, hands-free.",
     metric: "6 min",
@@ -166,7 +166,7 @@ const FAQS = [
   { q: "Do you work with international clients remotely?",     a: "Yes — 100% remote. We operate async-first: Slack or email for daily comms, weekly video calls for demos. We adapt to your time zone." },
   { q: "How quickly can you deliver a working prototype?",     a: "Most AI integration projects deliver a working demo in 10–14 business days. Full production builds take 4–8 weeks depending on scope." },
   { q: "What does it cost?",                                   a: "Consulting starts at $1,500 USD. Custom development starts at $4,000 USD. Team training is scoped per cohort size. All prices are fixed — no hourly surprises." },
-  { q: "Do we keep ownership of the code and models?",        a: "Always. 100% of everything built is yours — source code, fine-tuned models, prompts, architecture. We sign an NDA before any project starts." },
+  { q: "Do we keep ownership of the code and models?",        a: "Always. 100% of everything built is yours — source code, fine-tuned models, prompts, architecture. Full IP transfer is included in every project." },
   { q: "We don't have an engineering team. Can you help?",    a: "Yes — that's exactly who we work best with. We handle the full build and hand over a deployed product with documentation. Ongoing maintenance retainers available." },
 ]
 
@@ -409,7 +409,7 @@ export default function ServicePage() {
                   { icon: "🌎", t: "Clients worldwide" },
                   { icon: "⚡", t: "Demo in ≤ 2 weeks" },
                   { icon: "📂", t: "Full source code yours" },
-                  { icon: "🔒", t: "NDA on every project" },
+                  { icon: "🔒", t: "IP fully yours" },
                   { icon: "💬", t: "Async & timezone-friendly" },
                 ].map(({ icon, t }) => (
                   <span key={t} style={{ display: "flex", alignItems: "center", gap: 7, fontSize: 13, color: "#9ca3af" }}>

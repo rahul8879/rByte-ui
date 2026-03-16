@@ -123,30 +123,6 @@ export default function Home() {
     return () => clearTimeout(t)
   }, [syllabusResendCooldown])
 
-  // ── Rotating achievement card ───────────────────────────
-  const achievements = [
-    { emoji: "🎉", name: "Priya S.", from: "Data Analyst", result: "₹8L → ₹22 LPA", role: "ML Engineer · Pune" },
-    { emoji: "🚀", name: "Arjun M.", from: "Software Dev", result: "₹12L → ₹28 LPA", role: "GenAI Engineer · Razorpay" },
-    { emoji: "🏆", name: "Neha K.", from: "MBA",          result: "Promoted internally",  role: "AI Product Manager" },
-    { emoji: "⭐", name: "Rohan P.", from: "Fresher",      result: "₹0 → ₹12 LPA",  role: "Data Scientist · Series B" },
-    { emoji: "💼", name: "Kiran V.", from: "QA Engineer",  result: "₹9L → ₹24 LPA", role: "LLM Engineer · Bengaluru" },
-    { emoji: "🎯", name: "Sneha R.", from: "Teacher",      result: "Career switch",   role: "AI Trainer · EdTech MNC" },
-  ]
-  const [achIdx, setAchIdx] = useState(0)
-  const [achVisible, setAchVisible] = useState(true)
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setAchVisible(false)
-      setTimeout(() => {
-        setAchIdx((i) => (i + 1) % achievements.length)
-        setAchVisible(true)
-      }, 400)
-    }, 3200)
-    return () => clearInterval(timer)
-  }, [achievements.length])
-
-  const currentAch = achievements[achIdx]
   // ────────────────────────────────────────────────────────
 
   const openEnrollmentDrawer = () => {
@@ -424,10 +400,9 @@ export default function Home() {
                 {/* Trust stats */}
                 <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
                   {[
-                    { icon: "🎓", stat: "200+", label: "learners placed" },
-                    { icon: "💰", stat: "₹22 LPA", label: "avg. salary" },
-                    { icon: "⭐", stat: "4.9", label: "rating" },
-                    { icon: "👥", stat: "<25", label: "per cohort" },
+                    { icon: "🚀", stat: "May 2026", label: "first cohort launching" },
+                    { icon: "🔥", stat: "3 seats",  label: "already claimed" },
+                    { icon: "👥", stat: "20 max",   label: "batch cap — by design" },
                   ].map(({ icon, stat, label }) => (
                     <div key={label} className="flex items-center gap-1.5 text-slate-300">
                       <span>{icon}</span>
@@ -481,22 +456,6 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
                 </div>
 
-                {/* Rotating achievement card */}
-                <div
-                  className="absolute -bottom-4 left-2 sm:left-4 bg-white rounded-xl shadow-xl px-4 py-3 flex items-center gap-3 w-[230px] transition-all duration-400"
-                  style={{ opacity: achVisible ? 1 : 0, transform: achVisible ? "translateY(0)" : "translateY(8px)", transition: "opacity 0.35s ease, transform 0.35s ease" }}
-                >
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-100 text-lg">
-                    {currentAch.emoji}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs font-bold text-slate-900 truncate">
-                      {currentAch.name} · {currentAch.from}
-                    </p>
-                    <p className="text-xs text-emerald-600 font-semibold truncate">{currentAch.result}</p>
-                    <p className="text-[10px] text-slate-400 truncate">{currentAch.role}</p>
-                  </div>
-                </div>
               </div>
 
             </div>
@@ -525,6 +484,87 @@ export default function Home() {
 
         {/* ── Who Is This For ─────────────────────────────── */}
         <WhoIsThisFor />
+
+        {/* ── Instructor ──────────────────────────────────── */}
+        <section className="w-full py-16 md:py-20 bg-slate-950 border-t border-slate-800/60">
+          <div className="container px-4 md:px-6 max-w-4xl mx-auto">
+            {/* Label */}
+            <div className="flex justify-center mb-8">
+              <span className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-purple-300">
+                Your Instructor
+              </span>
+            </div>
+
+            <div className="rounded-2xl border border-slate-700/60 overflow-hidden"
+              style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.07), rgba(168,85,247,0.05), rgba(2,6,23,0.6))" }}>
+              <div className="flex flex-col md:flex-row gap-0">
+
+                {/* Left — avatar + tag */}
+                <div className="flex-shrink-0 flex flex-col items-center justify-center gap-4 px-8 py-10 border-b md:border-b-0 md:border-r border-slate-700/50"
+                  style={{ minWidth: 200, background: "rgba(168,85,247,0.06)" }}>
+                  <div className="w-24 h-24 rounded-full flex items-center justify-center text-5xl"
+                    style={{ background: "linear-gradient(135deg,#6366f1,#a855f7)", boxShadow: "0 0 0 4px rgba(168,85,247,0.2), 0 8px 32px rgba(99,102,241,0.4)" }}>
+                    🧑‍💼
+                  </div>
+                  <div className="text-center">
+                    <p className="font-black text-white text-base">Lead Instructor</p>
+                    <p className="text-xs text-slate-400 mt-1">Senior AI/ML Engineer · IIITHyd Alumni</p>
+                  </div>
+                  {/* Credential pills */}
+                  <div className="flex flex-col gap-2 w-full">
+                    {["Alumni · IIITHyd", "Fortune 500 clients", "Ships daily in prod"].map(c => (
+                      <div key={c} className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-300"
+                        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                        <span className="text-purple-400">✓</span>{c}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right — bio */}
+                <div className="flex-1 px-8 py-10 flex flex-col justify-between gap-6">
+                  <div>
+                    <h2 className="text-2xl md:text-3xl font-black text-white mb-1 leading-tight">
+                      The person teaching you is{" "}
+                      <span className="text-transparent bg-clip-text"
+                        style={{ backgroundImage: "linear-gradient(90deg,#a78bfa,#f0abfc)" }}>
+                        still in the field.
+                      </span>
+                    </h2>
+                    <p className="text-sm text-slate-400 mb-5">Not a YouTuber. Not a bootcamp grad.</p>
+
+                    <p className="text-slate-300 leading-relaxed text-sm md:text-base mb-4">
+                      Our lead instructor is a <span className="text-white font-semibold">Senior AI/ML Engineer</span> and{" "}
+                      <span className="text-white font-semibold">Alumni of IIIT Hyderabad</span> — currently
+                      working with Fortune 500 clients across pharma and energy, building real GenAI and Agentic AI
+                      systems that run in production. 7+ years across top Indian IT firms and global consulting.
+                    </p>
+                    <p className="text-slate-300 leading-relaxed text-sm md:text-base mb-4">
+                      Has shipped <span className="text-white font-semibold">MLOps pipelines, RAG systems, and multi-agent workflows</span> for
+                      enterprise clients. Someone who does this work every day.
+                    </p>
+                  </div>
+
+                  {/* Bottom trust strip */}
+                  <div className="flex flex-wrap gap-3 pt-2 border-t border-slate-800/60">
+                    {[
+                      { icon: "🏭", t: "Pharma & energy sector AI" },
+                      { icon: "🤖", t: "Agentic AI in production" },
+                      { icon: "🎙️", t: "Live every session" },
+                      { icon: "💬", t: "Direct access to you" },
+                    ].map(({ icon, t }) => (
+                      <span key={t} className="flex items-center gap-1.5 text-xs text-slate-400 rounded-full px-3 py-1"
+                        style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                        <span>{icon}</span>{t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* ── Free Masterclass nudge ──────────────────────── */}
         <section className="w-full py-12 md:py-16 bg-slate-50">
